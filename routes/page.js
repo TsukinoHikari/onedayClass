@@ -5,5 +5,8 @@ const router = express.Router();
 router.get('/',(req,res)=>{
     res.render('main');
 })
+router.get('/auth',(req,res)=>{
+    res.render('join');
+})
 
 module.exports = router;

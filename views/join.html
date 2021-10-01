@@ -1,0 +1,82 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="joinform">
+  <form
+    action="/auth/join"
+    method="post"
+    id="userform"
+    onsubmit="return Welcome()"
+  >
+    <fieldset>
+      <legend>회원가입</legend>
+      <ul>
+        <li>
+          <label for="userid"
+            >아이디
+            <input id="uid" type="text" name="userid" />
+          </label>
+          <button type="button">중복확인</button>
+          <span class="msg"></span>
+        </li>
+        <li>
+          <label for="userpwd"
+            >비밀번호 <input id="upwd" type="password" name="userpwd" /> 8~20자
+            사이의 영문자+숫자+특수문자 조합
+          </label>
+          <span class="msg"></span>
+        </li>
+        <li>
+          <label for="userrepwd"
+            >비밀번호 확인
+            <input
+              id="upwd2"
+              type="password"
+              name="userrepwd"
+              placeholder="비밀번호를 한번 더 입력해주세요."
+            />
+          </label>
+          <span class="msg"></span>
+        </li>
+        <li>
+          <label for="username"
+            >이름
+            <input id="uname" type="text" name="username" />
+          </label>
+        </li>
+        <li>
+          <label for="usertel"
+            >전화번호 <input id="utel" type="tel" name="usertel" /> ex)
+            000-0000-0000
+          </label>
+          <span class="msg"></span>
+        </li>
+        <li>
+          <label for="usermail"
+            >이메일 <input id="umail" type="mail" name="usermail" /> ex)
+            ****@naver.com
+          </label>
+          <span class="msg"></span>
+        </li>
+        <li>
+          <label for="useraddr"
+            >주소
+            <input id="uaddr" type="text" name="useraddr" />
+          </label>
+        </li>
+      </ul>
+      <input type="submit" value="가입" />
+      <button id="join" type="submit" class="btn" onclick="Welcome()">
+        회원가입
+      </button>
+    </fieldset>
+  </form>
+</div>
+{% endblock %} {% block script %}
+<script>
+  window.onload = () => {
+    if (new URL(location.href).searchParams.get("msg")) {
+      alert("이미 존재하는 이메일입니다.");
+    }
+  };
+</script>
+
+{% endblock %}
