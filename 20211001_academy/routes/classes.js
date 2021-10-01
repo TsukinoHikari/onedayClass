@@ -27,10 +27,10 @@ router
         try {
             const result = await Oclass.update(
                 {
-                    comment: req.body.comment,
+                    classContent: req.body.classcontent,
                 },
                 {
-                    where: { userId: req.params.userid },
+                    where: { userId: req.params.id },
                 }
             );
             res.json(result);
@@ -42,7 +42,9 @@ router
     .delete(async (req, res, next) => {
         try {
             const result = await Oclass.destroy({
-                where: { id: req.params.id },
+                where: {
+                    classNum: req.params.id,
+                },
             });
             res.json(result);
         } catch (err) {

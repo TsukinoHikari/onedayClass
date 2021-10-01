@@ -88,8 +88,9 @@ async function getClass(id) {
                     return alert("내용을 반드시 입력하셔야 합니다");
                 }
                 try {
-                    await axios.patch(`/classes/${oclass.id}`, {
-                        oclass: newoclass,
+                    // id
+                    await axios.patch(`/classes/${oclass.userId}`, {
+                        classcontent: newoclass,
                     });
                     getClass(id);
                 } catch (err) {
@@ -98,16 +99,16 @@ async function getClass(id) {
             });
             const remove = document.createElement("button");
             remove.textContent = "삭제";
-            // remove.addEventListener("click", async () => {
-            //     // 삭제 클릭 시
-            //     try {
-            //         await axios.delete(`/classes/${oclass.id}`);
-            //         getClass(id);
-            //     } catch (err) {
-            //         console.error(err);
-            //     }
-            // });
-            // 버튼 추가
+            remove.addEventListener("click", async () => {
+                // 삭제 클릭 시
+                try {
+                    await axios.delete(`/classes/${oclass.classNum}`);
+                    getClass(id);
+                } catch (err) {
+                    console.error(err);
+                }
+            });
+
             td = document.createElement("td");
             td.appendChild(edit);
             row.appendChild(td);
