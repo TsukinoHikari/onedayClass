@@ -1,0 +1,45 @@
+<!-- 테스트용 임시파일입니다 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      th {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="notice-list">
+      <thead>
+        <tr>
+          <th>no</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성일</th>
+          <th>조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for notice in notices %}
+        <tr>
+          <td>{{notice.noticeNum}}</td>
+          <td>
+            <a href="/notice/{{notice.noticeNum}}">{{notice.noticeTitle}}</a>
+          </td>
+          <td>{{notice.adminId}}</td>
+          <td>{{notice.noticeCreated}}</td>
+          <td>1</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <button onclick="location.href='/notice/post'">등록하기</button>
+    <script src="/notice.js"></script>
+  </body>
+</html>
