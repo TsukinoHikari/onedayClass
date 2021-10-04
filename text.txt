@@ -1,1 +1,11 @@
-김동욱      바꿈
+aws 패키지 제이슨
+,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TsukinoHikari/onedayClass.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TsukinoHikari/onedayClass/issues"
+  },
+  "homepage": "https://github.com/TsukinoHikari/onedayClass#readme"
+}

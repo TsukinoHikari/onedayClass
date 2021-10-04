@@ -29,13 +29,5 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.13"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TsukinoHikari/onedayClass.git"
-  },
-  "bugs": {
-    "url": "https://github.com/TsukinoHikari/onedayClass/issues"
-  },
-  "homepage": "https://github.com/TsukinoHikari/onedayClass#readme"
+  }
 }
