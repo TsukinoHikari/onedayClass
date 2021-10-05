@@ -89,7 +89,7 @@
         <button onclick="location.href='/admin'">관리자로그인</button>
         {% endif %}
         <!-- bootstrap -->
-        {% block script%}
+
         <script>
             function paging(totalData, currentPage) {
                 const dataPerPage = 10;
@@ -161,7 +161,6 @@
                 paging(totalData, dataPerPage, pageCount, 1);
             });
         </script>
-        {%end script%}
 
         <!-- <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

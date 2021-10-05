@@ -8,14 +8,14 @@ const Admin = require("../models/admin");
 
 // 저희 이름 좀 상의할까요?
 module.exports = () => {
-    passport.serializeUser((user, done) => {
-        done(null, user.userid);
-    });
-    passport.deserializeUser((userid, done) => {
-        User.findOne({ where: { userid } })
-            .then((user) => done(null, user))
-            .catch((err) => done(err));
-    });
+    // passport.serializeUser((user, done) => {
+    //     done(null, user.userid);
+    // });
+    // passport.deserializeUser((userid, done) => {
+    //     User.findOne({ where: { userid } })
+    //         .then((user) => done(null, user))
+    //         .catch((err) => done(err));
+    // });
 
     passport.serializeUser((admin, done) => {
         done(null, admin.adminId);
@@ -26,7 +26,7 @@ module.exports = () => {
             .catch((err) => done(err));
     });
 
-    localu();
+    // localu();
     locala();
     kakao();
 };
