@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>마이 페이지입니다.</h1>
+{% endblock %}
+
+{% block script %}
+<script>
+    window.onload = () => {
+        if (new URL(location.href).searchParams.get("msg")) {
+            alert("이미 존재하는 이메일입니다.");
+        }
+    };
+</script>
+{% endblock %}
