@@ -9,9 +9,9 @@ module.exports = ()=>{
         //userid는 안되고 usermail은 왜 될까?
         usernameField: 'userid',
         passwordField: 'userpwd',
-    },async (userid,userpwd,done)=>{
+    },async (userId,userpwd,done)=>{
         try{
-            const exUser = await User.findOne({where: {userid}});
+            const exUser = await User.findOne({where: {userId}});
             if(exUser){
                 const result = await bcrypt.compare(userpwd,exUser.userpwd);
                 if (result) {

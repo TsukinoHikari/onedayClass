@@ -4,28 +4,28 @@ module.exports = class User extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                userid: {
+                userId: {
                     type: Sequelize.STRING(30),
                     allowNull: false,
                     primaryKey: true,
                 },
-                userpwd: {
+                userPwd: {
                     type: Sequelize.STRING(200),
                     allowNull: false,
                 },
-                username: {
+                userName: {
                     type: Sequelize.STRING(45),
                     allowNull: false,
                 },
-                usertel: {
+                userTel: {
                     type: Sequelize.STRING(14),
                     allowNull: false,
                 },
-                usermail: {
+                userMail: {
                     type: Sequelize.STRING(100),
                     allowNull: false,
                 },
-                useraddr: {
+                userAddr: {
                     type: Sequelize.STRING(100),
                     allowNull: false,
                 },
@@ -33,7 +33,7 @@ module.exports = class User extends Sequelize.Model {
                     type: Sequelize.INTEGER,
                     allowNull: true,
                 },
-                usercreated: {
+                userCreated: {
                     type: Sequelize.DATE,
                     allowNull: false,
                     defaultValue: Sequelize.NOW,
@@ -51,7 +51,7 @@ module.exports = class User extends Sequelize.Model {
             {
                 sequelize,
                 timestamps: false,
-                underscored: true,
+                underscored: false,
                 modelName: "User",
                 tableName: "users",
                 paranoid: false,

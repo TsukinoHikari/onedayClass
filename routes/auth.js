@@ -13,7 +13,7 @@ const router = express.Router();
 //여기서부터 user
 router.post("/join", async (req, res, next) => {
     const { userid, userpwd, username, usertel, usermail, useraddr } = req.body;
-
+    
     try {
         const exUser = await User.findOne({ where: { userid } });
         if (exUser) {
@@ -21,12 +21,12 @@ router.post("/join", async (req, res, next) => {
         }
         const hash = await bcrypt.hash(userpwd, 12);
         await User.create({
-            userid,
-            userpwd: hash,
-            username,
-            usermail,
-            usertel,
-            useraddr,
+            userId:userid,
+            userPwd: hash,
+            userName:username,
+            userMail:usermail,
+            userTel:usertel,
+            userAddr:useraddr,
         });
         return res.redirect("/");
     } catch (error) {
