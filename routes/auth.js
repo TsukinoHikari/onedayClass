@@ -98,7 +98,7 @@ router.post("/findidpwd", isNotLoggedIn, async (req, res, next) => {
                     ","
                 );
             createCode(arr, 10);
-            console.log(createCode(arr, 10));
+
             function createCode(objArr, iLength) {
                 let arr = objArr;
                 let randomStr = "";
@@ -107,7 +107,7 @@ router.post("/findidpwd", isNotLoggedIn, async (req, res, next) => {
                 }
                 return randomStr;
             }
-            console.log(randomStr);
+
             randomStr;
             //임시비밀번호 생성 함수
             const transporter = nodemailer.createTransport({

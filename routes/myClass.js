@@ -1,5 +1,6 @@
 const express = require("express");
 const Oclass = require("../models/oclass");
+const { sequelize } = require("../models");
 
 const router = express.Router();
 
@@ -30,9 +31,14 @@ router.get("/:id", async (req, res, next) => {
         const myClass = await Oclass.findAll({
             where: { classNum: req.params.id },
         });
-        console.log(myClass);
-        res.render("classRegi/myClassDetail", { myClass });
-    } catch (error) {
+        const sql = `SELECT oclasspaths.OclassClassNum, oclasspaths.UrlPathId, urlpaths.path FROM oclasspaths INNER JOIN urlpaths ON oclasspaths.UrlPathId = urlpaths.id where OclassClassNum=${req.params.id};`;
+        const { QueryTypes } = require("sequelize");
+        const classPath = await sequelize.query(sql, {
+            type: QueryTypes.SELECT,
+        });
+
+        res.render("classRegi/myClassDetail", { myClass, classPath });
+    } catch (err) {
         console.error(err);
         next(err);
     }

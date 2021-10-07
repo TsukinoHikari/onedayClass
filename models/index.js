@@ -5,6 +5,7 @@ const Admin = require("./admin");
 const Notice = require("./notice");
 const Auth = require("./emailauth");
 const UrlPath = require("./urlPath");
+const WishList = require("./wishlist");
 
 const bcrypt = require("bcrypt");
 
@@ -53,6 +54,7 @@ db.Admin = Admin;
 db.Notice = Notice;
 db.Auth = Auth;
 db.UrlPath = UrlPath;
+db.WishList = WishList;
 
 // db.images = require("./image.model.js")(sequelize, Sequelize);
 
@@ -62,6 +64,7 @@ Admin.init(sequelize);
 Notice.init(sequelize);
 Auth.init(sequelize);
 UrlPath.init(sequelize);
+WishList.init(sequelize);
 
 User.associate(db);
 Oclass.associate(db);
@@ -69,6 +72,7 @@ Admin.associate(db);
 Notice.associate(db);
 Auth.associate(db);
 UrlPath.associate(db);
+WishList.associate(db);
 
 const oClassPath = sequelize.define(
     "oClassPath",

@@ -1,6 +1,7 @@
 const express = require("express");
 const Admin = require("../models/admin");
 const Oclass = require("../models/oclass");
+const UrlPath = require("../models/urlPath");
 const fs = require("fs");
 const path = require("path");
 const { sequelize } = require("../models");
@@ -43,8 +44,6 @@ const upload = multer({
                     path.basename(file.originalname, ext) +
                     "_" +
                     writer +
-                    "_" +
-                    title +
                     ext
             );
         },
@@ -57,7 +56,6 @@ router
     .get(async (req, res, next) => {
         try {
             writer = res.locals.user.userId;
-            console.log(writer);
             res.render("classRegi/classRegi");
         } catch (err) {
             console.error(err);
@@ -70,15 +68,10 @@ router
         upload.array("img"),
         async (req, res, next) => {
             try {
-                const fileNum = req.files.length;
-                for (let i = 0; i < fileNum; i++) {
-                    console.log(req.files[i].filename);
-                }
-
-                console.log("//////////////////////////////////////");
                 writer = res.locals.user.userId;
                 body = req.body;
-                Oclass.create({
+
+                await Oclass.create({
                     userId: writer,
                     classTitle: body.title,
                     classAddr: body.addr,
@@ -86,6 +79,33 @@ router
                     classQty: body.qty,
                     classContent: body.content,
                 });
+
+                const ocNum = await Oclass.findOne({
+                    where: {
+                        userId: writer,
+                        classTitle: body.title,
+                        classAddr: body.addr,
+                        classPrice: body.price,
+                        classQty: body.qty,
+                        classContent: body.content,
+                    },
+                });
+                const b = ocNum.classNum;
+
+                const upFilenames = [];
+                const fileNum = req.files.length;
+                for (let i = 0; i < fileNum; i++) {
+                    upFilenames.push(req.files[i].filename);
+                    const c = await UrlPath.create({
+                        path: req.files[i].filename,
+                    });
+
+                    db.sequelize.models.oClassPath.create({
+                        UrlPathId: c.id,
+                        OclassClassNum: b,
+                    });
+                }
+
                 res.redirect("/");
             } catch (err) {
                 console.error(err);
