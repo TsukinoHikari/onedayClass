@@ -1,9 +1,11 @@
 const Sequelize = require("sequelize");
 const User = require("./user");
-// const Oclass = require("./oclass");
+const Oclass = require("./oclass");
 const Admin = require("./admin");
 const Notice = require("./notice");
 const Auth = require("./emailauth");
+const UrlPath = require("./urlPath");
+
 const bcrypt = require("bcrypt");
 
 const a = () => {
@@ -18,6 +20,7 @@ const a = () => {
     });
 };
 a;
+
 const env = process.env.NODE_ENV || "development";
 const config = require("../config/config")[env];
 const db = {};
@@ -45,21 +48,51 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.User = User;
-// db.Oclass = Oclass;
+db.Oclass = Oclass;
 db.Admin = Admin;
 db.Notice = Notice;
 db.Auth = Auth;
+db.UrlPath = UrlPath;
+
+// db.images = require("./image.model.js")(sequelize, Sequelize);
 
 User.init(sequelize);
-// Oclass.init(sequelize);
+Oclass.init(sequelize);
 Admin.init(sequelize);
 Notice.init(sequelize);
 Auth.init(sequelize);
+UrlPath.init(sequelize);
 
 User.associate(db);
-// Oclass.associate(db);
+Oclass.associate(db);
 Admin.associate(db);
 Notice.associate(db);
 Auth.associate(db);
+UrlPath.associate(db);
+
+const oClassPath = sequelize.define(
+    "oClassPath",
+    {
+        oClassPathNum: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            primaryKey: true,
+            allowNull: false,
+            autoIncrement: true,
+        },
+    },
+    {
+        sequelize,
+        timestamps: false,
+        underscored: false,
+        modelName: "oClassPath",
+        tableName: "oClassPaths",
+        paranoid: false,
+        charset: "utf8",
+        collate: "utf8_general_ci",
+    }
+);
+
+Oclass.belongsToMany(UrlPath, { through: oClassPath });
+UrlPath.belongsToMany(Oclass, { through: oClassPath });
 
 module.exports = db;

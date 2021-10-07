@@ -13,32 +13,25 @@
 <body>
     <header>
         <div class="profile">
-
+            {% if user and user.userId %}
             <div class="username">{{'반가워요! '+ user.userName + '님'}}</div>
-            <a id="my-profile" href="/mypage/main" class="btn">마이 페이지</a>
+            <a id="my-profile" href="/mypage" class="btn">마이 페이지</a>
             <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
-            <h1>마이페이지용 레이아웃 마이페이지 내에서만 적용될 html/css작성해야함
-            </h1>
+            {% else %}
+            <form id="login-form" action="auth/login" method="post">
+                <div class="inputgroup">
+                    <a href="/login" class="btn">로그인</a>
+                    <a id="join" href="/join" class="btn">회원가입</a>
+
+            </form>
+            {% endif %}
         </div>
     </header>
-    <main>
-        <div class="container">
-            <div class="mypagemenu">
-                <ul>
-                    <li><a href="myinfo">내 정보 수정</a> </li>
-                    <li><a href="myattendclasses">내가 신청한 클래스</a> </li>
-                    <li><a href="myClass">내가 개설한 클래스</a> </li>
-                    <li><a href="">내 후기</a> </li>
-
-                </ul>
-
-            </div>
-        </div>
-        {% block content %}
-        {% endblock %}
-    </main>
     <footer>
+
     </footer>
+    {% block content %}
+    {% endblock %}
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
@@ -50,7 +43,7 @@
     </script>
 
     {% block script %}
-
+    
     {% endblock %}
 </body>
 

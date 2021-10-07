@@ -10,9 +10,15 @@ const passport = require("passport");
 dotenv.config();
 const pageRouter = require("./routes/page");
 const authRouter = require("./routes/auth");
-const resetidpwRouter = require("./routes/resetidpw");
+const resetRouter = require("./routes/reset");
+const mypageRouter = require("./routes/mypage");
+
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
+const adminsRouter = require("./routes/admin");
+const noticeRouter = require("./routes/notice");
+const myClassRouter = require("./routes/myClass");
+const classRegiRouter = require("./routes/classRegi");
 
 // const indexRouter = require("./routes");
 // const usersRouter = require("./routes/users");
@@ -59,17 +65,17 @@ app.use(passport.session());
 
 app.use("/", pageRouter);
 app.use("/auth", authRouter);
-app.use("/resetidpw", resetidpwRouter);
+app.use("/reset", resetRouter);
+app.use("/mypage", mypageRouter);
 
 // app.use("/", indexRouter);
 // app.use("/users", usersRouter);
 // app.use("/classes", classesRouter);
 
-const adminsRouter = require("./routes/admin");
 app.use("/admin", adminsRouter);
-
-const noticeRouter = require("./routes/notice");
 app.use("/notice", noticeRouter);
+app.use("/classRegi", classRegiRouter);
+app.use("/myClass", myClassRouter);
 
 app.use((req, res, next) => {
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

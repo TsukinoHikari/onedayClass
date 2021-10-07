@@ -13,20 +13,23 @@ const router = express.Router();
 //여기서부터 user
 router.post("/join", async (req, res, next) => {
     const { userid, userpwd, username, usertel, usermail, useraddr } = req.body;
-    
+
     try {
-        const exUser = await User.findOne({ where: { userid } });
+        const exUser = await User.findOne({ where: { userId: userid } });
         if (exUser) {
             return res.redirect("/join?error=exist");
         }
+        // if ((userid = "admin")) {
+        //     return res.redirect("/join?error=cannotCreateAdmin");
+        // }
         const hash = await bcrypt.hash(userpwd, 12);
         await User.create({
-            userId:userid,
+            userId: userid,
             userPwd: hash,
-            userName:username,
-            userMail:usermail,
-            userTel:usertel,
-            userAddr:useraddr,
+            userName: username,
+            userMail: usermail,
+            userTel: usertel,
+            userAddr: useraddr,
         });
         return res.redirect("/");
     } catch (error) {
@@ -37,8 +40,6 @@ router.post("/join", async (req, res, next) => {
 
 router.post("/login", isNotLoggedIn, (req, res, next) => {
     passport.authenticate("local", (authError, user, info) => {
-        console.log(user);
-        console.log(info);
         if (authError) {
             console.error(authError);
             return next(authError);
@@ -87,7 +88,7 @@ router.post("/findidpwd", isNotLoggedIn, async (req, res, next) => {
     try {
         const user = await User.findOne({
             // 1. 유저가 존재하면 유저 정보를 가져옴
-            where: { usermail: usermail },
+            where: { userMail: usermail },
         });
         //console.log(user);
         if (user) {

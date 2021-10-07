@@ -13,9 +13,10 @@
 <body>
     <header>
         <div class="profile">
-            {% if user and user.userid %}
-            <div class="username">{{'반가워요! '+ user.userid + '님'}}</div>
-            <a id="my-profile" href="/mypage" class="btn">마이 페이지</a>
+            {% if user and user.userId %}
+            <div class="username">{{'반가워요! '+ user.userName + '님'}}</div>
+            <a href="/classRegi">클래스등록하기</a>
+            <a id="my-profile" href="/mypage/main" class="btn">마이 페이지</a>
             <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
             {% else %}
             <form id="login-form" action="auth/login" method="post">
