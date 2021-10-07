@@ -1,0 +1,43 @@
+<!--extends-->
+{% extends 'classRegi/classRegiLayout.html' %}
+<!--content-->
+{% block content %}
+<!--check login-->
+{% if user and user.userId %}
+<div id="user" style="display: none">{{user.userId}}</div>
+<h1>현재 이미지 넣는게 중요하다 ㅡㅡ</h1>
+<div id="myClass-content">
+    <div id="imgPlace"></div>
+    <!-- images -->
+    {% for a in classPath %}
+    <div><img src="../{{a.path}}" /></div>
+    {% endfor %}
+    <!-- contents -->
+    {% for myClass in myClass %}
+    <div id="title">{{myClass.classTitle}}</div>
+    <div id="title">{{myClass.classContent}}</div>
+    {% endfor %}
+</div>
+<!--not login status-->
+{% else %}
+<p>잘못된 경로입니다.</p>
+<a href="/">돌아가기</a>
+<!-- if끝 -->
+{% endif %}
+
+<!-- content block 끝 -->
+{% endblock %}
+
+<!--script-->
+{% block script %}
+<script>
+    const user = document.getElementById("user").innerHTML;
+    const title = document.getElementById("title").innerHTML;
+    const images = [];
+
+    append;
+
+    console.log(user);
+    console.log(title);
+</script>
+{% endblock %}

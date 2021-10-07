@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<form id="find-form" action="auth/findidpwd" method="post">
+    <fieldset>
+        <legend>아이디 / 비밀번호 찾기</legend>
+        <div class="findId">
+            <h3>가입시 입력한 이메일 주소를 입력해주세요.</h3>
+            <label for="">이메일</label>
+            <input id="usermail" type="mail" name="usermail">
+            <button id="findId" type="submit">아이디 찾기</button>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}
+{% block script %}
+<script>
+    const findid = document.getElementById('findId');
+    const mail = document.getElementById('mail');
+
+    let regMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+    findid.addEventListener('click', () => {
+        if (mail.value == '') {
+            alert('이메일 주소를 입력해주세요')
+        } else if (!regMail.test(mail.value)) {
+            alert('이메일 형식일 올바르지 않습니다.')
+        }
+    })
+</script>
+{% endblock %}

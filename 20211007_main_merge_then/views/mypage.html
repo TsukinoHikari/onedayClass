@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/main.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="profile">
+
+            <div class="username">{{'반가워요! '+ user.userName + '님'}}</div>
+            <a id="my-profile" href="/mypage/main" class="btn">마이 페이지</a>
+            <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
+            <h1>마이페이지용 레이아웃 마이페이지 내에서만 적용될 html/css작성해야함
+            </h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="mypagemenu">
+                <ul>
+                    <li><a href="myinfo">내 정보 수정</a> </li>
+                    <li><a href="myattendclasses">내가 신청한 클래스</a> </li>
+                    <li><a href="myClass">내가 개설한 클래스</a> </li>
+                    <li><a href="">내 후기</a> </li>
+
+                </ul>
+
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+    </footer>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        window.onload = () => {
+            if (new URL(location.href).searchParams.get('loginError')) {
+                alert(new URL(location.href).searchParams.get('loginError'));
+            }
+        };
+    </script>
+
+    {% block script %}
+
+    {% endblock %}
+</body>
+
+</html>
