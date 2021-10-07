@@ -58,10 +58,4 @@ module.exports = class Oclass extends Sequelize.Model {
             targetKey: "userId",
         });
     }
-    static associate(db) {
-        db.Oclass.hasMany(db.WishList, {
-            foreignKey: "classNum",
-            sourceKey: "classNum",
-        });
-    }
 };
