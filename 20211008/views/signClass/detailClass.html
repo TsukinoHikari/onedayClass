@@ -1,0 +1,38 @@
+<!-- extends -->
+{% extends '../layout.html' %}
+<!-- block -->
+{% block content %}
+<!-- 유저일 시 -->
+
+<div id="myClass-content">
+    {% for myClass in myClass %}
+    <div id="title">
+        <h1>클래스명 : {{myClass.classTitle}}</h1>
+    </div>
+    {% endfor %}
+    <!-- images -->
+    {% for a in classPath %}
+    <div><img src="../../{{a.path}}" /></div>
+    {% endfor %}
+    <!-- contents -->
+
+    {% for myClass in myClass %}
+    <div id="place">클래스 장소 : {{myClass.classAddr}}</div>
+    <div id="price">클래스 가격 : {{myClass.classPrice}}</div>
+    <hr />
+    <div id="content">{{myClass.classContent}}</div>
+    <!-- not login status -->
+    {% endfor %}
+</div>
+<!--not login status-->
+{% if user and user.userId %}
+<div id="user" style="display: none">{{user.userId}}</div>
+<button onclick="location.href='/signClass/결제하기사이트로'">결제하기</button>
+{% else %}
+<button onclick="location.href='/login'">결제하기</button>
+<!-- if끝 -->
+{% endif %}
+<!-- endblock -->
+{% endblock %}
+<!-- script block -->
+{% block script %} {% endblock %}

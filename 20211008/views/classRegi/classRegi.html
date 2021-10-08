@@ -1,0 +1,51 @@
+<!--extends-->
+{% extends 'classRegi/classRegiLayout.html' %}
+<!--content-->
+{% block content %}
+<!--check login-->
+{% if user and user.userId %}
+<form method="POST" enctype="multipart/form-data">
+    <div>
+        <input type="hidden" name="writer" value="{{user.userId}}" />
+    </div>
+    <div>
+        <input type="text" name="title" placeholder="제목" />
+    </div>
+    <div>
+        <input type="text" name="addr" placeholder="주소" />
+    </div>
+    <div>
+        <input type="text" name="price" placeholder="가격" />
+    </div>
+    <div>
+        <input type="number" name="qty" placeholder="최대 인원" min="1" />
+    </div>
+    <div>
+        <input type="file" name="img" placeholder="이미지 등록" multiple />
+    </div>
+
+    <div>
+        <textarea
+            name="content"
+            id="content"
+            cols="30"
+            rows="10"
+            style="resize: none"
+        ></textarea>
+    </div>
+    <input type="submit" value="등록하기" />
+    <a href="/">돌아가기</a>
+</form>
+
+<!--not login status-->
+{% else %}
+<p>잘못된 경로입니다.</p>
+<a href="/">돌아가기</a>
+<!-- if끝 -->
+{% endif %}
+
+<!-- content block 끝 -->
+{% endblock %}
+
+<!--script-->
+{% block script %} {% endblock %}
