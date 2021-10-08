@@ -1,11 +1,11 @@
 {
-    "development": {
-        "username": "root",
-        "password": "1234",
-        "database": "onedayclass",
-        "host": "127.0.0.1",
-        "dialect": "mysql"
-    },
+  "development": {
+    "username": "OnedayClass",
+    "password": "Asdf1234!",
+    "database": "onedayclass",
+    "host": "oneday.cpriucvo9nb3.us-east-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
     "test": {
         "username": "root",
         "password": null,
