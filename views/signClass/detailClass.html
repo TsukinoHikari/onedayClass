@@ -1,10 +1,8 @@
-<!--extends-->
-{% extends '../mypage.html' %}
-<!--content-->
+<!-- extends -->
+{% extends '../layout.html' %}
+<!-- block -->
 {% block content %}
-<!--check login-->
-{% if user and user.userId %}
-<div id="user" style="display: none">{{user.userId}}</div>
+<!-- 유저일 시 -->
 
 <div id="myClass-content">
     {% for myClass in myClass %}
@@ -23,31 +21,18 @@
     <div id="price">클래스 가격 : {{myClass.classPrice}}</div>
     <hr />
     <div id="content">{{myClass.classContent}}</div>
-    <button onclick="location.href='/myClass/{{myClass.classNum}}/delete'">
-        삭제하기
-    </button>
+    <!-- not login status -->
     {% endfor %}
 </div>
 <!--not login status-->
+{% if user and user.userId %}
+<div id="user" style="display: none">{{user.userId}}</div>
+<button onclick="location.href='/signClass/결제하기사이트로'">결제하기</button>
 {% else %}
-<p>잘못된 경로입니다.</p>
-<a href="/">돌아가기</a>
+<button onclick="location.href='/login'">결제하기</button>
 <!-- if끝 -->
 {% endif %}
-
-<!-- content block 끝 -->
+<!-- endblock -->
 {% endblock %}
-
-<!--script-->
-{% block script %}
-<script>
-    const user = document.getElementById("user").innerHTML;
-    const title = document.getElementById("title").innerHTML;
-    const images = [];
-
-    append;
-
-    console.log(user);
-    console.log(title);
-</script>
-{% endblock %}
+<!-- script block -->
+{% block script %} {% endblock %}

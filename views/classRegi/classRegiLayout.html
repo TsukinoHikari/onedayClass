@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html lang="ko">
 
-<head>
-    <meta charset="UTF-8">
-    <title>{{title}}</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="/main.css">
 
-</head>
-
-<body>
-    <header>
-        <div class="profile">
+        {% extends 'layout.html' %} {% block content %}
+        <div class="layout-profile">
             {% if user and user.userId %}
-            <div class="username">{{'반가워요! '+ user.userName + '님'}}</div>
-            <a id="my-profile" href="/mypage" class="btn">마이 페이지</a>
+            <span class='layout-title'><a href="/">원클a</a></span>
+            <a href="/classRegi">클래스등록하기</a>
+            <a id="my-profile" href="/mypage/main" class="btn">마이 페이지</a>
             <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
             {% else %}
             <form id="login-form" action="auth/login" method="post">
@@ -26,13 +16,8 @@
             </form>
             {% endif %}
         </div>
-    </header>
-    <footer>
+        {% endblock %}
 
-    </footer>
-    {% block content %}
-    {% endblock %}
-    </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         window.onload = () => {
@@ -45,6 +30,3 @@
     {% block script %}
     
     {% endblock %}
-</body>
-
-</html>

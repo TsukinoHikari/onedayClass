@@ -18,8 +18,12 @@ const db = require("../models");
 const router = express.Router();
 
 router.use((req, res, next) => {
-    res.locals.user = req.user;
-    next();
+    if (req.user) {
+        res.locals.user = req.user;
+        next();
+    } else {
+        res.redirect("/login");
+    }
 });
 
 try {
@@ -55,7 +59,7 @@ router
     .route("/")
     .get(async (req, res, next) => {
         try {
-            writer = res.locals.user.userId;
+            const writer = res.locals.user.userId;
             res.render("classRegi/classRegi");
         } catch (err) {
             console.error(err);
@@ -90,19 +94,19 @@ router
                         classContent: body.content,
                     },
                 });
-                const b = ocNum.classNum;
+                const oclassclassnumber = ocNum.classNum;
 
                 const upFilenames = [];
                 const fileNum = req.files.length;
                 for (let i = 0; i < fileNum; i++) {
                     upFilenames.push(req.files[i].filename);
-                    const c = await UrlPath.create({
+                    const urlpath = await UrlPath.create({
                         path: req.files[i].filename,
                     });
 
                     db.sequelize.models.oClassPath.create({
-                        UrlPathId: c.id,
-                        OclassClassNum: b,
+                        UrlPathId: urlpath.id,
+                        OclassClassNum: oclassclassnumber,
                     });
                 }
 

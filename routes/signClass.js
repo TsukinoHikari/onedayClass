@@ -1,6 +1,18 @@
 const express = require("express");
 const Oclass = require("../models/oclass");
+const UrlPath = require("../models/urlPath");
+const fs = require("fs");
+const path = require("path");
 const { sequelize } = require("../models");
+const multer = require("multer");
+// 기타 express 코드
+
+//여기부터
+const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
+const { count } = require("../models/notice");
+const db = require("../models");
+
+//여기까지
 
 const router = express.Router();
 
@@ -13,22 +25,26 @@ router
     .route("/")
     .get(async (req, res, next) => {
         try {
-            const user = res.locals.user.userId;
-            const classes = await Oclass.findAll({
-                where: { userId: user },
-            });
-
-            res.render("classRegi/myClass", { classes });
+            res.render("signClass/detailClass");
         } catch (err) {
             console.error(err);
             next(err);
         }
     })
-    .post();
+    .post(
+        // fields([{ name: "img" }, { name: "photos" }])
+        // single('img')
+        async (req, res, next) => {
+            try {
+            } catch (err) {
+                console.error(err);
+                next(err);
+            }
+        }
+    );
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", async (req, res) => {
     try {
-        console.log(req.params.id);
         const myClass = await Oclass.findAll({
             where: { classNum: req.params.id },
         });
@@ -38,19 +54,7 @@ router.get("/:id", async (req, res, next) => {
             type: QueryTypes.SELECT,
         });
 
-        res.render("classRegi/myClassDetail", { myClass, classPath });
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
-
-router.get("/:id/delete", async (req, res, next) => {
-    try {
-        const deleteClass = await Oclass.destroy({
-            where: { classNum: req.params.id },
-        });
-        res.redirect("/myClass");
+        res.render("signClass/detailClass", { myClass, classPath });
     } catch (err) {
         console.error(err);
         next(err);

@@ -19,6 +19,7 @@ const adminsRouter = require("./routes/admin");
 const noticeRouter = require("./routes/notice");
 const myClassRouter = require("./routes/myClass");
 const classRegiRouter = require("./routes/classRegi");
+const signClassRouter = require("./routes/signClass");
 
 // const indexRouter = require("./routes");
 // const usersRouter = require("./routes/users");
@@ -77,6 +78,7 @@ app.use("/admin", adminsRouter);
 app.use("/notice", noticeRouter);
 app.use("/classRegi", classRegiRouter);
 app.use("/myClass", myClassRouter);
+app.use("/signClass", signClassRouter);
 
 app.use((req, res, next) => {
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

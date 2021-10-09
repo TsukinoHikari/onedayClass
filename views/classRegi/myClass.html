@@ -1,10 +1,9 @@
 <!--extends-->
-{% extends 'mypage.html' %}
+{% extends '../mypage.html' %}
 <!--content-->
 {% block content %}
 <!--check login-->
 {% if user and user.userId %}
-
 <table>
     <tr>
         <th>no</th>
@@ -15,13 +14,18 @@
     {% for class in classes %}
     <tr>
         <td>{{loop.index}}</td>
-        <td><a href="/myClass/{{class.classNum}}">{{class.classTitle}}</a></td>
         <td>
-            <a href="/myClass/{{class.classNum}}">{{class.classContent}}</a>
+            <a href="/mypage/myClass/{{class.classNum}}"
+                >{{class.classTitle}}</a
+            >
+        </td>
+        <td>
+            <a href="/mypage/myClass/{{class.classNum}}"
+                >{{class.classContent}}</a
+            >
         </td>
         <td>{{user.userName}}</td>
     </tr>
-
     {% endfor %}
 </table>
 <!--not login status-->

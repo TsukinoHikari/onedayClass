@@ -1,6 +1,8 @@
 const express = require("express");
 const { Auth } = require("../models");
+const Oclass = require("../models/oclass");
 const { isNotLoggedIn, isLoggedIn } = require("./middlewares");
+const { sequelize } = require("../models");
 
 const router = express.Router();
 
@@ -24,10 +26,24 @@ router.get("/mypage", isLoggedIn, (req, res) => {
 router.get("/join", isNotLoggedIn, (req, res) => {
     res.render("join", { title: "회원가입" });
 });
-router.get("/", (req, res) => {
-    res.render("main", {
-        title: "원데이클래스",
-    });
+router.get("/", async (req, res) => {
+    try {
+        const sql1 = `SELECT * FROM oclasspaths INNER JOIN urlpaths ON oclasspaths.UrlPathId = urlpaths.id GROUP BY OclassClassNum;`;
+        const { QueryTypes } = require("sequelize");
+        const classImage = await sequelize.query(sql1, {
+            type: QueryTypes.SELECT,
+        });
+        const classes = await Oclass.findAll({});
+
+        res.render("main", {
+            title: "원데이클래스",
+            classImage,
+            classes,
+        });
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
 });
 
 module.exports = router;
