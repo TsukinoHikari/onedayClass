@@ -26,6 +26,9 @@
 
 <!-- if user -->
 {% if user and user.userId %}
+<form action="/signClass/{{myClass.classNum}}/wishlist" method="post">
+    <div><button id="wish" type="submit">찜하기</button></div>
+</form>
 <!-- <div id="user" style="display: none">{{user.userId}}</div> -->
 <form method="post">
     <button

@@ -1,6 +1,7 @@
 const express = require("express");
 const Oclass = require("../models/oclass");
 const UrlPath = require("../models/urlPath");
+const Wishlist = require("../models/wishlist");
 const fs = require("fs");
 const path = require("path");
 const { sequelize } = require("../models");
@@ -71,5 +72,44 @@ router
             next(err);
         }
     });
+
+router.post("/:id/pay", async (req, res) => {
+    try {
+        const params = req.params.id;
+        res.redirect("/pay");
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
+router.post("/:id/wishlist", async (req, res) => {
+    try {
+        id = req.params.id;
+        user = res.locals.user.userId;
+        const classes = await Oclass.findOne({
+            where: { classNum: id },
+        });
+        console.log(user);
+        console.log(classes.classNum); //
+        const wish = await Wishlist.findOne({
+            where: { classNum: classes.classNum },
+        });
+
+        if (wish) {
+            await Wishlist.destroy({ where: { classNum: classes.classNum } });
+            res.redirect(`/signClass/${id}`);
+        } else {
+            await Wishlist.create({
+                userId: user,
+                classNum: classes.classNum,
+            });
+            res.redirect(`/signClass/${id}`);
+        }
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
 
 module.exports = router;

@@ -77,7 +77,7 @@ app.use("/mypage", mypageRouter);
 app.use("/admin", adminsRouter);
 app.use("/notice", noticeRouter);
 app.use("/classRegi", classRegiRouter);
-app.use("/myClass", myClassRouter);
+//app.use("/myClass", myClassRouter);
 app.use("/signClass", signClassRouter);
 app.use("/pay", payRouter);
 

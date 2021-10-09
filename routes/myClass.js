@@ -19,7 +19,7 @@ router
                 where: { userId: user },
             });
 
-            res.render("classRegi/myClass", { classes });
+            res.render("myClass", { classes });
         } catch (err) {
             console.error(err);
             next(err);

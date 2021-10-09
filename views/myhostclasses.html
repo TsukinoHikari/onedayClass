@@ -1,11 +1,7 @@
-{% extends 'mypage.html' %}
-{% block content %}
+{% extends 'mypage.html' %} {% block detailcontent %}
 <h1>내가 개설한 클래스.</h1>
 
-
-{% endblock %}
-
-{% block script %}
+{% endblock %} {% block script %}
 <script>
     window.onload = () => {
         if (new URL(location.href).searchParams.get("msg")) {

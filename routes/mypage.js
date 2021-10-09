@@ -13,8 +13,32 @@ router.use((req, res, next) => {
     next();
 });
 
-router.get("/main", isLoggedIn, (req, res) => {
-    res.render("mypage", { title: "내정보" });
+router.get("/", isLoggedIn, async (req, res) => {
+    try {
+        const user = res.locals.user.userId;
+        console.log(user);
+        const wishlist = await Wishlist.findAll({
+            include: [
+                {
+                    model: Oclass,
+                    where: { userId: user },
+                    //   attributes: ["classTitle"],
+                },
+            ],
+        });
+        // return res.json(wishlist[0].Oclass.classTitle);
+        for (let i = 0; i < wishlist.length; i++) {
+            console.log(wishlist[i].Oclass.classTitle);
+        }
+
+        // return res.json(wishlist[0].wishNum);
+        return res.render("wishlist", {
+            title: "찜한 클래스",
+            wishlist,
+        });
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 router.get("/myinfo", isLoggedIn, (req, res) => {
@@ -61,7 +85,7 @@ router.get("/myClass", isLoggedIn, async (req, res) => {
         const classes = await Oclass.findAll({
             where: { userId: user },
         });
-        res.render("classRegi/myClass", { classes });
+        res.render("myClass", { classes });
     } catch (err) {
         console.error(err);
         next(err);
@@ -80,10 +104,37 @@ router.get("/myClass/:id", async (req, res, next) => {
             type: QueryTypes.SELECT,
         });
 
-        res.render("classRegi/myClassDetail", { myClass, classPath });
+        res.render("myClassDetail", { myClass, classPath });
     } catch (err) {
         console.error(err);
         next(err);
+    }
+});
+router.post("/myClass/:id", isLoggedIn, async (req, res) => {
+    try {
+        id = req.params.id;
+        user = res.locals.user.userId;
+        const classes = await Oclass.findOne({
+            where: { classNum: id },
+        });
+        console.log(user);
+        console.log(classes.classNum); //
+        const wish = await Wishlist.findOne({
+            where: { classNum: classes.classNum },
+        });
+
+        if (wish) {
+            await Wishlist.destroy({ where: { classNum: classes.classNum } });
+            res.redirect("/mypage/myClass/" + id);
+        } else {
+            await Wishlist.create({
+                userId: user,
+                classNum: classes.classNum,
+            });
+            res.redirect("/mypage/myClass/" + id);
+        }
+    } catch (err) {
+        console.error(err);
     }
 });
 
