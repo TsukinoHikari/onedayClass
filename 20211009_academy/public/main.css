@@ -1,0 +1,112 @@
+/* (김) 임시 css파일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    margin-bottom: 30px;
+}
+.layout-profile {
+    width: 100%;
+    min-width: 1330px;
+    height: 70px;
+    line-height: 70px;
+    min-height: 70px;
+    vertical-align: middle;
+    background-color: #111;
+    padding: 0 200px 0 200px;
+}
+.layout-profile-title a {
+    width: 100%;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+.layout-profile-title a:hover {
+    color: #aaa;
+}
+.layout-left-title {
+    float: left;
+}
+.layout-right-title {
+    width: 450px;
+    min-width: 450px;
+    float: right;
+}
+.layout-profile-title {
+    width: 150px;
+    float: left;
+    text-align: center;
+    letter-spacing: 3px;
+    color: #111;
+}
+
+.layout-profile > .layout-title > a:visited {
+    color: white;
+    text-decoration: none;
+}
+.layout-profile > .layout-title > a:link {
+    color: white;
+    text-decoration: none;
+}
+.layout-profile > a:visited {
+    color: white;
+    text-decoration: none;
+}
+.layout-profile > a:link {
+    color: white;
+    text-decoration: none;
+}
+/* search */
+.search {
+    position: relative;
+    text-align: center;
+    min-width: 300px;
+    margin: 0 10px 0 10px;
+    display: inline-block;
+}
+.search > input {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #bbb;
+    margin: 10px 0;
+    padding: 10px 12px;
+}
+
+/* main */
+.layout-main {
+    width: 100%;
+    height: 100%;
+    padding: 0 200px 0 200px;
+}
+
+/* footer */
+.layout-footer {
+    margin-top: 30px;
+    width: 100%;
+    min-width: 1330px;
+    height: 150px;
+
+    min-height: 150px;
+    text-align: center;
+    background-color: #111;
+    padding: 0 200px 0 200px;
+}
+
+.layout-copyright {
+    padding-top: 50px;
+    height: 50%;
+    color: #eee;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.1);
+}
+.layout-copyright a {
+    color: #fff;
+    text-decoration: none;
+}
+.layout-copyright a:hover {
+    color: #aaa;
+    text-decoration: none;
+}
