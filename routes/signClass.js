@@ -43,22 +43,33 @@ router
         }
     );
 
-router.get("/:id", async (req, res) => {
-    try {
-        const myClass = await Oclass.findAll({
-            where: { classNum: req.params.id },
-        });
-        const sql = `SELECT oclasspaths.OclassClassNum, oclasspaths.UrlPathId, urlpaths.path FROM oclasspaths INNER JOIN urlpaths ON oclasspaths.UrlPathId = urlpaths.id where OclassClassNum=${req.params.id};`;
-        const { QueryTypes } = require("sequelize");
-        const classPath = await sequelize.query(sql, {
-            type: QueryTypes.SELECT,
-        });
+router
+    .route("/:id")
+    .get(async (req, res) => {
+        try {
+            const myClass = await Oclass.findAll({
+                where: { classNum: req.params.id },
+            });
+            const sql = `SELECT oclasspaths.OclassClassNum, oclasspaths.UrlPathId, urlpaths.path FROM oclasspaths INNER JOIN urlpaths ON oclasspaths.UrlPathId = urlpaths.id where OclassClassNum=${req.params.id};`;
+            const { QueryTypes } = require("sequelize");
+            const classPath = await sequelize.query(sql, {
+                type: QueryTypes.SELECT,
+            });
 
-        res.render("signClass/detailClass", { myClass, classPath });
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
+            res.render("signClass/detailClass", { myClass, classPath });
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    })
+    .post(async (req, res) => {
+        try {
+            const params = req.params.id;
+            res.redirect("/pay");
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    });
 
 module.exports = router;

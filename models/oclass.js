@@ -57,5 +57,9 @@ module.exports = class Oclass extends Sequelize.Model {
             foreignKey: "userId",
             targetKey: "userId",
         });
+        db.Oclass.hasMany(db.OrderClassDetail, {
+            foreignKey: "classNum",
+            sourceKey: "classNum",
+        });
     }
 };

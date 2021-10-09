@@ -1,7 +1,8 @@
 const express = require("express");
 const Oclass = require("../models/oclass");
+const Wishlist = require("../models/wishlist");
 const { sequelize } = require("../models");
-
+const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 const router = express.Router();
 
 router.use((req, res, next) => {
@@ -42,6 +43,35 @@ router.get("/:id", async (req, res, next) => {
     } catch (err) {
         console.error(err);
         next(err);
+    }
+});
+
+//찜하기 요청(동욱)
+router.post("/:id", isLoggedIn, async (req, res) => {
+    try {
+        id = req.params.id;
+        user = res.locals.user.userId;
+        const classes = await Oclass.findOne({
+            where: { classNum: id },
+        });
+        console.log(user);
+        console.log(classes.classNum); //
+        const wish = await Wishlist.findOne({
+            where: { classNum: classes.classNum },
+        });
+
+        if (wish) {
+            await Wishlist.destroy({ where: { classNum: classes.classNum } });
+            res.redirect("/myClass/" + id);
+        } else {
+            await Wishlist.create({
+                userId: user,
+                classNum: classes.classNum,
+            });
+            res.redirect("/myClass/" + id);
+        }
+    } catch (err) {
+        console.error(err);
     }
 });
 

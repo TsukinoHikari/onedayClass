@@ -2,9 +2,9 @@
 {% extends '../layout.html' %}
 <!-- block -->
 {% block content %}
-<!-- 유저일 시 -->
 
 <div id="myClass-content">
+    <!-- 유저일 시 -->
     {% for myClass in myClass %}
     <div id="title">
         <h1>클래스명 : {{myClass.classTitle}}</h1>
@@ -22,16 +22,25 @@
     <hr />
     <div id="content">{{myClass.classContent}}</div>
     <!-- not login status -->
-    {% endfor %}
 </div>
-<!--not login status-->
+
+<!-- if user -->
 {% if user and user.userId %}
-<div id="user" style="display: none">{{user.userId}}</div>
-<button onclick="location.href='/signClass/결제하기사이트로'">결제하기</button>
+<!-- <div id="user" style="display: none">{{user.userId}}</div> -->
+<form method="post">
+    <button
+        type="submit"
+        onclick="location.href='/signClass/{{myClass.classNum}}/pay'"
+    >
+        결제하기
+    </button>
+</form>
+<!-- else -->
+<!--not login status-->
 {% else %}
 <button onclick="location.href='/login'">결제하기</button>
 <!-- if끝 -->
-{% endif %}
+{% endif %} {% endfor %}
 <!-- endblock -->
 {% endblock %}
 <!-- script block -->

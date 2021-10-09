@@ -5,23 +5,56 @@ const { sequelize } = require("../models");
 
 const User = require("../models/user");
 const Oclass = require("../models/oclass");
+const Wishlist = require("../models/wishlist");
 const router = express.Router();
 
 router.use((req, res, next) => {
     res.locals.user = req.user;
     next();
 });
+
 router.get("/main", isLoggedIn, (req, res) => {
     res.render("mypage", { title: "내정보" });
 });
+
 router.get("/myinfo", isLoggedIn, (req, res) => {
     return res.render("myinfo", { title: "내정보" });
 });
+
 router.get("/myattendclasses", isLoggedIn, (req, res) => {
     return res.render("myattendclasses", {
         title: "내가 참가한 클래스",
     });
 });
+
+router.get("/wishlist", isLoggedIn, async (req, res) => {
+    try {
+        const user = res.locals.user.userId;
+        console.log(user);
+        const wishlist = await Wishlist.findAll({
+            include: [
+                {
+                    model: Oclass,
+                    where: { userId: user },
+                    //   attributes: ["classTitle"],
+                },
+            ],
+        });
+        // return res.json(wishlist[0].Oclass.classTitle);
+        for (let i = 0; i < wishlist.length; i++) {
+            console.log(wishlist[i].Oclass.classTitle);
+        }
+
+        // return res.json(wishlist[0].wishNum);
+        return res.render("wishlist", {
+            title: "찜한 클래스",
+            wishlist,
+        });
+    } catch (err) {
+        console.error(err);
+    }
+});
+
 router.get("/myClass", isLoggedIn, async (req, res) => {
     try {
         const user = res.locals.user.userId;

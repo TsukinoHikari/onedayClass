@@ -19,6 +19,9 @@
     <!-- contents -->
 
     {% for myClass in myClass %}
+    <form action="/myClass/{{myClass.classNum}}" method="post">
+        <div><button id="wish" type="submit">찜하기</button></div>
+    </form>
     <div id="place">클래스 장소 : {{myClass.classAddr}}</div>
     <div id="price">클래스 가격 : {{myClass.classPrice}}</div>
     <hr />
