@@ -82,6 +82,7 @@ router
                     classPrice: body.price,
                     classQty: body.qty,
                     classContent: body.content,
+                    classDate: body.date,
                 });
 
                 const ocNum = await Oclass.findOne({

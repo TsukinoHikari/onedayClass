@@ -8,6 +8,7 @@ const UrlPath = require("./urlPath");
 const WishList = require("./wishlist");
 const OrderClass = require("./orderClass");
 const OrderClassDetail = require("./orderClassDetail");
+const moment = require("moment");
 
 const bcrypt = require("bcrypt");
 
@@ -43,6 +44,10 @@ const sequelize = new Sequelize(
         timezone: "+09:00", // DB에 저장할 때 시간 설정
         dialectOptions: {
             timezone: "+09:00", // DB에서 가져올 때 시간 설정
+        },
+        define: {
+            timestamps: false,
+            supportBigNumbers: true,
         },
     }
 );
@@ -103,6 +108,10 @@ const oClassPath = sequelize.define(
         collate: "utf8_general_ci",
     }
 );
+
+Oclass.prototype.dateFormat = (date) => {
+    moment(date).format("YYYY년 MM월 DD일");
+};
 
 Oclass.belongsToMany(UrlPath, { through: oClassPath });
 UrlPath.belongsToMany(Oclass, { through: oClassPath });

@@ -2,10 +2,13 @@ const express = require("express");
 const Oclass = require("../models/oclass");
 const UrlPath = require("../models/urlPath");
 const Wishlist = require("../models/wishlist");
+const OrderClass = require("../models/orderClass");
 const fs = require("fs");
 const path = require("path");
 const { sequelize } = require("../models");
 const multer = require("multer");
+
+OrderClass;
 // 기타 express 코드
 
 //여기부터
@@ -51,13 +54,18 @@ router
             const myClass = await Oclass.findAll({
                 where: { classNum: req.params.id },
             });
+
             const sql = `SELECT oclasspaths.OclassClassNum, oclasspaths.UrlPathId, urlpaths.path FROM oclasspaths INNER JOIN urlpaths ON oclasspaths.UrlPathId = urlpaths.id where OclassClassNum=${req.params.id};`;
             const { QueryTypes } = require("sequelize");
             const classPath = await sequelize.query(sql, {
                 type: QueryTypes.SELECT,
             });
 
-            res.render("signClass/detailClass", { myClass, classPath });
+            res.render("signClass/detailClass", {
+                myClass,
+                classPath,
+                title: "클래스 상세보기",
+            });
         } catch (err) {
             console.error(err);
             next(err);
@@ -65,7 +73,7 @@ router
     })
     .post(async (req, res) => {
         try {
-            const params = req.params.id;
+            console.log(req.body);
             res.redirect("/pay");
         } catch (err) {
             console.error(err);
@@ -75,8 +83,18 @@ router
 
 router.post("/:id/pay", async (req, res) => {
     try {
-        const params = req.params.id;
-        res.redirect("/pay");
+        const classNum = req.params.id;
+
+        const user = res.locals.user;
+
+        await OrderClass.create({
+            userId: user.userId,
+            orderClassDate: req.body.classdate,
+            orderQty: req.body.applicants,
+            classNum,
+        });
+        const oc = await OrderClass.findAll({});
+        res.json({ oc });
     } catch (err) {
         console.error(err);
         next(err);

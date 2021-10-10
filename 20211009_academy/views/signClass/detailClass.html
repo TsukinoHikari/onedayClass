@@ -1,50 +1,111 @@
 <!-- extends -->
-{% extends '../layout.html' %}
-<!-- block -->
-{% block content %}
+{% extends '../layout.html' %} {% block style %}
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+></script>
 
+<!-- end style -->
+{% endblock %}
+<!-- block content -->
+{% block content %}
 <div id="myClass-content">
     <!-- 유저일 시 -->
-    {% for myClass in myClass %}
     <div id="title">
-        <h1>클래스명 : {{myClass.classTitle}}</h1>
+        <h1>클래스명 : {{myClass[0].classTitle}}</h1>
     </div>
-    {% endfor %}
     <!-- images -->
     {% for a in classPath %}
     <div><img src="../../{{a.path}}" /></div>
     {% endfor %}
     <!-- contents -->
 
-    {% for myClass in myClass %}
-    <div id="place">클래스 장소 : {{myClass.classAddr}}</div>
-    <div id="price">클래스 가격 : {{myClass.classPrice}}</div>
+    <div id="place">클래스 장소 : {{myClass[0].classAddr}}</div>
+    <div id="price">클래스 가격 : {{myClass[0].classPrice}}</div>
+
+    <div id="date">
+        클래스 날짜 :
+        <span id="sign-db-classDate">{{myClass[0].classDate}}</span>
+    </div>
+
     <hr />
-    <div id="content">{{myClass.classContent}}</div>
+    <div id="content">{{myClass[0].classContent}}</div>
     <!-- not login status -->
 </div>
 
 <!-- if user -->
 {% if user and user.userId %}
-<form action="/signClass/{{myClass.classNum}}/wishlist" method="post">
+<form action="/signClass/{{myClass[0].classNum}}/wishlist" method="post">
     <div><button id="wish" type="submit">찜하기</button></div>
 </form>
 <!-- <div id="user" style="display: none">{{user.userId}}</div> -->
-<form method="post">
-    <button
-        type="submit"
-        onclick="location.href='/signClass/{{myClass.classNum}}/pay'"
-    >
-        결제하기
-    </button>
+
+<form
+    action="/signClass/{{myClass[0].classNum}}/pay"
+    method="post"
+    name="payment"
+>
+    <div id="signClass-content">
+        <div class="signClass-pick-date">
+            <select name="classdate" id="signClass-classdate">
+                <option value="none">선택하기</option>
+            </select>
+        </div>
+        <div class="signClass-pick-qty">
+            <select name="applicants" id="selectBox">
+                <option value="none">선택하기</option>
+            </select>
+        </div>
+        <div class="signClass-pay-btn">
+            <button type="button" onclick="checking()">결제하기</button>
+        </div>
+    </div>
 </form>
 <!-- else -->
 <!--not login status-->
 {% else %}
 <button onclick="location.href='/login'">결제하기</button>
 <!-- if끝 -->
-{% endif %} {% endfor %}
+{% endif %}
 <!-- endblock -->
 {% endblock %}
 <!-- script block -->
-{% block script %} {% endblock %}
+{% block script %}
+<script>
+    const date = document.getElementById("sign-db-classDate");
+    const cdate = date.innerText;
+    const classdate = moment(cdate).format("YYYY-MM-DD");
+    date.innerText = classdate;
+
+    $("#signClass-classdate").append(
+        "<option value=" + classdate + ">" + classdate + "</option>"
+    );
+
+    $("#signClass-classdate").change(function () {
+        var select_val = this.value;
+        var js_date_object = new Date(select_val);
+        console.log(js_date_object);
+        classdate.value = js_date_object;
+
+        for (let i = 1; i < 11; i++) {
+            $("#selectBox").append(
+                "<option value=" + i + ">" + i + "명</option>"
+            );
+        }
+    });
+
+    function checking() {
+        const paymentForm = document.payment;
+        const pick_classdate = paymentForm.classdate.value;
+        const pick_applicants = paymentForm.applicants.value;
+
+        if (pick_classdate == "none" || pick_applicants == "none") {
+            alert("옵션을 선택해 주세요.");
+        } else {
+            paymentForm.submit();
+        }
+    }
+</script>
+{% endblock %}

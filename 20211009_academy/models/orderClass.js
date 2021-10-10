@@ -10,6 +10,10 @@ module.exports = class OrderClass extends Sequelize.Model {
                     allowNull: false,
                     autoIncrement: true,
                 },
+                orderClassDate: {
+                    type: Sequelize.DATE,
+                    allowNull: false,
+                },
                 orderClassCreated: {
                     type: Sequelize.DATE,
                     allowNull: false,
@@ -34,6 +38,10 @@ module.exports = class OrderClass extends Sequelize.Model {
     }
 
     static associate(db) {
+        db.OrderClass.belongsTo(db.Oclass, {
+            foreignKey: "classNum",
+            targetKey: "classNum",
+        });
         db.OrderClass.belongsTo(db.User, {
             foreignKey: "userId",
             targetKey: "userId",
