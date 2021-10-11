@@ -51,17 +51,18 @@ router
 router.get("/pay", isLoggedIn, async (req, res) => {
     try {
         const user = res.locals.user.userId;
+        console.log(user);
 
         const orderClass = await OrderClass.findAll({
             include: [
                 {
                     model: Oclass,
-                    where: { userId: user },
                 },
             ],
+            where: { userId: user },
         });
         //res.json(orderClass);
-        res.render("pay/pay", { orderClass });
+        res.render("pay/pay", { orderClass, title: "결제하기" });
     } catch (err) {
         console.error(err);
         next(err);
@@ -69,15 +70,6 @@ router.get("/pay", isLoggedIn, async (req, res) => {
 });
 router.post("/pay", isLoggedIn, async (req, res) => {
     try {
-        const user = res.locals.user.userId;
-
-        await OrderClass.create({
-            orderName: req.body.orderName,
-            orderTel: req.body.orderTel,
-            orderPrice: req.body.orderPrice,
-        });
-        //res.json(orderClass);
-        res.json();
     } catch (err) {
         console.error(err);
         next(err);

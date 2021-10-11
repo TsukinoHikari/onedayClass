@@ -16,7 +16,7 @@ router.use((req, res, next) => {
 router.get("/", isLoggedIn, async (req, res) => {
     try {
         const user = res.locals.user.userId;
-        console.log(user);
+
         const wishlist = await Wishlist.findAll({
             include: [
                 {
@@ -117,7 +117,7 @@ router.post("/myClass/:id", isLoggedIn, async (req, res) => {
         const classes = await Oclass.findOne({
             where: { classNum: id },
         });
-        console.log(user);
+
         console.log(classes.classNum); //
         const wish = await Wishlist.findOne({
             where: { classNum: classes.classNum },
@@ -143,7 +143,7 @@ router.get("/myClass/:id/delete", async (req, res, next) => {
         const deleteClass = await Oclass.destroy({
             where: { classNum: req.params.id },
         });
-        res.redirect("/myClass");
+        res.redirect("/mypage/myClass");
     } catch (err) {
         console.error(err);
         next(err);
