@@ -1,0 +1,85 @@
+{% extends '../layout.html' %}
+<!-- styleblock -->
+{% block style %}
+<!-- ex) <link rel="stylesheet" href="login.css" /> -->
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" href="../pay.css" />
+{% endblock %}
+<!-- end style -->
+
+<!-- content block-->
+{% block content %}
+<!-- for price -->
+
+{% for a in orderClass %}
+<div class="pay-detail">
+    <div class="qty" style="display: none">{{a.orderQty}}</div>
+    <div class="price" style="display: none">{{a.Oclass.classPrice}}</div>
+    <div class="orderclassnum">{{a.orderClassNum}}</div>
+    <table>
+        <tr>
+            <th>클래스정보</th>
+            <th>인원</th>
+            <th>클래스금액</th>
+        </tr>
+        <tr>
+            <td>
+                <a href="/signClass/{{a.Oclass.classNum}}"
+                    >{{a.Oclass.classTitle}}</a
+                >
+            </td>
+            <td>{{a.orderQty}}</td>
+            <td>{{a.orderQty*a.Oclass.classPrice}}</td>
+        </tr>
+    </table>
+    <div class="pay-title"></div>
+    <button class="pay-delete-btn" type="button">
+        <a href="/signClass/delete/{{a.orderClassNum}}">삭제</a>
+    </button>
+</div>
+{% endfor %}
+<form action="" id="pay-payform" method="post">
+    <div>
+        주문자 :
+        <input type="text" name="orderName" value="{{user.userName}}" />
+    </div>
+    <div>
+        주문자 전화번호 :<input
+            type="text"
+            name="orderTel"
+            value="{{user.userTel}}"
+        />
+    </div>
+    <div id="pay-price">총 금액 :</div>
+    <button type="button" onclick="pay()">결제하기</button>
+</form>
+{% endblock %}
+<!-- end content -->
+
+<!-- script block -->
+{% block script %}
+<script>
+    const qty = document.getElementsByClassName("qty");
+    const price = document.getElementsByClassName("price");
+    const orderclassnum = document.getElementsByClassName("orderclassnum");
+
+    let total_price = 0;
+    for (let i = 0; i < price.length; i++) {
+        let mul_price =
+            parseInt(qty[i].innerText) * parseInt(price[i].innerText);
+        total_price = total_price + mul_price;
+    }
+
+    $("#pay-price").append(
+        "<input type='text' name='orderPrice' placeholder='가격' value=" +
+            total_price +
+            " disabled/>"
+    );
+
+    function pay() {
+        const payForm = document.getElementById("pay-payform").submit();
+    }
+</script>
+{% endblock %}
+<!-- end script -->
