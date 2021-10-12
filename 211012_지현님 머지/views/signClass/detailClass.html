@@ -1,50 +1,241 @@
 <!-- extends -->
-{% extends '../layout.html' %}
+{% extends '../layout.html' %} {% block style %}
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+></script>
+
+<style>
+  * {
+    list-style: none;
+  }
+  .upComment {
+    display: none;
+  }
+  .cancelBtn {
+    display: none;
+  }
+  .inputBtn {
+    display: none;
+  }
+  #commentNumber {
+    display: none;
+  }
+</style>
+{% endblock%}
 <!-- block -->
 {% block content %}
 
 <div id="myClass-content">
-    <!-- 유저일 시 -->
-    {% for myClass in myClass %}
-    <div id="title">
-        <h1>클래스명 : {{myClass.classTitle}}</h1>
-    </div>
-    {% endfor %}
-    <!-- images -->
-    {% for a in classPath %}
-    <div><img src="../../{{a.path}}" /></div>
-    {% endfor %}
-    <!-- contents -->
+  <!-- 유저일 시 -->
+  {% for myClass in myClass %}
+  <div id="title">
+    <h1>클래스명 : {{myClass.classTitle}}</h1>
+  </div>
+  {% endfor %}
+  <!-- images -->
+  {% for a in classPath %}
+  <div><img src="../../{{a.path}}" /></div>
+  {% endfor %}
+  <!-- contents -->
 
-    {% for myClass in myClass %}
-    <div id="place">클래스 장소 : {{myClass.classAddr}}</div>
-    <div id="price">클래스 가격 : {{myClass.classPrice}}</div>
-    <hr />
-    <div id="content">{{myClass.classContent}}</div>
-    <!-- not login status -->
+  {% for myClass in myClass %}
+  <div id="place">클래스 장소 : {{myClass.classAddr}}</div>
+  <div id="price">클래스 가격 : {{myClass.classPrice}}</div>
+  <hr />
+  <div id="content">{{myClass.classContent}}</div>
+  <!-- not login status -->
 </div>
 
 <!-- if user -->
 {% if user and user.userId %}
 <form action="/signClass/{{myClass.classNum}}/wishlist" method="post">
-    <div><button id="wish" type="submit">찜하기</button></div>
+  <button id="wish" type="submit">찜하기</button>
 </form>
 <!-- <div id="user" style="display: none">{{user.userId}}</div> -->
 <form method="post">
-    <button
-        type="submit"
-        onclick="location.href='/signClass/{{myClass.classNum}}/pay'"
-    >
-        결제하기
-    </button>
+  <button
+    type="submit"
+    onclick="location.href='/signClass/{{myClass.classNum}}/pay'"
+  >
+    결제하기
+  </button>
+</form>
+<form name="form" method="post">
+  <fieldset>
+    <legend>댓글</legend>
+    <ul>
+      <li>
+        <span id="myId">{{user.userId}}</span>
+        <textarea name="comment" id="comment" cols="60" rows="5"></textarea>
+        <input
+          type="submit"
+          value="댓글등록"
+          onclick="javascript: form.action='/signClass/{{myClass.classNum}}/comment'"
+        />
+      </li>
+      {% for comment in usercomments %}
+      <li>
+        <input
+          type="text"
+          id="commentNumber"
+          name="commentNumber"
+          value="{{comment.commentNum}}"
+        />
+        <span>{{comment.userId}}</span>
+        <span class="cComment" name="cComment">{{comment.commentContent}}</span>
+        <!-- <input id="loop" type='number' name="asdf" value='{{loop.index}}'></input> -->
+        <!-- {% if user.userId == comment.userId %} -->
+        <span class="upComment" name="upComment">
+          <textarea
+            name="updateComment"
+            id="updateComment"
+            cols="60"
+            rows="5"
+          ></textarea>
+        </span>
+        <span class="createtime">{{comment.createdAt}}</span>
+
+        <span class="putBtn" name="putBtn"
+          ><button type="button">수정</button></span
+        >
+        <span class="cancelBtn" name="cancelBtn"
+          ><button type="button">취소</button></span
+        >
+        <span class="inputBtn" name="inputBtn"
+          ><input
+            type="submit"
+            value="수정하기"
+            onclick="javascript: form.action='/signClass/{{myClass.classNum}}/{{comment.commentNum}}/edit'"
+        /></span>
+        <span class="delBtn" name="delBtn"
+          ><input
+            type="submit"
+            value="삭제"
+            onclick="javascript: form.action='/signClass/{{myClass.classNum}}/{{comment.commentNum}}/delete'"
+        /></span>
+      </li>
+      <!-- {% endif %} -->
+      {% endfor %}
+    </ul>
+  </fieldset>
 </form>
 <!-- else -->
 <!--not login status-->
 {% else %}
 <button onclick="location.href='/login'">결제하기</button>
+<form>
+  <fieldset>
+    <legend>댓글</legend>
+    <ul>
+      {% for comment in usercomments %}
+      <li>
+        <span>{{comment.userId}}</span>
+        <span>{{comment.commentContent}}</span>
+        <span class="createtime">{{comment.createdAt}}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </fieldset>
+</form>
+
 <!-- if끝 -->
 {% endif %} {% endfor %}
 <!-- endblock -->
 {% endblock %}
 <!-- script block -->
-{% block script %} {% endblock %}
+{% block script %}
+
+<script>
+  document.getElementsByName;
+  const commentDate = document.getElementsByClassName("createtime");
+
+  const loop = document.getElementById("loop");
+  const upcomment = document.querySelectorAll(".upComment");
+  const ccomment = document.querySelectorAll(".cComment");
+  const dcomment = document.querySelectorAll(".dComment");
+  const putbtn = document.querySelectorAll(".putBtn");
+  const inputbtn = document.querySelectorAll(".inputBtn");
+  const cancelbtn = document.querySelectorAll(".cancelBtn");
+  const delbtn = document.querySelectorAll(".delBtn");
+
+  for (let i = 0; i < commentDate.length; i++) {
+    const comdate = commentDate[i].innerText;
+    const classcomdate = moment(comdate).format("YYYY-MM-DD HH:mm:ss");
+    commentDate[i].innerText = classcomdate;
+  }
+  for (let q = 0; q < ccomment.length; q++) {
+    if (ccomment == dcomment) {
+      ccomment[q].style.display = "none";
+    }
+  }
+
+  //   document.querySelectorAll(".putBtn").forEach((item) => {
+  //     item.addEventListener("click", (e) => {
+  //       upcomment.style.display = "inline-block";
+  //       ccomment.style.display = "none";
+  //       cancelbtn.style.display = "inline-block";
+  //       putbtn.style.display = "none";
+  //       inputbtn.style.display = "inline-block";
+  //       delbtn.style.display = "none";
+  //     });
+  //   });
+
+  for (let l = 0; l < 10; l++) {
+    if (l % 2 == 0) {
+      continue;
+    }
+    console.log(l);
+  }
+  for (let i = 0; i < putbtn.length; i++) {
+    for (let k = 0; k < ccomment.length; k++) {
+      if (!putbtn) {
+        k++;
+        continue;
+      }
+      putbtn[i].addEventListener("click", () => {
+        upcomment[i].style.display = "inline-block";
+        // dcomment[i].style.display = "none";
+        cancelbtn[i].style.display = "inline-block";
+        putbtn[i].style.display = "none";
+        inputbtn[i].style.display = "inline-block";
+        delbtn[i].style.display = "none";
+      });
+      cancelbtn[i].addEventListener("click", () => {
+        upcomment[i].style.display = "none";
+        // dcomment[i].style.display = "inline-block";
+        cancelbtn[i].style.display = "none";
+        putbtn[i].style.display = "inline-block";
+        inputbtn[i].style.display = "none";
+        delbtn[i].style.display = "inline-block";
+      });
+    }
+    //   putbtn[0].addEventListener("click", () => {
+    //     upcomment[5].style.display = "inline-block";
+    //     ccomment[5].style.display = "none";
+    //     cancelbtn[0].style.display = "inline-block";
+    //     putbtn[0].style.display = "none";
+    //     inputbtn[0].style.display = "inline-block";
+    //     delbtn[0].style.display = "none";
+    //   });
+    //   cancelbtn[0].addEventListener("click", () => {
+    //     upcomment[5].style.display = "none";
+    //     ccomment[5].style.display = "inline-block";
+    //     cancelbtn[0].style.display = "none";
+    //     putbtn[0].style.display = "inline-block";
+    //     inputbtn[0].style.display = "none";
+    //     delbtn[0].style.display = "inline-block";
+    //   });
+  }
+  //   function a() {}
+
+  function b() {
+    upcomment.style.display = "none";
+    ccomment.style.display = "inline-block";
+    cancelbtn.style.display = "none";
+    putbtn.style.display = "inline-block";
+    inputbtn.style.display = "none";
+    delbtn.style.display = "inline-block";
+  }
+</script>
+{% endblock %}

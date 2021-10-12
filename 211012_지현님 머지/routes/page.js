@@ -37,7 +37,7 @@ router.get("/", async (req, res) => {
 
     res.render("main", {
       title: "원데이클래스",
-      //   classImage,
+      // classImage,
       classes,
     });
   } catch (err) {

@@ -9,11 +9,18 @@
 <h1>로그인 된 상태입니다.</h1>
 {% else %}
 <div class="login-container">
-  <d class="logIn">로그인</d>
-  <d style="font-size: 20px; color: rgb(168, 168, 168)">LOG IN</d>
   <form id="login-form" action="auth/login" method="post">
     <fieldset class="login-fieldset">
+      <legend>로그인</legend>
       <div class="mainLogin">
+        <div class="snslogin">
+          <button type="button" class="login-sns-btn">
+            <a id="kakao" href="/auth/kakao" class="btn">카카오톡</a>
+          </button>
+          <button type="button" class="login-sns-btn">
+            <a id="google" href="/auth/google" class="btn">구글</a>
+          </button>
+        </div>
         <div class="locallogin">
           <div class="inputgroup">
             <label class="login-label" for="userid">아이디</label>
@@ -27,30 +34,17 @@
         </div>
       </div>
       <div class="subLogin">
-        <div class="idpwdFind">
-          <a href="/findidpwd" style="color: rgb(97, 97, 97)"
-            >아이디/비밀번호 찾기</a
-          >
-        </div>
-        <br />
         <div class="join">
           <h5>
             아직 회원이 아니신가요?
             <span><a id="join" href="/join" class="btn">회원가입</a></span>
           </h5>
         </div>
+        <div class="idpwdFind">
+          <a href="/findidpwd">아이디/비밀번호 찾기</a>
+        </div>
       </div>
     </fieldset>
-    <br />
-    <d>다른 방식으로 로그인</d>
-    <div class="snslogin">
-      <button type="button" class="login-sns-btn">
-        <a id="kakao" href="/auth/kakao" class="btn">카카오톡</a>
-      </button>
-      <button type="button" class="login-sns-btn">
-        <a id="#" href="#" class="btn">구글</a>
-      </button>
-    </div>
   </form>
 </div>
 {% endif %}
