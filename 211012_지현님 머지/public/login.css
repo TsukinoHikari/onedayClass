@@ -1,0 +1,83 @@
+.login-container {
+  min-width: 930px;
+  text-align: center;
+}
+#login-form {
+  margin: 0 auto;
+  width: 600px;
+}
+.logIn {
+  font-size: 40px;
+}
+.login-container legend {
+  font-weight: bold;
+}
+.login-container a {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-fieldset {
+  padding: 20px;
+  border: 1px;
+  border-color: darkgray;
+  background-color: rgb(240, 240, 240);
+}
+.mainLogin,
+.subLogin {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-sns-btn {
+  margin: 10px;
+  height: 30px;
+  width: 50px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100px;
+}
+.login-sns-btn:nth-child(1) {
+  background-color: #f7e600;
+  border: none;
+}
+.login-sns-btn:nth-child(1):hover {
+  background-color: #d3c500;
+}
+.login-sns-btn:nth-child(2) {
+  background-color: #dfdfdf;
+  border: none;
+}
+.login-sns-btn:nth-child(2):hover {
+  background-color: #bbb;
+}
+.snslogin {
+  margin: 0 auto;
+}
+
+#login {
+  width: 300px;
+  height: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px auto;
+}
+.login-label {
+  width: 70px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+}
+.login-container button {
+  display: block;
+}
+.idpwdFind {
+  font-size: 13px;
+  width: auto;
+}
+
+label {
+  font-size: 15px;
+  margin: 5px;
+}

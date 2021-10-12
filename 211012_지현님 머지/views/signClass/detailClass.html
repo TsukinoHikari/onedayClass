@@ -1,0 +1,50 @@
+<!-- extends -->
+{% extends '../layout.html' %}
+<!-- block -->
+{% block content %}
+
+<div id="myClass-content">
+    <!-- 유저일 시 -->
+    {% for myClass in myClass %}
+    <div id="title">
+        <h1>클래스명 : {{myClass.classTitle}}</h1>
+    </div>
+    {% endfor %}
+    <!-- images -->
+    {% for a in classPath %}
+    <div><img src="../../{{a.path}}" /></div>
+    {% endfor %}
+    <!-- contents -->
+
+    {% for myClass in myClass %}
+    <div id="place">클래스 장소 : {{myClass.classAddr}}</div>
+    <div id="price">클래스 가격 : {{myClass.classPrice}}</div>
+    <hr />
+    <div id="content">{{myClass.classContent}}</div>
+    <!-- not login status -->
+</div>
+
+<!-- if user -->
+{% if user and user.userId %}
+<form action="/signClass/{{myClass.classNum}}/wishlist" method="post">
+    <div><button id="wish" type="submit">찜하기</button></div>
+</form>
+<!-- <div id="user" style="display: none">{{user.userId}}</div> -->
+<form method="post">
+    <button
+        type="submit"
+        onclick="location.href='/signClass/{{myClass.classNum}}/pay'"
+    >
+        결제하기
+    </button>
+</form>
+<!-- else -->
+<!--not login status-->
+{% else %}
+<button onclick="location.href='/login'">결제하기</button>
+<!-- if끝 -->
+{% endif %} {% endfor %}
+<!-- endblock -->
+{% endblock %}
+<!-- script block -->
+{% block script %} {% endblock %}
