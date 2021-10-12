@@ -1,0 +1,13 @@
+{% extends 'mypage.html' %} {% block detailcontent %}
+<h1>내가 개설한 클래스.</h1>
+
+{% endblock %} {% block script %}
+<script>
+    window.onload = () => {
+        if (new URL(location.href).searchParams.get("msg")) {
+            alert("이미 존재하는 이메일입니다.");
+        }
+    };
+</script>
+
+{% endblock %}
