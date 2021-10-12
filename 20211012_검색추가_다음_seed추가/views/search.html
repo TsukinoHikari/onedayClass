@@ -1,0 +1,12 @@
+<!-- 검색 -->
+{% extends 'layout.html' %} {% block content %} {% for list in searchClass %}
+
+<div class="searchList">
+  <div class="list">
+    <a href="/signClass/{{seachClass.classNum}}">{{list.classTitle}}</a>
+  </div>
+</div>
+{% endfor %}
+
+<!-- 블럭 끝 -->
+{% endblock %}

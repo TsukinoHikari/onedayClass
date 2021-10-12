@@ -1,0 +1,10 @@
+.classRegi-title {
+    color: black;
+    text-decoration: none;
+}
+.classRegi-title:visited {
+    color: black;
+}
+.classRegi-container {
+    min-width: 930px;
+}
