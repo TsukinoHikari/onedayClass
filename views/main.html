@@ -1,25 +1,23 @@
 {% extends 'layout.html' %} {% block content %}
 <h1>메인페이지에유</h1>
 <table>
-    <tr>
-        {% for image in classImage %}
-        <th>
-            <a href="/signClass/{{image.OclassClassNum}}"
-                ><img src="{{image.path}}" alt=""
-            /></a>
-        </th>
-        {%endfor%}
-    </tr>
-    <!--  -->
-    <tr>
-        {% for eachClass in classes %}
-        <td>
-            <a href="/signClass/{{eachClass.classNum}}"
-                >{{eachClass.classTitle}}</a
-            >
-        </td>
-        {% endfor %}
-    </tr>
+  <tr>
+    {% for image in classImage %}
+    <th>
+      <a href="/signClass/{{image.OclassClassNum}}"
+        ><img src="{{image.path}}" alt=""
+      /></a>
+    </th>
+    {%endfor%}
+  </tr>
+  <!--  -->
+  <tr>
+    {% for eachClass in classes %}
+    <td>
+      <a href="/signClass/{{eachClass.classNum}}">{{eachClass.classTitle}}</a>
+    </td>
+    {% endfor %}
+  </tr>
 </table>
 
 <!-- 블럭 끝 -->
@@ -27,11 +25,11 @@
 <!-- 스크립트 -->
 {% block script %}
 <script>
-    window.onload = () => {
-        if (new URL(location.href).searchParams.get("msg")) {
-            alert("이미 존재하는 이메일입니다.");
-        }
-    };
+  window.onload = () => {
+    if (new URL(location.href).searchParams.get("msg")) {
+      alert("이미 존재하는 이메일입니다.");
+    }
+  };
 </script>
 
 {% endblock %}
