@@ -30,7 +30,7 @@ module.exports = {
         };
         datas.push(obj2);
 
-        const hash3 = await bcrypt.hash("qweqweqwe", 12);
+        const hash3 = await bcrypt.hash("qweqweqwe!", 12);
         let obj3 = {
             userId: "qweqwe",
             userPwd: hash3,
@@ -38,6 +38,18 @@ module.exports = {
             userMail: "hihi@naver.com",
             userTel: "010-9874-6541",
             userAddr: "경기 수원",
+            userCreated: Sequelize.literal("current_timestamp"),
+        };
+        datas.push(obj3);
+
+        const hash4 = await bcrypt.hash("qweqweqwe!", 12);
+        let obj3 = {
+            userId: "kakao",
+            userPwd: hash4,
+            userName: "카아카아오",
+            userMail: "kakao@naver.com",
+            userTel: "010-4561-2876",
+            userAddr: "부산",
             userCreated: Sequelize.literal("current_timestamp"),
         };
         datas.push(obj3);
