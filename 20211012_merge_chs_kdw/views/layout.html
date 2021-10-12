@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{{title}}</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="stylesheet" href="/main.css" />
+        {% block style %} {% endblock %}
+    </head>
+
+    <body>
+        <header>
+            <div class="layout-profile">
+                {% if user and user.userId %}
+                <div class="layout-left-title">
+                    <div class="layout-profile-title"><a href="/">원클</a></div>
+                </div>
+                <div class="search">
+                    <input type="text" />
+                </div>
+                <div class="layout-right-title">
+                    <div class="layout-profile-title">
+                        <a href="/classRegi">클래스등록</a>
+                    </div>
+                    <div class="layout-profile-title">
+                        <a href="/mypage" id="my-profile">마이페이지</a>
+                    </div>
+                    <div class="layout-profile-title">
+                        <a href="/auth/logout" id="logout">로그아웃</a>
+                    </div>
+                </div>
+
+                {% else %}
+                <div class="layout-left-title">
+                    <div class="layout-profile-title"><a href="/">원클</a></div>
+                </div>
+                <div class="search">
+                    <input type="text" />
+                </div>
+                <div class="layout-right-title">
+                    <div class="layout-profile-title">
+                        <a href="/classRegi">클래스등록</a>
+                    </div>
+                    <div class="layout-profile-title">
+                        <a href="/login">로그인</a>
+                    </div>
+                    <div class="layout-profile-title">
+                        <a href="/join">회원가입</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </header>
+
+        <main class="layout-main">{% block content %} {% endblock %}</main>
+        <footer>
+            <div class="layout-footer">
+                <div class="layout-copyright">
+                    <a href="/notice">공지사항</a>
+                    <a href="/notice">문의사항</a><br />
+                    © Copyright 2015 원클. All rights reserved.
+                </div>
+            </div>
+        </footer>
+        <!-- script -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+            window.onload = () => {
+                if (new URL(location.href).searchParams.get("loginError")) {
+                    alert(
+                        new URL(location.href).searchParams.get("loginError")
+                    );
+                }
+            };
+        </script>
+
+        {% block script %} {% endblock %}
+    </body>
+</html>
