@@ -1,6 +1,7 @@
 const express = require("express");
 const Oclass = require("../models/oclass");
 const UrlPath = require("../models/urlPath");
+const OrderClassDetail = require("../models/orderClassDetail");
 const fs = require("fs");
 const path = require("path");
 const { sequelize } = require("../models");
@@ -16,9 +17,11 @@ router.use((req, res, next) => {
     next();
 });
 
-router.route("/").get(async (req, res, next) => {
+router.route("/").get(isLoggedIn, async (req, res, next) => {
     try {
-        res.render("./pay/pay");
+        const payment = await OrderClassDetail.findAll({});
+
+        res.render("./pay/endPay", { payment });
     } catch (err) {
         console.error(err);
         next(err);

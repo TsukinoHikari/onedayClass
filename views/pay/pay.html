@@ -5,7 +5,7 @@
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script
-    src="https://cdn.bootpay.co.kr/js/bootpay-2.0.12.min.js"
+    src="https://cdn.bootpay.co.kr/js/bootpay-3.3.2.min.js"
     type="application/javascript"
 ></script>
 
@@ -17,10 +17,16 @@
 <!-- for price -->
 
 {% for a in orderClass %}
+<hr />
+<br /><br />
 <div class="pay-detail">
-    <div class="qty" style="display: none">{{a.orderQty}}</div>
-    <div class="price" style="display: none">{{a.Oclass.classPrice}}</div>
-    <div class="orderclassnum" style="display: none">{{a.orderClassNum}}</div>
+    <div class="pay-classnum" style="display: none">{{a.Oclass.classNum}}</div>
+    <!-- style="display: none" -->
+    <span class="pay-orderclassnum" style="display: none"
+        >{{a.orderClassNum}}</span
+    >
+    <span class="pay-each-price">{{a.orderQty*a.Oclass.classPrice}}</span>
+
     <table>
         <tr>
             <th>클래스정보</th>
@@ -33,8 +39,8 @@
                     >{{a.Oclass.classTitle}}</a
                 >
             </td>
-            <td>{{a.orderQty}}</td>
-            <td>{{a.orderQty*a.Oclass.classPrice}}</td>
+            <td class="order-qty">{{a.orderQty}}</td>
+            <td class="order-price">{{a.Oclass.classPrice}}</td>
         </tr>
     </table>
     <div class="pay-title"></div>
@@ -42,32 +48,46 @@
         <a href="/signClass/delete/{{a.orderClassNum}}">삭제</a>
     </button>
 </div>
+<br /><br />
 {% endfor %}
-<form action="" id="pay-payform" method="post">
+<form id="pay-payform" method="post">
     <div>
         주문자 :
-        <input type="text" name="orderName" value="{{user.userName}}" />
+        <input
+            id="orderName"
+            type="text"
+            name="orderName"
+            value="{{user.userName}}"
+        />
     </div>
     <div>
         주문자 전화번호 :<input
+            id="orderTel"
             type="text"
             name="orderTel"
             value="{{user.userTel}}"
         />
     </div>
-    <div id="pay-price">총 금액 :</div>
+
+    <div id="pay-class-data"></div>
+    <div id="pay-price">총 금액 : <span id="pay-total-price"></span></div>
+
     <!-- <button type="button" onclick="pay()">결제하기</button> -->
     <button id="pay-btn">결제하기</button>
 </form>
+
+<script></script>
+
 {% endblock %}
 <!-- end content -->
 
 <!-- script block -->
 {% block script %}
+
 <script>
-    const qty = document.getElementsByClassName("qty");
-    const price = document.getElementsByClassName("price");
-    const orderclassnum = document.getElementsByClassName("orderclassnum");
+    const qty = document.getElementsByClassName("order-qty");
+    const price = document.getElementsByClassName("order-price");
+    const totalprice = document.getElementById("pay-total-price");
 
     let total_price = 0;
     for (let i = 0; i < price.length; i++) {
@@ -76,29 +96,63 @@
         total_price = total_price + mul_price;
     }
 
-    $("#pay-price").append(
-        "<input type='text' name='orderPrice' placeholder='가격' value=" +
-            total_price +
-            " disabled/>"
-    );
+    $("#pay-total-price").append(total_price);
 
-    document.getElementById("pay-btn").addEventListener("click", payy);
-    // 165
+    function payment() {
+        //const orderclassnum = document.getElementsByClassName("orderclassnum");
+        const paypay = document.getElementsByClassName("pay-each-price");
+        const classnum = document.getElementsByClassName("pay-classnum");
+        const orderclassnum =
+            document.getElementsByClassName("pay-orderclassnum");
 
-    function payy() {
+        // $("#pay-class-data").append(
+        //     "<input type='text' name='orderClassNum' value=" +
+        //         pay_classNum +
+        //         "disabled/>"
+        // );
+
+        for (let i = 0; i < paypay.length; i++) {
+            $("#pay-class-data").append(
+                "<input type='text' name='totalPrice' value='" +
+                    paypay[i].innerText +
+                    "'style='display: none'/>"
+            );
+        }
+
+        for (let i = 0; i < classnum.length; i++) {
+            $("#pay-class-data").append(
+                "<input type='text' name='classNum' value='" +
+                    classnum[i].innerText +
+                    "'style='display: none'/>"
+            );
+        }
+
+        for (let i = 0; i < orderclassnum.length; i++) {
+            $("#pay-class-data").append(
+                "<input type='text' name='orderclassnum' value='" +
+                    orderclassnum[i].innerText +
+                    "'style='display: none'/>"
+            );
+        }
+    }
+    payment();
+
+    document.getElementById("pay-btn").addEventListener("click", pay);
+
+    function pay() {
         window.BootPay.request({
-            price: "1000", //실제 결제되는 가격
+            price: total_price, //실제 결제되는 가격
             application_id: "6163c3c27b5ba4002352c6d1",
-            name: "dd", //결제창에서 보여질 이름
-            pg: "kakao",
-            method: "card", //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
+            name: "원데이클래스", //결제창에서 보여질 이름
+            pg: "kcp",
+            method: "", //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
             show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
             items: [
                 {
                     item_name: "dd", //상품명
                     qty: 1, //수량
                     unique: "123", //해당 상품을 구분짓는 primary key
-                    price: 1000, //상품 단가
+                    price: 100, //상품 단가
                     cat1: "TOP", // 대표 상품의 카테고리 상, 50글자 이내
                     cat2: "티셔츠", // 대표 상품의 카테고리 중, 50글자 이내
                     cat3: "라운드 티", // 대표상품의 카테고리 하, 50글자 이내
@@ -125,34 +179,50 @@
         })
             .error(function (data) {
                 //결제 진행시 에러가 발생하면 수행됩니다.
+
+                console.log(1);
                 console.log(data);
             })
             .cancel(function (data) {
                 //결제가 취소되면 수행됩니다.
+                //                {pay_cancel:'cancel'} = data;
+                console.log("사용자 취소");
+                data.action = "hi";
                 console.log(data);
             })
             .ready(function (data) {
                 // 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
+                console.log(3);
                 console.log(data);
             })
             .confirm(function (data) {
                 //결제가 실행되기 전에 수행되며, 주로 재고를 확인하는 로직이 들어갑니다.
                 //주의 - 카드 수기결제일 경우 이 부분이 실행되지 않습니다.
-                console.log(data);
-                if (is_somthing) {
-                    // 재고 수량 관리 로직 혹은 다른 처리
-                    this.transactionConfirm(data); // 조건이 맞으면 승인 처리를 한다.
-                } else {
-                    this.removePaymentWindow(); // 조건이 맞지 않으면 결제 창을 닫고 결제를 승인하지 않는다.
-                }
+                console.log(4);
+                this.transactionConfirm(data); // 조건이 맞으면 승인 처리를 한다.
+                // } else {
+                //     this.removePaymentWindow(); // 조건이 맞지 않으면 결제 창을 닫고 결제를 승인하지 않는다.
+                // }
             })
             .close(function (data) {
-                // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
+                console.log(5);
                 console.log(data);
+                location.href = "/pay";
+
+                // if (cancel) {
+                //     location.href = "#";
+                // } else {
+                //     location.href = "/pay";
+                // }
+
+                // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
             })
             .done(function (data) {
                 //결제가 정상적으로 완료되면 수행됩니다
                 //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
+                console.log(6);
+                // 결제내역 데이터베이스에 저장!
+
                 console.log(data);
             });
     }

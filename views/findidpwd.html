@@ -1,26 +1,38 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<form id="find-form" action="auth/findidpwd" method="post">
+<form id="find-form"  method="post">
     <fieldset>
         <legend>아이디 / 비밀번호 찾기</legend>
-        <div class="findId">
+        <h3>아이디 찾기</h3>
+        <hr>
+        <div class="findid">
             <h3>가입시 입력한 이메일 주소를 입력해주세요.</h3>
-            <label for="">이메일</label>
+            <label for="username">이름</label>
+            <input id="username" type="mail" name="username">
+            <label for="usertel">전화번호</label>
+            <input id="usertel" type="mail" name="usertel">
+            <button id="findid" type="submit" onclick="javascript: form.action='/auth/findid'">아이디 찾기</button>
+        </div>
+        <h3>비밀번호 찾기</h3>
+        <hr>
+        <div class="findpwd">
+            <h3>가입시 입력한 이메일 주소를 입력해주세요.</h3>
+            <label for="usermail">이메일</label>
             <input id="usermail" type="mail" name="usermail">
-            <button id="findId" type="submit">아이디 찾기</button>
+            <button id="findpwd" type="submit" onclick="javascript: form.action='/auth/findpwd'">비밀번호 찾기</button>
         </div>
     </fieldset>
 </form>
 {% endblock %}
 {% block script %}
 <script>
-    const findid = document.getElementById('findId');
+    const findpwd = document.getElementById('findpwd');
     const mail = document.getElementById('mail');
 
     let regMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
-    findid.addEventListener('click', () => {
+    findpwd.addEventListener('click', () => {
         if (mail.value == '') {
             alert('이메일 주소를 입력해주세요')
         } else if (!regMail.test(mail.value)) {

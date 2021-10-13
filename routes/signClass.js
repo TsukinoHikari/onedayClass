@@ -3,6 +3,7 @@ const Oclass = require("../models/oclass");
 const UrlPath = require("../models/urlPath");
 const Wishlist = require("../models/wishlist");
 const OrderClass = require("../models/orderClass");
+const OrderClassDetail = require("../models/orderClassDetail");
 const Comment = require("../models/comment");
 const fs = require("fs");
 const path = require("path");
@@ -70,7 +71,40 @@ router.get("/pay", isLoggedIn, async (req, res) => {
     }
 });
 router.post("/pay", async (req, res) => {
+    const { orderName, orderTel, totalPrice, classNum, orderclassnum } =
+        req.body;
     try {
+        const user = res.locals.user;
+
+        if (typeof totalPrice == "object") {
+            for (let i = 0; i < classNum.length; i++) {
+                await OrderClassDetail.create({
+                    orderName,
+                    orderTel,
+                    orderPrice: totalPrice[i],
+                    classNum: classNum[i],
+                    userId: user.userId,
+                });
+
+                await OrderClass.destroy({
+                    where: { orderClassNum: orderclassnum[i] },
+                });
+            }
+        } else {
+            await OrderClassDetail.create({
+                orderName,
+                orderTel,
+                orderPrice: totalPrice,
+                classNum: classNum,
+                userId: user.userId,
+            });
+
+            await OrderClass.destroy({
+                where: { orderClassNum: orderclassnum },
+            });
+        }
+
+        //console.log(orderName, orderTel, totalPrice, classNum, orderclassnum);
     } catch (err) {
         console.error(err);
         next(err);
@@ -207,15 +241,29 @@ router.post("/:id/:commentnum/edit", async (req, res, next) => {
             where: { classNum: classnumber, userId: user },
         });
         // return res.json(b);
-        for (let i = 0; i < b.length; i++) {
-            if (b[i].commentNum == commentnumber) {
-                await Comment.update(
-                    {
-                        commentContent: req.body.updateComment[i],
-                        updatedAt: Date.now(),
-                    },
-                    { where: { commentNum: commentnumber } }
-                );
+        if (typeof commentNumber == "object") {
+            for (let i = 0; i < b.length; i++) {
+                if (b[i].commentNum == commentnumber) {
+                    await Comment.update(
+                        {
+                            commentContent: req.body.updateComment[i],
+                            updatedAt: Date.now(),
+                        },
+                        { where: { commentNum: commentnumber } }
+                    );
+                }
+            }
+        } else {
+            for (let i = 0; i < b.length; i++) {
+                if (b[i].commentNum == commentnumber) {
+                    await Comment.update(
+                        {
+                            commentContent: req.body.updateComment,
+                            updatedAt: Date.now(),
+                        },
+                        { where: { commentNum: commentnumber } }
+                    );
+                }
             }
         }
 
