@@ -4,76 +4,72 @@
 <!-- main content style -->
 <link rel="stylesheet" href="/maincontent.css" />
 {% endblock %} {% block content %}
-<h1>메인페이지에유</h1>
 <!-- 배너 작업 -->
-<!-- <div class="banner">
-    <input type="radio" name="slide" id="slide01" checked>
-    <input type="radio" name="slide" id="slide02">
-    <input type="radio" name="slide" id="slide03">
-    <input type="radio" name="slide" id="slide04">
-    <div class="slidewrap">
-        <ul class="slidelist">
-            <li>
-                <a>
-                    <label for="slide04" class="left"></label>
-                    <img src="image/search_icon.png" alt="">
-                    <label for="slide02" class="right"></label>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <label for="slide01" class="left"></label>
-                    <img src="image/search_icon.png" alt="">
-                    <label for="slide03" class="right"></label>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <label for="slide02" class="left"></label>
-                    <img src="image/search_icon.png" alt="">
-                    <label for="slide04" class="right"></label>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <label for="slide03" class="left"></label>
-                    <img src="image/search_icon.png" alt="">
-                    <label for="slide01" class="right"></label>
-                </a>
-            </li>
-        </ul></div>
-</div> -->
+<div class="banner">
+  <input type="radio" name="slide" id="slide01" checked />
+  <input type="radio" name="slide" id="slide02" />
+  <input type="radio" name="slide" id="slide03" />
+  <input type="radio" name="slide" id="slide04" />
+  <div class="slidewrap">
+    <ul class="slidelist">
+      <li>
+        <a>
+          <label for="slide04" class="left"></label>
+          <img src="image/banner01.png" alt="" />
+          <label for="slide02" class="right"></label>
+        </a>
+      </li>
+      <li>
+        <a>
+          <label for="slide01" class="left"></label>
+          <img src="image/banner02.png" alt="" />
+          <label for="slide03" class="right"></label>
+        </a>
+      </li>
+      <li>
+        <a>
+          <label for="slide02" class="left"></label>
+          <img src="image/banner03.png" alt="" />
+          <label for="slide04" class="right"></label>
+        </a>
+      </li>
+      <li>
+        <a>
+          <label for="slide03" class="left"></label>
+          <img src="image/banner04.png" alt="" />
+          <label for="slide01" class="right"></label>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
 <div class="main-class-category">
-    {% for category in categories %}
-    <div class="main-category-href">
-        <a href="/category/{{category.categoryNum}}"
-            >{{category.categoryName}}</a
-        >
-    </div>
-    {% endfor %}
+  {% for category in categories %}
+  <div class="main-category-href">
+    <a href="/category/{{category.categoryNum}}">{{category.categoryName}}</a>
+  </div>
+  {% endfor %}
 </div>
 <div class="main-class-contents">
-    <table>
-        <tr>
-            {% for image in classImage %}
-            <th>
-                <a href="/signClass/{{image.OclassClassNum}}"
-                    ><img src="{{image.path}}" alt=""
-                /></a>
-            </th>
-            {%endfor%}
-        </tr>
-        <!--  -->
-        <tr>
-            {% for eachClass in classes %}
-            <td>
-                <a href="/signClass/{{eachClass.classNum}}"
-                    >{{eachClass.classTitle}}</a
-                >
-            </td>
-            {% endfor %}
-        </tr>
-    </table>
+  <table>
+    <tr>
+      {% for image in classImage %}
+      <th>
+        <a href="/signClass/{{image.OclassClassNum}}"
+          ><img src="{{image.path}}" alt=""
+        /></a>
+      </th>
+      {%endfor%}
+    </tr>
+    <!--  -->
+    <tr>
+      {% for eachClass in classes %}
+      <td>
+        <a href="/signClass/{{eachClass.classNum}}">{{eachClass.classTitle}}</a>
+      </td>
+      {% endfor %}
+    </tr>
+  </table>
 </div>
 
 <!-- 블럭 끝 -->
