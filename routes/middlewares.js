@@ -2,7 +2,9 @@ exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
-        res.status(403).send("로그인 필요");
+        res.send(
+            "<script>alert('로그인 해야합니다.');location.href='/login';</script>"
+        );
     }
 };
 

@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0,
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0,
         shrink-to-fit=no"
-    />
-    <title>{{title}}</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <style>
-      table,
-      th {
-        border: 1px solid black;
-      }
-    </style>
-  </head>
+        />
+        <title>{{title}}</title>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+            crossorigin="anonymous"
+        />
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <style>
+            table,
+            th {
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <table id="notice-list">
+            <thead>
+                <tr>
+                    <th>no</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for num in nums %}
+                    <td>{{num.no}}</td>
 
-  <body>
-    <table id="notice-list">
-      <thead>
-        <tr>
-          <th>no</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>작성일</th>
-          <th>조회수</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          {% for num in nums %}
-          <td>{{num.no}}</td>
+                    <td>
+                        <a href="/notice/{{num.noticeNum}}"
+                            >{{num.noticeTitle}}</a
+                        >
+                    </td>
+                    <td>{{num.adminId}}</td>
+                    <td>{{num.noticeCreated}}</td>
+                    <td>1</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-          <td>
-            <a href="/notice/{{num.noticeNum}}">{{num.noticeTitle}}</a>
-          </td>
-          <td>{{num.adminId}}</td>
-          <td>{{num.noticeCreated}}</td>
-          <td>1</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-    <!-- <nav aria-label="Page navigation example">
+        <!-- <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item">
                     <a class="page-link" href="#" aria-label="Previous">
@@ -77,91 +78,91 @@
             </ul>
         </nav> -->
 
-    <div class="pagination-wrapper clearfix">
-      <ul class="pagination float--right" id="pages"></ul>
-    </div>
+        <div class="pagination-wrapper clearfix">
+            <ul class="pagination float--right" id="pages"></ul>
+        </div>
 
-    {% if admin and admin.adminId %}
-    <button onclick="location.href='/notice/post'">등록하기</button>
-    <button onclick="location.href='/auth/logout'">로그아웃</button>
-    {% else %}
-    <button onclick="location.href='/admin'">관리자로그인</button>
-    {% endif %}
-    <!-- bootstrap -->
+        {% if admin and admin.adminId %}
+        <button onclick="location.href='/notice/post'">등록하기</button>
+        <button onclick="location.href='/auth/logout'">로그아웃</button>
+        {% else %}
+        <button onclick="location.href='/admin'">관리자로그인</button>
+        {% endif %}
+        <!-- bootstrap -->
 
-    <script>
-      function paging(totalData, currentPage) {
-        const dataPerPage = 10;
-        const pageCount = 3;
+        <script>
+            function paging(totalData, currentPage) {
+                const dataPerPage = 10;
+                const pageCount = 3;
 
-        // console.log("currentPage : " + currentPage);
-        // console.log("totalData : " + totalData);
-        const totalPage = Math.ceil(totalData / dataPerPage); // 총 페이지 수
-        const pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+                // console.log("currentPage : " + currentPage);
+                // console.log("totalData : " + totalData);
+                const totalPage = Math.ceil(totalData / dataPerPage); // 총 페이지 수
+                const pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
 
-        // console.log("pageGroup : " + pageGroup);
-        // console.log("totalPage : " + totalPage);
+                // console.log("pageGroup : " + pageGroup);
+                // console.log("totalPage : " + totalPage);
 
-        let last = pageGroup * pageCount; // 화면에 보여질 마지막 페이지 번호
-        if (last > totalPage) last = totalPage;
-        let first = last - (pageCount - 1); // 화면에 보여질 첫번째 페이지 번호
-        const next = last + 1;
-        const prev = first - 1;
+                let last = pageGroup * pageCount; // 화면에 보여질 마지막 페이지 번호
+                if (last > totalPage) last = totalPage;
+                let first = last - (pageCount - 1); // 화면에 보여질 첫번째 페이지 번호
+                const next = last + 1;
+                const prev = first - 1;
 
-        // console.log("last : " + last);
-        // console.log("first : " + first);
-        // console.log("next : " + next);
-        // console.log("prev : " + prev);
+                // console.log("last : " + last);
+                // console.log("first : " + first);
+                // console.log("next : " + next);
+                // console.log("prev : " + prev);
 
-        if (totalPage < 1) {
-          first = last;
-        }
-        const pages = $("#pages");
-        pages.empty();
-        if (first > 5) {
-          pages.append(
-            '<li class="pagination-item">' +
-              '<a onclick="GetTarget(' +
-              prev +
-              ");\" style='margin-left: 2px'>prev</a></li>"
-          );
-        }
-        for (let j = first; j <= last; j++) {
-          if (currentPage === j) {
-            pages.append(
-              '<li class="pagination-item">' +
-                "<a class='active' onclick=\"GetTarget(" +
-                j +
-                ");\" style='margin-left: 2px'>" +
-                j +
-                "</a></li>"
-            );
-          } else if (j > 0) {
-            pages.append(
-              '<li class="pagination-item">' +
-                '<a onclick="GetTarget(' +
-                j +
-                ");\" style='margin-left: 2px'>" +
-                j +
-                "</a></li>"
-            );
-          }
-        }
-        if (next > 5 && next < totalPage) {
-          pages.append(
-            '<li class="pagination-item">' +
-              '<a onclick="GetTarget(' +
-              next +
-              ");\" style='margin-left: 2px'>next</a></li>"
-          );
-        }
-      }
-      $("document").ready(function () {
-        paging(totalData, dataPerPage, pageCount, 1);
-      });
-    </script>
+                if (totalPage < 1) {
+                    first = last;
+                }
+                const pages = $("#pages");
+                pages.empty();
+                if (first > 5) {
+                    pages.append(
+                        '<li class="pagination-item">' +
+                            '<a onclick="GetTarget(' +
+                            prev +
+                            ");\" style='margin-left: 2px'>prev</a></li>"
+                    );
+                }
+                for (let j = first; j <= last; j++) {
+                    if (currentPage === j) {
+                        pages.append(
+                            '<li class="pagination-item">' +
+                                "<a class='active' onclick=\"GetTarget(" +
+                                j +
+                                ");\" style='margin-left: 2px'>" +
+                                j +
+                                "</a></li>"
+                        );
+                    } else if (j > 0) {
+                        pages.append(
+                            '<li class="pagination-item">' +
+                                '<a onclick="GetTarget(' +
+                                j +
+                                ");\" style='margin-left: 2px'>" +
+                                j +
+                                "</a></li>"
+                        );
+                    }
+                }
+                if (next > 5 && next < totalPage) {
+                    pages.append(
+                        '<li class="pagination-item">' +
+                            '<a onclick="GetTarget(' +
+                            next +
+                            ");\" style='margin-left: 2px'>next</a></li>"
+                    );
+                }
+            }
+            $("document").ready(function () {
+                paging(totalData, dataPerPage, pageCount, 1);
+            });
+        </script>
 
-    <!-- <script
+        <!-- <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"
@@ -176,5 +177,5 @@
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"
         ></script> -->
-  </body>
+    </body>
 </html>

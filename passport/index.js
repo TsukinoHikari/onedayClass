@@ -6,7 +6,6 @@ const kakao = require("./kakaoStrategy");
 const User = require("../models/user");
 const Admin = require("../models/admin");
 
-// 저희 이름 좀 상의할까요?
 module.exports = () => {
     passport.serializeUser((user, done) => {
         done(null, user.userId);

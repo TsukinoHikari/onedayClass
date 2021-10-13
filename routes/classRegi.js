@@ -12,6 +12,7 @@ const multer = require("multer");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 const { count } = require("../models/notice");
 const db = require("../models");
+const { body } = require("express-validator");
 
 //여기까지
 
@@ -73,7 +74,7 @@ router
         async (req, res, next) => {
             try {
                 writer = res.locals.user.userId;
-                body = req.body;
+                const body = req.body;
 
                 await Oclass.create({
                     userId: writer,
@@ -82,6 +83,8 @@ router
                     classPrice: body.price,
                     classQty: body.qty,
                     classContent: body.content,
+                    classDate: body.date,
+                    categoryNum: body.category,
                 });
 
                 const ocNum = await Oclass.findOne({

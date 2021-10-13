@@ -38,6 +38,10 @@ module.exports = class Oclass extends Sequelize.Model {
                     type: Sequelize.STRING(3000),
                     allowNull: true,
                 },
+                classDate: {
+                    type: Sequelize.DATE,
+                    allowNull: true,
+                },
             },
             {
                 sequelize,
@@ -60,6 +64,18 @@ module.exports = class Oclass extends Sequelize.Model {
         db.Oclass.hasMany(db.OrderClassDetail, {
             foreignKey: "classNum",
             sourceKey: "classNum",
+        });
+        db.Oclass.hasMany(db.OrderClass, {
+            foreignKey: "classNum",
+            sourceKey: "classNum",
+        });
+        db.Oclass.hasMany(db.Comment, {
+            foreignKey: "classNum",
+            sourceKey: "classNum",
+        });
+        db.Oclass.belongsTo(db.Category, {
+            foreignKey: "categoryNum",
+            targetKey: "categoryNum",
         });
     }
 };

@@ -154,6 +154,19 @@ router.get("/logout", isLoggedIn, (req, res) => {
     res.redirect("/");
 });
 //
+router.get(
+    "/google",
+    passport.authenticate("google", { scope: ["email", "profile"] })
+);
+router.get(
+    "/google/callback",
+    passport.authenticate("google", {
+        failureRedirect: "/",
+    }),
+    (req, res) => {
+        res.redirect(`/`);
+    }
+);
 
 router.get("/kakao", passport.authenticate("kakao"));
 

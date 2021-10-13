@@ -8,6 +8,8 @@ const UrlPath = require("./urlPath");
 const WishList = require("./wishlist");
 const OrderClass = require("./orderClass");
 const OrderClassDetail = require("./orderClassDetail");
+const Category = require("./category");
+const Comment = require("./comment");
 
 const bcrypt = require("bcrypt");
 
@@ -44,43 +46,15 @@ const sequelize = new Sequelize(
         dialectOptions: {
             timezone: "+09:00", // DB에서 가져올 때 시간 설정
         },
+        define: {
+            timestamps: false,
+            supportBigNumbers: true,
+        },
     }
 );
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-db.User = User;
-db.Oclass = Oclass;
-db.Admin = Admin;
-db.Notice = Notice;
-db.Auth = Auth;
-db.UrlPath = UrlPath;
-db.WishList = WishList;
-db.OrderClass = OrderClass;
-db.OrderClassDetail = OrderClassDetail;
-
-// db.images = require("./image.model.js")(sequelize, Sequelize);
-
-User.init(sequelize);
-Oclass.init(sequelize);
-Admin.init(sequelize);
-Notice.init(sequelize);
-Auth.init(sequelize);
-UrlPath.init(sequelize);
-WishList.init(sequelize);
-OrderClass.init(sequelize);
-OrderClassDetail.init(sequelize);
-
-User.associate(db);
-Oclass.associate(db);
-Admin.associate(db);
-Notice.associate(db);
-Auth.associate(db);
-UrlPath.associate(db);
-WishList.associate(db);
-OrderClass.associate(db);
-OrderClassDetail.associate(db);
 
 const oClassPath = sequelize.define(
     "oClassPath",
@@ -104,7 +78,49 @@ const oClassPath = sequelize.define(
     }
 );
 
+db.User = User;
+db.Oclass = Oclass;
+db.Admin = Admin;
+db.Notice = Notice;
+db.Auth = Auth;
+db.UrlPath = UrlPath;
+db.WishList = WishList;
+db.OrderClass = OrderClass;
+db.OrderClassDetail = OrderClassDetail;
+db.Comment = Comment;
+db.Category = Category;
+
+// db.images = require("./image.model.js")(sequelize, Sequelize);
+
+User.init(sequelize);
+Oclass.init(sequelize);
+Admin.init(sequelize);
+Notice.init(sequelize);
+Auth.init(sequelize);
+UrlPath.init(sequelize);
+WishList.init(sequelize);
+OrderClass.init(sequelize);
+OrderClassDetail.init(sequelize);
+Comment.init(sequelize);
+Category.init(sequelize);
+
+User.associate(db);
+Oclass.associate(db);
+Admin.associate(db);
+Notice.associate(db);
+Auth.associate(db);
+UrlPath.associate(db);
+WishList.associate(db);
+OrderClass.associate(db);
+OrderClassDetail.associate(db);
+Comment.associate(db);
+Category.associate(db);
+
 Oclass.belongsToMany(UrlPath, { through: oClassPath });
 UrlPath.belongsToMany(Oclass, { through: oClassPath });
 
 module.exports = db;
+
+// Oclass.prototype.dateFormat = (date) => {
+//     moment(date).format("YYYY년 MM월 DD일");
+// };

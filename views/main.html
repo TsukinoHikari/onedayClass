@@ -1,35 +1,85 @@
-{% extends 'layout.html' %} {% block content %}
+{% extends 'layout.html' %}
+<!-- style block -->
+{% block style %}
+<!-- main content style -->
+<link rel="stylesheet" href="/maincontent.css" />
+{% endblock %} {% block content %}
 <h1>메인페이지에유</h1>
-<table>
-  <tr>
-    {% for image in classImage %}
-    <th>
-      <a href="/signClass/{{image.OclassClassNum}}"
-        ><img src="{{image.path}}" alt=""
-      /></a>
-    </th>
-    {%endfor%}
-  </tr>
-  <!--  -->
-  <tr>
-    {% for eachClass in classes %}
-    <td>
-      <a href="/signClass/{{eachClass.classNum}}">{{eachClass.classTitle}}</a>
-    </td>
+<!-- 배너 작업 -->
+<!-- <div class="banner">
+    <input type="radio" name="slide" id="slide01" checked>
+    <input type="radio" name="slide" id="slide02">
+    <input type="radio" name="slide" id="slide03">
+    <input type="radio" name="slide" id="slide04">
+    <div class="slidewrap">
+        <ul class="slidelist">
+            <li>
+                <a>
+                    <label for="slide04" class="left"></label>
+                    <img src="image/search_icon.png" alt="">
+                    <label for="slide02" class="right"></label>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <label for="slide01" class="left"></label>
+                    <img src="image/search_icon.png" alt="">
+                    <label for="slide03" class="right"></label>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <label for="slide02" class="left"></label>
+                    <img src="image/search_icon.png" alt="">
+                    <label for="slide04" class="right"></label>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <label for="slide03" class="left"></label>
+                    <img src="image/search_icon.png" alt="">
+                    <label for="slide01" class="right"></label>
+                </a>
+            </li>
+        </ul></div>
+</div> -->
+<div class="main-class-category">
+    {% for category in categories %}
+    <div class="main-category-href">
+        <a href="/category/{{category.categoryNum}}"
+            >{{category.categoryName}}</a
+        >
+    </div>
     {% endfor %}
-  </tr>
-</table>
+</div>
+<div class="main-class-contents">
+    <table>
+        <tr>
+            {% for image in classImage %}
+            <th>
+                <a href="/signClass/{{image.OclassClassNum}}"
+                    ><img src="{{image.path}}" alt=""
+                /></a>
+            </th>
+            {%endfor%}
+        </tr>
+        <!--  -->
+        <tr>
+            {% for eachClass in classes %}
+            <td>
+                <a href="/signClass/{{eachClass.classNum}}"
+                    >{{eachClass.classTitle}}</a
+                >
+            </td>
+            {% endfor %}
+        </tr>
+    </table>
+</div>
 
 <!-- 블럭 끝 -->
 {% endblock %}
 <!-- 스크립트 -->
 {% block script %}
-<script>
-  window.onload = () => {
-    if (new URL(location.href).searchParams.get("msg")) {
-      alert("이미 존재하는 이메일입니다.");
-    }
-  };
-</script>
+<script></script>
 
 {% endblock %}

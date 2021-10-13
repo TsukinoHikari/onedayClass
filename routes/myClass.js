@@ -46,34 +46,34 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
-//찜하기 요청(동욱)
-router.post("/:id", isLoggedIn, async (req, res) => {
-    try {
-        id = req.params.id;
-        user = res.locals.user.userId;
-        const classes = await Oclass.findOne({
-            where: { classNum: id },
-        });
-        console.log(user);
-        console.log(classes.classNum); //
-        const wish = await Wishlist.findOne({
-            where: { classNum: classes.classNum },
-        });
+//찜하기 요청(동욱) signclass파일로 옮겨서 주석처리함 (삭제 예정)
+// router.post("/:id", isLoggedIn, async (req, res) => {
+//     try {
+//         id = req.params.id;
+//         user = res.locals.user.userId;
+//         const classes = await Oclass.findOne({
+//             where: { classNum: id },
+//         });
+//         console.log(user);
+//         console.log(classes.classNum); //
+//         const wish = await Wishlist.findOne({
+//             where: { classNum: classes.classNum },
+//         });
 
-        if (wish) {
-            await Wishlist.destroy({ where: { classNum: classes.classNum } });
-            res.redirect("/myClass/" + id);
-        } else {
-            await Wishlist.create({
-                userId: user,
-                classNum: classes.classNum,
-            });
-            res.redirect("/myClass/" + id);
-        }
-    } catch (err) {
-        console.error(err);
-    }
-});
+//         if (wish) {
+//             await Wishlist.destroy({ where: { classNum: classes.classNum } });
+//             res.redirect("/myClass/" + id);
+//         } else {
+//             await Wishlist.create({
+//                 userId: user,
+//                 classNum: classes.classNum,
+//             });
+//             res.redirect("/myClass/" + id);
+//         }
+//     } catch (err) {
+//         console.error(err);
+//     }
+// });
 
 router.get("/:id/delete", async (req, res, next) => {
     try {

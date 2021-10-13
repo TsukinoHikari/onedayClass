@@ -1,6 +1,7 @@
 const express = require("express");
-const { Auth } = require("../models");
+const { Auth, Category } = require("../models");
 const Oclass = require("../models/oclass");
+
 const { isNotLoggedIn, isLoggedIn } = require("./middlewares");
 const { sequelize } = require("../models");
 
@@ -20,17 +21,17 @@ router.get("/findidpwd", isNotLoggedIn, (req, res) => {
 router.get("/resetidpw/:token", isNotLoggedIn, async (req, res) => {
   res.render("reset-password", { title: "비밀번호 재설정" });
 });
-// router.get("/mypage", isLoggedIn, (req, res) => {
-//   res.render("mypage", { title: "내정보" });
-// });
-router.get("/join", isNotLoggedIn, (req, res) => {
-  res.render("join", { title: "회원가입" });
-});
 router.get("/terms", isNotLoggedIn, (req, res) => {
   res.render("terms", { title: "이용약관" });
 });
 router.get("/privacy", isNotLoggedIn, (req, res) => {
   res.render("privacy", { title: "개인정보 처리 방침" });
+});
+// router.get("/mypage", isLoggedIn, (req, res) => {
+//   res.render("mypage", { title: "내정보" });
+// });
+router.get("/join", isNotLoggedIn, (req, res) => {
+  res.render("join", { title: "회원가입" });
 });
 router.get("/", async (req, res) => {
   try {
@@ -39,12 +40,14 @@ router.get("/", async (req, res) => {
     const classImage = await sequelize.query(sql1, {
       type: QueryTypes.SELECT,
     });
+    const categories = await Category.findAll({});
     const classes = await Oclass.findAll({});
 
     res.render("main", {
       title: "원데이클래스",
       classImage,
       classes,
+      categories,
     });
   } catch (err) {
     console.error(err);
