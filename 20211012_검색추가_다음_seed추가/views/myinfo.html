@@ -66,27 +66,42 @@
     const newpw = document.getElementById("newpassword");
     const newpw2 = document.getElementById("newpassword2");
     const msg = document.querySelectorAll(".msg");
-    newpw2.addEventListener("keyup", checkPwd);
+    newpw.addEventListener("keyup", checkPwd1);
+    newpw2.addEventListener("keyup", checkPwd2);
 
-    function checkPwd() {
-        let regPwd = /[a-zA-Z0-9~!@#$%^&*()_+|<script>?:{}]{8,16}/;
-        if (!regPwd.test(newpw2.value)) {
+
+    function checkPwd1() {
+        let regPwd = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
+
+        if (!regPwd.test(newpw.value)) {
             msg[0].innerHTML =
-                "8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.";
+                "6~20자 영문 대/소문자에 숫자 또는 특수문자를 포함해주세요.";
             msg[0].style.color = "red";
             msg[0].style.display = "block";
-            newpwToken = false;
-        } else if (newpw.value !== newpw2.value) {
-            msg[0].style.display = "none";
-            msg[0].innerHTML = "비밀번호가 일치하지 않습니다.";
-            msg[0].style.color = "red";
-            msg[0].style.display = "block";
-            newpwToken = false;
+            pwdToken = false;
         } else {
             msg[0].style.display = "none";
-            msg[0].innerHTML = "올바른 아이디입니다~!";
-            msg[0].style.color = "#08A600";
-            msg[0].style.display = "block";
+            pwdToken = true;
+        }
+    }
+
+    function checkPwd2() {
+        let regPwd = /[a-zA-Z0-9~!@#$%^&*()_+|<script>?:{}]{8,16}/;
+        if (!regPwd.test(newpw2.value)) {
+            msg[1].innerHTML =
+                "8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.";
+            msg[1].style.color = "red";
+            msg[1].style.display = "block";
+            newpwToken = false;
+        } else if (newpw.value !== newpw2.value) {
+            msg[1].style.display = "none";
+            msg[1].innerHTML = "비밀번호가 일치하지 않습니다.";
+            msg[1].style.color = "red";
+            msg[1].style.display = "block";
+            newpwToken = false;
+        } else {
+            msg[1].style.display = "none";
+            //내정보수정 지운거
             newpwToken = true;
         }
     }

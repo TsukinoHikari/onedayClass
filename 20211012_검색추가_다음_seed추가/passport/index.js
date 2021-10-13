@@ -3,11 +3,9 @@ const localu = require("./localStrategyu");
 const locala = require("./localStrategya");
 
 const kakao = require("./kakaoStrategy");
-const google = require("./googleStrategy");
 const User = require("../models/user");
 const Admin = require("../models/admin");
 
-// 저희 이름 좀 상의할까요?
 module.exports = () => {
     passport.serializeUser((user, done) => {
         done(null, user.userId);
@@ -30,5 +28,4 @@ module.exports = () => {
     localu();
     //locala();
     kakao();
-    google();
 };

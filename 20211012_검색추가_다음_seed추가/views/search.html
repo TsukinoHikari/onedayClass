@@ -1,11 +1,20 @@
-<!-- 검색 -->
-{% extends 'layout.html' %} {% block content %} {% for list in searchClass %}
-
+<!-- 검색추가본 -->
+{% extends 'layout.html' %} {% block content %} 
+<!-- 야구 -->
+<!--  이미지-->
+{% for image in classImage%}
+  <div><img src="{{image.path}}" alt=""></div>
+{% endfor %}
+{% for list in searchClass %}
 <div class="searchList">
   <div class="list">
-    <a href="/signClass/{{seachClass.classNum}}">{{list.classTitle}}</a>
+    <!-- <a href="/signClass/{{image.OclassClassNum}}"
+    ><img src="{{image.path}}" alt=""
+/></a> -->
+    <a href="/signClass/{{list.classNum}}">{{list.classTitle}}</a>
   </div>
 </div>
+
 {% endfor %}
 
 <!-- 블럭 끝 -->

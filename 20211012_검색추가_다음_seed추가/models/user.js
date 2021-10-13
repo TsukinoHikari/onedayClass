@@ -78,5 +78,9 @@ module.exports = class User extends Sequelize.Model {
             foreignKey: "userId",
             sourceKey: "userId",
         });
+        db.User.hasMany(db.OrderClassDetail, {
+            foreignKey: "userId",
+            sourceKey: "userId",
+        });
     }
 };

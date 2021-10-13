@@ -193,7 +193,10 @@ router.post("/resetinfo", isLoggedIn, async (req, res) => {
                 { where: { userId: res.locals.user.dataValues.userId } }
             );
         }
-        return res.redirect("/");
+       //내정보수정
+       res.writeHead(302, { "Content-Type": "text/html; charset=utf8" });
+       res.write(`<script>alert('수정되었습니다..')</script>`);
+       return res.write('<script>window.location="/"</script>')
     } catch (err) {
         console.error(err);
     }

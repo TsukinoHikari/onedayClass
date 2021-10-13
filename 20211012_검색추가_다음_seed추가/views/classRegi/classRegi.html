@@ -7,66 +7,62 @@
 />
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="classRegi.css" />
 <!-- end style -->
 {% endblock %}
 <!-- content block -->
 {% block content %}
 <!--check login-->
 {% if user and user.userId %}
-<div class="classRegi-container">
-    <h1><a class="classRegi-title" href="/classRegi">클래스 등록하기</a></h1>
-    <form method="post" enctype="multipart/form-data">
-        <div>
-            <input type="hidden" name="writer" value="{{user.userId}}" />
-        </div>
-        <div class="classRegi-input">
-            <input type="text" name="title" placeholder="제목" />
-        </div>
-        <div>
-            <select name="category">
-                <option value="1">공예DIY</option>
-                <option value="2">문화예술</option>
-                <option value="3">뷰티</option>
-                <option value="4">스포츠</option>
-                <option value="5">요리</option>
-                <option value="6">자기계발</option>
-                <option value="7">기타</option>
-            </select>
-        </div>
-        <div>
-            <input type="text" name="addr" placeholder="주소" />
-        </div>
-        <div>
-            <input type="text" name="price" placeholder="가격" />
-        </div>
-        <div>
-            <input type="number" name="qty" placeholder="최대 인원" min="1" />
-        </div>
-        <div>
-            <input
-                id="datepicker"
-                name="date"
-                type="text"
-                placeholder="클래스 날짜"
-            />
-        </div>
-        <div>
-            <input type="file" name="img" placeholder="이미지 등록" multiple />
-        </div>
-        <div>
-            <textarea
-                name="content"
-                id="content"
-                cols="30"
-                rows="10"
-                style="resize: none"
-            ></textarea>
-        </div>
-        <input type="submit" value="등록하기" />
-        <a href="/">돌아가기</a>
-    </form>
-</div>
+<form method="post" enctype="multipart/form-data">
+    <div>
+        <input type="hidden" name="writer" value="{{user.userId}}" />
+    </div>
+    <div>
+        <input type="text" name="title" placeholder="제목" />
+    </div>
+    <div>
+        <select name="category">
+            <option value="1">공예DIY</option>
+            <option value="2">문화예술</option>
+            <option value="3">뷰티</option>
+            <option value="4">스포츠</option>
+            <option value="5">요리</option>
+            <option value="6">자기계발</option>
+            <option value="7">기타</option>
+        </select>
+    </div>
+    <div>
+        <input type="text" name="addr" placeholder="주소" />
+    </div>
+    <div>
+        <input type="text" name="price" placeholder="가격" />
+    </div>
+    <div>
+        <input type="number" name="qty" placeholder="최대 인원" min="1" />
+    </div>
+    <div>
+        <input
+            id="datepicker"
+            name="date"
+            type="text"
+            placeholder="클래스 날짜"
+        />
+    </div>
+    <div>
+        <input type="file" name="img" placeholder="이미지 등록" multiple />
+    </div>
+    <div>
+        <textarea
+            name="content"
+            id="content"
+            cols="30"
+            rows="10"
+            style="resize: none"
+        ></textarea>
+    </div>
+    <input type="submit" value="등록하기" />
+    <a href="/">돌아가기</a>
+</form>
 
 <!--not login status-->
 {% else %}

@@ -41,9 +41,9 @@ module.exports = class OrderClassDetail extends Sequelize.Model {
             foreignKey: "classNum",
             targetKey: "classNum",
         });
-        db.OrderClassDetail.belongsTo(db.OrderClass, {
-            foreignKey: "orderClassNum",
-            targetKey: "orderClassNum",
+        db.OrderClassDetail.belongsTo(db.User, {
+            foreignKey: "userId",
+            targetKey: "userId",
         });
     }
 };
