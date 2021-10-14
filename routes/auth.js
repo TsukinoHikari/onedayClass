@@ -12,20 +12,21 @@ const smtpTransport = require("nodemailer-smtp-transport");
 
 //여기서부터 user
 router.post("/join", async (req, res, next) => {
-    const { userid, userpwd, username, usertel, usermail, useraddr } = req.body;
+    const { userid,userpwd2, username, usertel, usermail, useraddr } = req.body;
 
     try {
         const exUser = await User.findOne({ where: { userId: userid } });
         if (exUser) {
-            //회원가입중복
             res.writeHead(302, { "Content-Type": "text/html; charset=utf8" });
             res.write(`<script>alert('이미 가입된 ID입니다.')</script>`);
             return res.write('<script>window.location="/join"</script>')
         }
-        // if ((userid = "admin")) {
-        //     return res.redirect("/join?error=cannotCreateAdmin");
-        // }
-        const hash = await bcrypt.hash(userpwd, 12);
+        if (userid == "admin") {
+            res.writeHead(302, { "Content-Type": "text/html; charset=utf8" });
+            res.write(`<script>alert('이미 가입된 ID입니다.')</script>`);
+            return res.write('<script>window.location="/join"</script>')
+        }
+        const hash = await bcrypt.hash(userpwd2, 12);
         await User.create({
             userId: userid,
             userPwd: hash,
@@ -34,7 +35,7 @@ router.post("/join", async (req, res, next) => {
             userTel: usertel,
             userAddr: useraddr,
         });
-        return res.redirect("/");
+        return res.redirect("/join/complete");
     } catch (error) {
         console.error(error);
         return next(error);

@@ -17,67 +17,114 @@
 {% block content %}
 <!-- for price -->
 
-{% for a in orderClass %}
+<div class="pay-cart-container">
+    <div class="pay-cart-title">
+        <a href="/signClass/pay">장바구니</a>
+        <div class="pay-process">
+            <span class="pay-cart"><a href="/signClass/pay"> 장바구니</a></span>
+            <span class="pay-process-img">></span>
+            <span class="pay-complete">결제완료</span>
+        </div>
+    </div>
 
-<div class="pay-detail">
-    <div class="pay-classnum" style="display: none">{{a.Oclass.classNum}}</div>
-    <!-- style="display: none" -->
-    <span class="pay-orderclassnum" style="display: none"
-        >{{a.orderClassNum}}</span
-    >
-    <span class="pay-each-price" style="display: none"
-        >{{a.orderQty*a.Oclass.classPrice}}</span
-    >
-
-    <table>
-        <tr>
-            <th>클래스정보</th>
-            <th>인원</th>
-            <th>클래스금액</th>
+    <table class="cart-detail">
+        <tr class="cart-sub-title-area">
+            <th class=>no</th>
+            <th></th>
+            <th class="cart-sub-title-detail">클래스정보</th>
+            <th class="cart-sub-title-qty">인원</th>
+            <th class="cart-sub-title-price">클래스금액</th>
         </tr>
-        <tr>
-            <td>
-                <a href="/signClass/{{a.Oclass.classNum}}"
-                    >{{a.Oclass.classTitle}}</a
-                >
+    
+        <!--  -->
+        {% for a in classImage %}
+        <tr class="cart-each-product">
+            <td class="cart-each-no">{{loop.index}}</td>
+            <td class="cart-each-image">
+                <a
+                    class="cart-each-image-link"
+                    href="/signClass/{{a.orderClassNum}}"
+                    ><img src="../{{a.path}}" alt=""
+                /></a>
             </td>
-            <td class="order-qty">{{a.orderQty}}</td>
-            <td class="order-price">{{a.Oclass.classPrice}}</td>
+
+            <td class="cart-each-title">
+                <div class="cart-each-title-title">
+                    <a href="/signClass/{{a.Oclass.classNum}}"
+                        >{{a.classTitle}}</a
+                    >
+                    <span class="cart-each-product-cancel">
+                        <a href="/signClass/delete/{{a.orderClassNum}}"
+                            ><img src="/image/cancel.png" alt="" /></a
+                    ></span>
+                </div>
+                <div class="cart-each-title-content">
+                    <a href="/signClass/{{a.Oclass.classNum}}"
+                        >{{a.classContent}}</a
+                    >
+                </div>
+            </td>
+            <td class="cart-each-qty">{{a.orderQty}}</td>
+            <td class="cart-each-price">{{a.classPrice}}</td>
+        </tr>
+
+        <!-- hidden place -->
+        <div class="pay-classnum" style="display: none">
+            {{a.classNum}}
+        </div>
+        <span class="pay-orderclassnum" style="display: none"
+            >{{a.orderClassNum}}</span
+        >
+        <span class="pay-each-price" style="display: none"
+            >{{a.orderQty*a.classPrice}}</span
+        >
+        {% endfor %}
+        <tr class="cart-total-price">
+            <td colspan="5">
+                총 신청 클래스 가격 : <span id="pay-total-price"></span>
+            </td>
         </tr>
     </table>
-    <div class="pay-title"></div>
-    <button class="pay-delete-btn" type="button">
-        <a href="/signClass/delete/{{a.orderClassNum}}">삭제</a>
-    </button>
+
+    <!--  -->
+
+    <form id="pay-payform" method="post">
+        <div class="cart-payform-title">
+            <a href="/signClass/pay">주문자</a>
+        </div>
+        <table class="cart-payform-table">
+            <tr class="cart-payform-line">
+                <td class="cart-payform-sub-title">주문자</td>
+                <td class="cart-payform-input">
+                    <input
+                        id="orderName"
+                        type="text"
+                        name="orderName"
+                        value="{{user.userName}}"
+                    />
+                </td>
+            </tr>
+            <tr class="cart-payform-line">
+                <td class="cart-payform-sub-title">주문자 전화번호</td>
+                <td class="cart-payform-input">
+                    <input
+                        id="orderTel"
+                        type="text"
+                        name="orderTel"
+                        value="{{user.userTel}}"
+                    />
+                </td>
+            </tr>
+        </table>
+
+        <div id="pay-class-data"></div>
+        <!-- <button type="button" onclick="pay()">결제하기</button> -->
+        <div class='pay-btn-area'>
+            <button id="pay-btn">결제하기</button>
+        </div>
+        
+    </form>
 </div>
-<br /><br />
-{% endfor %}
-<form id="pay-payform" method="post">
-    <div>
-        주문자 :
-        <input
-            id="orderName"
-            type="text"
-            name="orderName"
-            value="{{user.userName}}"
-        />
-    </div>
-    <div>
-        주문자 전화번호 :<input
-            id="orderTel"
-            type="text"
-            name="orderTel"
-            value="{{user.userTel}}"
-        />
-    </div>
-
-    <div id="pay-class-data"></div>
-    <div id="pay-price">총 금액 : <span id="pay-total-price"></span></div>
-
-    <!-- <button type="button" onclick="pay()">결제하기</button> -->
-    <button id="pay-btn">결제하기</button>
-</form>
-
 <script></script>
 
 {% endblock %}
@@ -87,9 +134,25 @@
 {% block script %}
 
 <script>
-    const qty = document.getElementsByClassName("order-qty");
-    const price = document.getElementsByClassName("order-price");
+    function addComma(num) {
+        var regexp = /\B(?=(\d{3})+(?!\d))/g;
+        return num.toString().replace(regexp, ",");
+    }
+
+    const qty = document.getElementsByClassName("cart-each-qty");
+    const price = document.getElementsByClassName("cart-each-price");
     const totalprice = document.getElementById("pay-total-price");
+    
+    function eachComma(){
+    const eachprice =document.getElementsByClassName('cart-each-price');
+    for (let i = 0; i < eachprice.length; i++) {
+        let eprice = eachprice[i].innerText;
+        const putcomma = addComma(eprice);
+        eachprice[i].innerText=putcomma;
+    }
+    }
+    
+
 
     let total_price = 0;
     for (let i = 0; i < price.length; i++) {
@@ -97,8 +160,8 @@
             parseInt(qty[i].innerText) * parseInt(price[i].innerText);
         total_price = total_price + mul_price;
     }
-
-    $("#pay-total-price").append(total_price);
+    eachComma();
+    $("#pay-total-price").append(addComma(total_price));
 
     function payment() {
         //const orderclassnum = document.getElementsByClassName("orderclassnum");
@@ -123,9 +186,7 @@
 
         for (let i = 0; i < classnum.length; i++) {
             $("#pay-class-data").append(
-                "<input type='text' name='classNum' value='" +
-                    classnum[i].innerText +
-                    "'style='display: none'/>"
+                "<input type='text' name='classNum' value='"+classnum[i].innerText+"'style='display: none'/>"
             );
         }
 

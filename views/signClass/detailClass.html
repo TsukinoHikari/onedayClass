@@ -73,11 +73,7 @@
             </select>
         </div>
         <div class="signClass-pay-btn">
-            <input
-                type="submit"
-                value="결제하기"
-                onclick="javascript: form.action='/signClass/order/{{myClass.classNum}}'"
-            />
+            <input type="submit" value="결제하기" onclick=" checking()" />
         </div>
     </div>
 </form>
@@ -280,8 +276,9 @@
 
         if (pick_classdate == "none" || pick_applicants == "none") {
             alert("옵션을 선택해 주세요.");
+            return false;
         } else {
-            paymentForm.submit();
+            form.action = "/signClass/order/{{myClass.classNum}}";
         }
     }
 </script>

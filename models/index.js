@@ -2,6 +2,8 @@ const Sequelize = require("sequelize");
 const User = require("./user");
 const Oclass = require("./oclass");
 const Admin = require("./admin");
+const Qna = require("./qna");
+const Answer = require("./answer");
 const Notice = require("./notice");
 const Auth = require("./emailauth");
 const UrlPath = require("./urlPath");
@@ -74,8 +76,10 @@ db.UrlPath = UrlPath;
 db.WishList = WishList;
 db.OrderClass = OrderClass;
 db.OrderClassDetail = OrderClassDetail;
+db.Qna = Qna;
 db.Comment = Comment;
 db.Category = Category;
+db.Answer = Answer;
 
 // db.images = require("./image.model.js")(sequelize, Sequelize);
 
@@ -90,6 +94,8 @@ OrderClass.init(sequelize);
 OrderClassDetail.init(sequelize);
 Comment.init(sequelize);
 Category.init(sequelize);
+Qna.init(sequelize);
+Answer.init(sequelize);
 
 User.associate(db);
 Oclass.associate(db);
@@ -102,6 +108,8 @@ OrderClass.associate(db);
 OrderClassDetail.associate(db);
 Comment.associate(db);
 Category.associate(db);
+Qna.associate(db);
+Answer.associate(db);
 
 Oclass.belongsToMany(UrlPath, { through: oClassPath });
 UrlPath.belongsToMany(Oclass, { through: oClassPath });

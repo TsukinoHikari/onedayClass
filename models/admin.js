@@ -49,5 +49,13 @@ module.exports = class Admin extends Sequelize.Model {
             foreignKey: "adminId",
             sourceKey: "adminId",
         });
+        db.Admin.hasMany(db.Qna, {
+            foreignKey: "adminId",
+            sourceKey: "adminId",
+        });
+        db.Admin.hasOne(db.Answer, {
+            foreignKey: "adminId",
+            targetKey: "adminId",
+        });
     }
 };
