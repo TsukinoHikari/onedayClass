@@ -51,12 +51,13 @@
   {% endfor %}
 </div>
 <div class="main-class-contents">
+  <h2 style="font-size: 30px; margin-left: 10px; margin-bottom: 20px;">전체보기</h2>
   <table>
     <tr>
       {% for image in classImage %}
-      <th>
-        <a href="/signClass/{{image.OclassClassNum}}"
-          ><img src="{{image.path}}" alt=""
+      <th class="mainTh">
+        <a href="/signClass/{{image.OclassClassNum}}">
+          <img src="{{image.path}}" alt="" class="mainClassImage"
         /></a>
       </th>
       {%endfor%}

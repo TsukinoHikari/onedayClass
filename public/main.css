@@ -9,6 +9,10 @@
 header {
     margin-bottom: 70px;
 }
+/* .layout-main{
+  min-width: 1529px;
+  max-width: 1529px;
+} */
 .layout-profile {
     width: 1200px;
     /* min-width: 1330px; */
@@ -110,6 +114,30 @@ header {
     height: 100%;
     padding: 0 200px 0 200px;
 }
+
+
+.main-class-contents{
+    height: auto;
+    width: 1000px;
+    margin-top: 80px;
+    margin-left: 200px;
+    vertical-align: middle;
+    overflow:auto;
+    white-space:normal;
+}  
+.main-class-contents > table{
+  overflow:auto;
+}  
+
+
+.mainTh img {
+  margin-right: 60px;
+  height: 300px;
+  width: 300px;
+  object-fit:cover;
+  border: 3px solid rgb(214, 214, 214);
+  border-radius: 5%;
+}  
 
 /* footer */
 .layout-footer {
