@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+<!-- 스타일 -->
+{% block style %} {% endblock %}
+<!-- 스타일 끝 -->
+{% block content %}
+        <table>
+            {% for qna in qna %}
+            <tr>
+                <td>제목 : {{qna.qnaTitle}}</td>
+            </tr>
+            <tr>
+                <td>내용 : {{qna.qnaContent}}</td>
+            </tr>
+            <tr>
+                <td>답변 : {{qna.answerContent}}</td>
+            </tr>
+        </table>
+        <a href="/qna/">돌아가기</a>
+
+        {% if user and user.userId %}
+        <button onclick="location.href='/qna/{{qna.qnaNum}}/edit'">
+            수정하기
+        </button>
+        {% endif %}
+
+        <!-- //////////////////////////////////////////////////////////////////////////////// -->
+
+        {% if admin and admin.adminId %}
+        <button onclick="location.href='/qna/{{qna.qnaNum}}/answer'">
+            답변하기
+        </button>
+        <button onclick="location.href='/qna/{{qna.qnaNum}}/delete'">
+            삭제하기
+        </button>
+        {% else %}
+
+        <button onclick="location.href='/qna/{{qna.qnaNum}}/delete'">
+            삭제하기
+        </button>
+        {% endif %} {% endfor %} {% endblock %}
+    </body>
+</html>
