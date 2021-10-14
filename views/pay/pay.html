@@ -143,13 +143,13 @@
     const price = document.getElementsByClassName("cart-each-price");
     const totalprice = document.getElementById("pay-total-price");
     
-    function eachComma(){
-    const eachprice =document.getElementsByClassName('cart-each-price');
-    for (let i = 0; i < eachprice.length; i++) {
-        let eprice = eachprice[i].innerText;
-        const putcomma = addComma(eprice);
-        eachprice[i].innerText=putcomma;
-    }
+    function eachComma() {
+        const eachprice = document.getElementsByClassName("cart-each-price");
+        for (let i = 0; i < eachprice.length; i++) {
+            let eprice = eachprice[i].innerText;
+            const putcomma = addComma(eprice);
+            eachprice[i].innerText = putcomma;
+        }
     }
     
 
