@@ -5,6 +5,7 @@ const locala = require("./localStrategya");
 const kakao = require("./kakaoStrategy");
 const User = require("../models/user");
 const Admin = require("../models/admin");
+const googleStrategy = require("./googleStrategy");
 
 module.exports = () => {
     passport.serializeUser((user, done) => {
@@ -28,4 +29,5 @@ module.exports = () => {
     localu();
     // locala();
     kakao();
+    googleStrategy();
 };

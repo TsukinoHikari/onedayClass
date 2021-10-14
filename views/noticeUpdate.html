@@ -1,8 +1,13 @@
 {% extends 'layout.html' %}
 <!-- 스타일 -->
-{% block style %} {% endblock %}
+{% block style %}
+<link rel="stylesheet" href="/notice.css" />
+{% endblock %}
 <!-- 스타일 끝 -->
-{% block content %} {% if admin and admin.adminId %}{% for notice in notice %}
+
+{% block content %}
+<!-- if admin -->
+{% if admin and admin.adminId %}{% for notice in notice %}
 <a href="/notice/{{notice.noticeNum}}">돌아가기</a>
 <form action="/notice/{{notice.noticeNum}}/edit" method="POST">
     <table>
