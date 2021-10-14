@@ -177,7 +177,7 @@ router.post("/resetinfo", isLoggedIn, async (req, res) => {
 
         //현재비밀번호가 db에 비밀번호랑 일치하는지 확인하는건 구현못함
         //그냥 새 비밀번호만 입력하면 되는 구조임 ㅠ
-        if (newpassword !== newpassword2 && userpwd === newpassword2) {
+        if (newpassword !== newpassword2 || userpwd === newpassword2) {
             return false;
         }
         if (exUser) {

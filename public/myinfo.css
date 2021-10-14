@@ -1,14 +1,14 @@
 
-    table.type1 { margin-top: 30px; border-top: 1px solid #495970; border-bottom: 1px solid #999;}
+    table.type1 { margin:  30px; border-top: 1px solid #495970; border-bottom: 1px solid #999;}
     table.type1 th,
     table.type1 td {height: 20px; border-top: 1px solid #ccc;border-left: 1px solid #ccc;font-size: 13px;}
     table.type1 th:first-child {border-left: none;}
     table.type1 tr:first-child th,
     table.type1 tr:first-child td {border-top: none;}
-    table.type1 th {min-width: 130px; padding:10px 10px 10px 45px; text-align: left; font-weight: normal; font-size: 13px; color: #222;}
-    table.type1 th span{overflow: hidden; display: inline-block; margin:0 6px 0 -14px; width: 8px; height: 7px; background: url("../images/icon.png") no-repeat -534px -5px; color: transparent; vertical-align: 2px;}
+    table.type1 th {min-width: 130px; padding:10px 10px 10px 20px; text-align: left; font-weight: normal; font-size: 13px; color: #222;}
+    table.type1 th span{overflow: hidden; display: inline-block; margin:0 6px 0 -14px; width: 8px; height: 7px;  color: transparent; vertical-align: 2px;}
     table.type1 td {  padding: 5px 30px; color: #777;}
-    table.type1 .info:before{content: "";display: inline-block;margin: 5px 13px; width: 15px;height: 14px; background: url("../images/icon.png") no-repeat -336px -5px;vertical-align: middle;}
+    table.type1 .info:before{content: "";display: inline-block;margin: 5px 13px; width: 15px;height: 14px;vertical-align: middle;}
     table.type1 td > div {padding: 10px 0 0;}
     table.type1 td > div:first-child {padding: 0;}
     table.type1 td .btn_type3 {margin-left: 5px;}
