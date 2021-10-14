@@ -1,0 +1,32 @@
+
+
+        {% extends 'layout.html' %} {% block content %}
+        <div class="layout-profile">
+            {% if user and user.userId %}
+            <span class='layout-title'><a href="/">원f클a</a></span>
+            <a href="/classRegi">클래스등록하기</a>
+            <a id="my-profile" href="/mypage/main" class="btn">마이 페이지</a>
+            <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
+            {% else %}
+            <form id="login-form" action="auth/login" method="post">
+                <div class="inputgroup">
+                    <a href="/login" class="btn">로그인</a>
+                    <a id="join" href="/join" class="btn">회원가입</a>
+
+            </form>
+            {% endif %}
+        </div>
+        {% endblock %}
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        window.onload = () => {
+            if (new URL(location.href).searchParams.get('loginError')) {
+                alert(new URL(location.href).searchParams.get('loginError'));
+            }
+        };
+    </script>
+
+    {% block script %}
+    
+    {% endblock %}
