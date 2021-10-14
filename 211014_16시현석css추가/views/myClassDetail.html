@@ -1,0 +1,58 @@
+<!--extends-->
+{% extends 'mypage.html' %}
+<!--content-->
+{% block content %}
+<!--check login-->
+{% if user and user.userId %}
+<div id="user" style="display: none">{{user.userId}}</div>
+
+<div id="myClass-content">
+    {% for myClass in myClass %}
+    <div id="title">
+        <h1>클래스명 : {{myClass.classTitle}}</h1>
+    </div>
+    {% endfor %}
+    <!-- images -->
+    {% for a in classPath %}
+    <div><img src="../../{{a.path}}" /></div>
+    {% endfor %}
+    <!-- contents -->
+
+    {% for myClass in myClass %}
+    <form action="/mypage/myClass/{{myClass.classNum}}" method="post">
+        <div><button id="wish" type="submit">찜하기</button></div>
+    </form>
+    <div id="place">클래스 장소 : {{myClass.classAddr}}</div>
+    <div id="price">클래스 가격 : {{myClass.classPrice}}</div>
+    <hr />
+    <div id="content">{{myClass.classContent}}</div>
+    <button
+        onclick="location.href='/mypage/myClass/{{myClass.classNum}}/delete'"
+    >
+        삭제하기
+    </button>
+    {% endfor %}
+</div>
+<!--not login status-->
+{% else %}
+<p>잘못된 경로입니다.</p>
+<a href="/">돌아가기</a>
+<!-- if끝 -->
+{% endif %}
+
+<!-- content block 끝 -->
+{% endblock %}
+
+<!--script-->
+{% block script %}
+<script>
+    const user = document.getElementById("user").innerHTML;
+    const title = document.getElementById("title").innerHTML;
+    const images = [];
+
+    append;
+
+    console.log(user);
+    console.log(title);
+</script>
+{% endblock %}
