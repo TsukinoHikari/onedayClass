@@ -1,11 +1,13 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
-const { sequelize } = require("../models");
+const { sequelize, UrlPath } = require("../models");
 
 const User = require("../models/user");
 const Oclass = require("../models/oclass");
 const Wishlist = require("../models/wishlist");
+const { QueryTypes } = require("sequelize");
+
 const router = express.Router();
 
 router.use((req, res, next) => {
@@ -17,24 +19,14 @@ router.get("/", isLoggedIn, async (req, res) => {
     try {
         const user = res.locals.user.userId;
 
-        const wishlist = await Wishlist.findAll({
-            include: [
-                {
-                    model: Oclass,
-                    where: { userId: user },
-                    //   attributes: ["classTitle"],
-                },
-            ],
+        const sql1 = `SELECT oclasses.classNum,oclasses.classTitle, urlpaths.path FROM wishlists INNER JOIN oclasspaths ON wishlists.classNum = oclasspaths.OclassClassNum INNER JOIN oclasses ON wishlists.classNum=oclasses.classNum INNER JOIN urlpaths ON oclasspaths.UrlPathId=urlpaths.id WHERE wishlists.userId='${user}' GROUP BY OclassClassNum;`;
+        const wishClass = await sequelize.query(sql1, {
+            type: QueryTypes.SELECT,
         });
-        // return res.json(wishlist[0].Oclass.classTitle);
-        for (let i = 0; i < wishlist.length; i++) {
-            console.log(wishlist[i].Oclass.classTitle);
-        }
 
-        // return res.json(wishlist[0].wishNum);
         return res.render("wishlist", {
             title: "찜한 클래스",
-            wishlist,
+            wishClass,
         });
     } catch (err) {
         console.error(err);
@@ -45,10 +37,21 @@ router.get("/myinfo", isLoggedIn, (req, res) => {
     return res.render("myinfo", { title: "내정보" });
 });
 
-router.get("/myattendclasses", isLoggedIn, (req, res) => {
-    return res.render("myattendclasses", {
-        title: "내가 참가한 클래스",
-    });
+router.get("/myattendclasses", isLoggedIn, async (req, res) => {
+    try {
+        const user = res.locals.user.userId;
+        const sql2 = `SELECT orderclassdetails.classNum, orderclassdetails.orderName, orderclassdetails.orderTel, orderclassdetails.orderPrice, oclasses.classTitle, urlpaths.path FROM orderclassdetails INNER JOIN oclasspaths ON orderclassdetails.classNum = oclasspaths.OclassClassNum INNER JOIN oclasses ON orderclassdetails.classNum=oclasses.classNum INNER JOIN urlpaths ON oclasspaths.UrlPathId=urlpaths.id WHERE orderclassdetails.userId='${user}' GROUP BY orderClassDetailNum;`;
+        const attendClass = await sequelize.query(sql2, {
+            type: QueryTypes.SELECT,
+        });
+
+        return res.render("myattendclasses", {
+            title: "내가 참가한 클래스",
+            attendClass,
+        });
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 router.get("/wishlist", isLoggedIn, async (req, res) => {
@@ -193,10 +196,10 @@ router.post("/resetinfo", isLoggedIn, async (req, res) => {
                 { where: { userId: res.locals.user.dataValues.userId } }
             );
         }
-       //내정보수정
-       res.writeHead(302, { "Content-Type": "text/html; charset=utf8" });
-       res.write(`<script>alert('수정되었습니다..')</script>`);
-       return res.write('<script>window.location="/"</script>')
+        //내정보수정
+        res.writeHead(302, { "Content-Type": "text/html; charset=utf8" });
+        res.write(`<script>alert('수정되었습니다..')</script>`);
+        return res.write('<script>window.location="/"</script>');
     } catch (err) {
         console.error(err);
     }

@@ -1,0 +1,59 @@
+.attend-title {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.attend-container {
+    padding-top: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.attend-lists {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+
+    width: 100%;
+    height: 230px;
+    margin-right: 10px;
+}
+/* .attend-lists-in {
+    position: absolute;
+    bottom: 0px;
+} */
+.attend-lists-in::after {
+    clear: both;
+}
+.attend-lists-img > a > img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.attend-lists-in {
+    position: relative;
+}
+.attend-lists-img {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-right: 10px;
+}
+.attend-lists-content {
+    position: absolute;
+    top: 0;
+}
+.attend-contents-sub,
+.attend-lists-img,
+.attend-lists-content {
+    display: inline-block;
+}
+.attend-lists-title {
+    margin-bottom: 20px;
+}
+.attend-contents-sub {
+    width: 80px;
+    font-weight: bold;
+}
