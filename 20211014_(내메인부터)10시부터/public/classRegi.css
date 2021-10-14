@@ -1,0 +1,104 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+* {
+    font-family: "Noto Sans KR", sans-serif;
+}
+.layout-main {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+.classRegi-container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+.classRegi-title {
+    width: 750px;
+    padding: 10px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 30px;
+}
+.classRegi-title > a {
+    font-size: 2.2em;
+    font-weight: bold;
+    text-decoration: none;
+}
+.classRegi-title > a:visited {
+    color: black;
+}
+.classRegi-input {
+    margin: 10px;
+}
+
+.classRegi-sub-title,
+.classRegi-input-area {
+    display: inline-block;
+}
+
+.classRegi-sub-title {
+    width: 150px;
+    height: 25px;
+    font-size: 1.2em;
+    border-right: 1px solid rgb(189, 189, 189);
+    margin: 5px 0 5px 30px;
+}
+
+.classRegi-input-area {
+    margin: 5px 0 5px 30px;
+}
+.classRegi-input-area > input[type="text"] {
+    border: 1px solid #222222;
+    width: 450px;
+    height: 30px;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+.classRegi-input-area > select {
+    border: 1px solid #222222;
+    width: 120px;
+    height: 30px;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+.classRegi-input-area > input[type="number"] {
+    border: 1px solid #222222;
+    width: 120px;
+    height: 30px;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+.classRegi-input-area > input[type="file"] {
+    width: 450px;
+    border-radius: 4px;
+}
+
+.classRegi-input-area > textarea {
+    border: 1px solid #222222;
+    width: 450px;
+    height: 300px;
+    padding-left: 10px;
+    border-radius: 3px;
+}
+
+/* 제출 영역 */
+.classRegi-submit {
+    width: 750px;
+    padding: 10px;
+    padding-top: 22px;
+    border-top: 1px solid #aaa;
+    margin-top: 30px;
+}
+.classRegi-submit-btn {
+    border: 1px solid black;
+    width: 70px;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #eee;
+}
+.classRegi-submit-btn:hover {
+    background-color: #bbb;
+}
