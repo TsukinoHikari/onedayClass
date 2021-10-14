@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body>
-        {% block qnatable %} {% if user and user.userId %}{% for qna in qna %}
+{% extends 'layout.html' %}
+<!-- 스타일 -->
+{% block style %} {% endblock %}
+<!-- 스타일 끝 -->
+{% block content %}{% if user and user.userId %}{% for qna in qna %}
         <a href="/qna/{{qna.qnaNum}}">돌아가기</a>
         <form action="/qna/{{qna.qnaNum}}/edit" method="POST">
             <table>

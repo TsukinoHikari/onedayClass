@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=], initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body>
+{% extends 'layout.html' %}
+<!-- 스타일 -->
+{% block style %} {% endblock %}
+<!-- 스타일 끝 -->
+{% block content %}
         {% if user and user.userId %}
         <form method="POST">
             <table>
@@ -40,7 +36,7 @@
             <a href="/qna">돌아가기</a>
             {% else %}
             <a href="/qna">돌아가기</a>
-            {% endif %}
+            {% endif %} {% endblock %}
         </form>
     </body>
 </html>
