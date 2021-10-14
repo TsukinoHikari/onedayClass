@@ -7,13 +7,11 @@
 <!-- content block -->
 {% block content %}
 <div class="categorylayout-category">
-    {% for category in categories %}
-    <div class="categorylayout-category-href">
-        <a href="/category/{{category.categoryNum}}"
-            >{{category.categoryName}}</a
-        >
-    </div>
-    {% endfor %}
+  {% for category in categories %}
+  <div class="categorylayout-category-href">
+    <a href="/category/{{category.categoryNum}}">{{category.categoryName}}</a>
+  </div>
+  {% endfor %}
 </div>
 {% block detailcategory %} {% endblock %}
 <!-- 블럭 끝 -->

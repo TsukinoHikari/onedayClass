@@ -11,7 +11,7 @@
   <table>
     <tr>
       {% for image in classImage %}
-      <th>
+      <th class="categoryTh">
         <a href="/signClass/{{image.OclassClassNum}}"
           ><img src="../{{image.path}}" alt=""
         /></a>
@@ -21,7 +21,7 @@
     <!--  -->
     <tr>
       {% for eachClass in thisCateClass %}
-      <td>
+      <td class="categoryFont">
         <a href="/signClass/{{eachClass.classNum}}">{{eachClass.classTitle}}</a>
       </td>
       {% endfor %}

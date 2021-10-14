@@ -43,6 +43,16 @@
     </ul>
   </div>
 </div>
+<h3
+  style="
+    font-size: 30px;
+    margin-left: 200px;
+    margin-top: 70px;
+    margin-bottom: -80px;
+  "
+>
+  카테고리
+</h3>
 <div class="main-class-category">
   {% for category in categories %}
   <div class="main-category-href">
@@ -51,26 +61,28 @@
   {% endfor %}
 </div>
 <div class="main-class-contents">
-  <h2 style="font-size: 30px; margin-left: 10px; margin-bottom: 20px;">전체보기</h2>
-  <table>
-    <tr>
+  <h2 style="font-size: 30px; margin-top: 90px; margin-bottom: -30px">
+    전체보기
+  </h2>
+  <div>
+    <div>
       {% for image in classImage %}
-      <th class="mainTh">
+      <div class="mainTh">
         <a href="/signClass/{{image.OclassClassNum}}">
           <img src="{{image.path}}" alt="" class="mainClassImage"
         /></a>
-      </th>
+      </div>
       {%endfor%}
-    </tr>
+    </div>
     <!--  -->
-    <tr>
+    <div>
       {% for eachClass in classes %}
-      <td>
+      <!-- <div>
         <a href="/signClass/{{eachClass.classNum}}">{{eachClass.classTitle}}</a>
-      </td>
+      </div> -->
       {% endfor %}
-    </tr>
-  </table>
+    </div>
+  </div>
 </div>
 
 <!-- 블럭 끝 -->
