@@ -21,7 +21,7 @@ router.route("/").get(isLoggedIn, async (req, res, next) => {
     try {
         const payment = await OrderClassDetail.findAll({});
 
-        res.render("./pay/endPay", { payment });
+        res.render("./pay/endPay", { payment, title: "결제완료" });
     } catch (err) {
         console.error(err);
         next(err);

@@ -10,7 +10,7 @@ const path = require("path");
 const { sequelize } = require("../models");
 const multer = require("multer");
 const moment = require("moment");
-
+const { QueryTypes } = require("sequelize");
 // 기타 express 코드
 
 //여기부터
@@ -52,8 +52,12 @@ router
 router.get("/pay", isLoggedIn, async (req, res) => {
     try {
         const user = res.locals.user.userId;
-
         console.log(user);
+
+        const sql1 = `SELECT urlpaths.path, oclasses.classTitle, oclasses.classContent, orderclasses.orderQty, oclasses.classPrice, oclasses.classNum, orderclasses.orderClassNum FROM oclasspaths INNER JOIN urlpaths ON oclasspaths.UrlPathId = urlpaths.id INNER JOIN orderclasses ON oclasspaths.OclassClassNum=orderclasses.classNum INNER JOIN oclasses ON orderclasses.classNum=oclasses.classNum WHERE orderclasses.userId='${user}' GROUP BY OclassClassNum;`;
+        const classImage = await sequelize.query(sql1, {
+            type: QueryTypes.SELECT,
+        }); // classImage = 이미지 url
 
         const orderClass = await OrderClass.findAll({
             include: [
@@ -64,7 +68,7 @@ router.get("/pay", isLoggedIn, async (req, res) => {
             where: { userId: user },
         });
         //res.json(orderClass);
-        res.render("pay/pay", { orderClass, title: "결제하기" });
+        res.render("pay/pay", { orderClass, classImage, title: "장바구니" });
     } catch (err) {
         console.error(err);
         next(err);
