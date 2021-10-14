@@ -2,26 +2,175 @@
 {% extends '../layout.html' %} {% block style %}
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script
-    type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
-></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <link rel="stylesheet" href="/detailClass.css" />
 <style>
     * {
         list-style: none;
     }
+
+    .detailclass-form {
+        margin-top: 40px;
+    }
+
     .upComment {
         display: none;
     }
+
     .cancelBtn {
         display: none;
     }
+
     .inputBtn {
         display: none;
     }
+
+    fieldset {
+        border: none;
+    }
+
     #commentNumber {
         display: none;
+    }
+
+    fieldset {
+        margin-top: 30px;
+    }
+
+
+
+    legend {
+        font-size: 18px;
+        color: rgb(77, 78, 78);
+        margin-bottom: 20px;
+    }
+
+    .commentlist {
+        width: 60%;
+        margin-top: 30px;
+        padding: 5px 5px 5px 10px;
+        box-shadow: 0 0 4px darkgray;
+    }
+
+    .comment-line {
+        width: 50%;
+        display: flex;
+        justify-content: space-evenly;
+
+    }
+
+    .commentcreatebtn {
+        height: 60px;
+        padding: 1px 6px;
+        margin-left: 3px;
+        background-color: rgb(223, 217, 217);
+        border: 1px lightgray;
+        border-radius: 2px;
+    }
+
+    .btn {
+        padding: 1px 6px;
+        margin-left: 3px;
+        background-color: rgb(223, 217, 217);
+        border: 1px lightgray;
+        border-radius: 10px;
+    }
+
+    .btn:hover {
+        background-color: rgb(172, 168, 168);
+        cursor: pointer;
+    }
+
+
+    #myId {
+
+        align-self: center;
+        /* padding-bottom: 20px; */
+        margin-right: 10px;
+        height: 30px;
+    }
+
+    #myId,
+    .commentId {
+        margin-right: 5px;
+        font-weight: bold;
+        color: #05658b;
+        font-size: 16px;
+    }
+
+    .createtime {
+        font-size: 12px;
+        color: rgb(109, 108, 108);
+    }
+
+    .cComment {
+        padding-left: 15px;
+        margin-top: 10px;
+    }
+
+    .upComment {
+        margin-top: 5px;
+    }
+
+
+
+    .wishlist {
+        height: 30px;
+    }
+
+    .wishlist svg {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        fill: transparent;
+        stroke: black;
+        stroke-width: 2px;
+
+
+    }
+
+    .wishlist:hover svg {
+        fill: red;
+        stroke: transparent;
+
+    }
+
+    #wish:focus {
+        outline: none;
+    }
+
+    .detailClass-wish {
+        padding-right: 10px;
+    }
+
+    #wish {
+        width: 150px;
+        height: 50px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .zzim {
+        font-size: 15px;
+    }
+
+    @media only screen and (max-width: 766px) {
+        .comments-container {
+            width: 480px;
+        }
+
+        .comments-list .comment-box {
+            width: 390px;
+        }
+
+        .reply-list .comment-box {
+            width: 320px;
+        }
     }
 </style>
 
@@ -34,17 +183,19 @@
         <!-- 유저일 시 -->
         <div id="detailClass-title">
             <h1>
-                <a href="/signClass/{{myClass.classNum}}"
-                    >{{myClass.classTitle}}</a
-                >
+                <a href="/signClass/{{myClass.classNum}}">{{myClass.classTitle}}</a>
             </h1>
         </div>
         <div class="detailClass-wish">
-            <form
-                action="/signClass/{{myClass.classNum}}/wishlist"
-                method="post"
-            >
-                <div><button id="wish" type="submit">찜하기</button></div>
+            <form action="/signClass/{{myClass.classNum}}/wishlist" method="post">
+                <!-- <div><button id="wish" type="submit">찜하기</button></div> -->
+                <button id="wish" type="submit" class="wishlist noselect"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="20" height="20" viewBox="-1 -1 26 26">
+                        <path class="zzim" id="heart"
+                            d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
+                    </svg><span class="zzim">찜하기</span></button>
+
+
             </form>
         </div>
         <div id="detailClass-place">
@@ -93,11 +244,7 @@
                         </select>
                     </div>
                     <div class="signClass-pay-btn">
-                        <input
-                            type="submit"
-                            value="구매하기"
-                            onclick=" checking()"
-                        />
+                        <input type="submit" value="구매하기" onclick=" checking()" />
                     </div>
                 </div>
             </form>
@@ -105,72 +252,42 @@
     </div>
 </div>
 
-<form name="form" method="post">
+<form name="detailclass-form" method="post">
     <fieldset>
-        <legend>댓글</legend>
+        <legend>comment</legend>
         <ul>
-            <li>
+            <li class="comment-line">
                 <span id="myId">{{user.userId}}</span>
-                <textarea
-                    name="comment"
-                    id="comment"
-                    cols="60"
-                    rows="5"
-                ></textarea>
-                <input
-                    type="submit"
-                    value="댓글등록"
-                    onclick="javascript: form.action='/signClass/{{myClass.classNum}}/comment'"
-                />
+                <textarea name="comment" id="comment" cols="60" rows="3"></textarea>
+                <input class="commentcreatebtn" type="submit" value="댓글등록"
+                    onclick="javascript: form.action='/signClass/{{myClass.classNum}}/comment'" />
             </li>
+
             {% for comment in usercomments %}
-            <li>
-                <input
-                    type="text"
-                    id="commentNumber"
-                    name="commentNumber"
-                    value="{{comment.commentNum}}"
-                />
-                <span>{{comment.userId}}</span>
-                <span class="cComment" name="cComment"
-                    >{{comment.commentContent}}</span
-                >
+            <li class="commentlist">
+                <input type="text" id="commentNumber" name="commentNumber" value="{{comment.commentNum}}" />
+                <span class="commentId">{{comment.userId}}</span>
+                <span class="createtime">{{comment.createdAt}}</span>
+                <span class="putBtn" name="putBtn"><button class="btn" type="button">수정</button></span>
+                <span class="delBtn" name="delBtn"><input class="btn" type="submit" value="삭제"
+                        onclick="javascript: form.action='/signClass/{{myClass.classNum}}/{{comment.commentNum}}/delete'" /></span>
+                <div class="cComment" name="cComment">{{comment.commentContent}}</div>
                 <!-- <input id="loop" type='number' name="asdf" value='{{loop.index}}'></input> -->
                 <!-- {% if user.userId == comment.userId %} -->
-                <span class="upComment" name="upComment">
-                    <textarea
-                        name="updateComment"
-                        id="updateComment"
-                        cols="60"
-                        rows="5"
-                    ></textarea>
-                </span>
-                <span class="createtime">{{comment.createdAt}}</span>
+                <div class="upComment" name="upComment">
+                    <textarea name="updateComment" id="updateComment" cols="60" rows="3"></textarea>
+                </div>
 
-                <span class="putBtn" name="putBtn"
-                    ><button type="button">수정</button></span
-                >
-                <span class="cancelBtn" name="cancelBtn"
-                    ><button type="button">취소</button></span
-                >
-                <span class="inputBtn" name="inputBtn"
-                    ><input
-                        type="submit"
-                        value="수정하기"
-                        onclick="javascript: form.action='/signClass/{{myClass.classNum}}/{{comment.commentNum}}/edit'"
-                /></span>
-                <span class="delBtn" name="delBtn"
-                    ><input
-                        type="submit"
-                        value="삭제"
-                        onclick="javascript: form.action='/signClass/{{myClass.classNum}}/{{comment.commentNum}}/delete'"
-                /></span>
+                <span class="inputBtn" name="inputBtn"><input class="btn" type="submit" value="수정하기"
+                        onclick="javascript: form.action='/signClass/{{myClass.classNum}}/{{comment.commentNum}}/edit'" /></span>
+                <span class="cancelBtn" name="cancelBtn"><button class="btn" type="button">취소</button></span>
             </li>
             <!-- {% endif %} -->
             {% endfor %}
         </ul>
     </fieldset>
 </form>
+
 
 <!-- else -->
 <!--not login status-->
@@ -194,6 +311,10 @@
     const cancelbtn = document.querySelectorAll(".cancelBtn");
     const delbtn = document.querySelectorAll(".delBtn");
     const paymentform = document.getElementById("payment-form");
+    const class_date = document.getElementById("sign-db-classDate");
+    const class_cdate = date.innerText;
+    const class_classdate = moment(class_cdate).format("YYYY-MM-DD");
+    class_date.innerText = class_classdate;
 
     for (let i = 0; i < commentDate.length; i++) {
         const comdate = commentDate[i].innerText;
@@ -263,21 +384,6 @@
         //     delbtn[0].style.display = "inline-block";
         //   });
     }
-    //   function a() {}
-
-    function b() {
-        upcomment.style.display = "none";
-        ccomment.style.display = "inline-block";
-        cancelbtn.style.display = "none";
-        putbtn.style.display = "inline-block";
-        inputbtn.style.display = "none";
-        delbtn.style.display = "inline-block";
-    }
-
-    const class_date = document.getElementById("sign-db-classDate");
-    const class_cdate = date.innerText;
-    const class_classdate = moment(class_cdate).format("YYYY-MM-DD");
-    class_date.innerText = class_classdate;
 
     $("#signClass-classdate").append(
         "<option value=" + class_classdate + ">" + class_classdate + "</option>"
@@ -295,6 +401,19 @@
             );
         }
     });
+    //   function a() {}
+
+    function b() {
+        upcomment.style.display = "none";
+        ccomment.style.display = "inline-block";
+        cancelbtn.style.display = "none";
+        putbtn.style.display = "inline-block";
+        inputbtn.style.display = "none";
+        delbtn.style.display = "inline-block";
+    }
+
+
+
 
     function checking() {
         const paymentForm = document.payment;
