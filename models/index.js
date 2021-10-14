@@ -13,19 +13,6 @@ const Comment = require("./comment");
 
 const bcrypt = require("bcrypt");
 
-const a = () => {
-    const password = 1234;
-    const hash = bcrypt.hash(password, 12);
-    Admin.create({
-        adminId: "admin",
-        adminPwd: hash,
-        adminName: "비대면수업",
-        adminTel: "010-1234-4567",
-        adminMail: "gg@naver.com",
-    });
-};
-a;
-
 const env = process.env.NODE_ENV || "development";
 const config = require("../config/config")[env];
 const db = {};

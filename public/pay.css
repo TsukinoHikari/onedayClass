@@ -1,3 +1,14 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+* {
+    font-family: "Noto Sans KR", sans-serif;
+}
+.layout-main {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
 .pay-detail {
     border: 1px solid black;
     margin: 10px;

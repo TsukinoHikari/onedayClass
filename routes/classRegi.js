@@ -61,7 +61,7 @@ router
     .get(async (req, res, next) => {
         try {
             const writer = res.locals.user.userId;
-            res.render("classRegi/classRegi");
+            res.render("classRegi/classRegi", { title: "클래스 등록하기" });
         } catch (err) {
             console.error(err);
             next(err);

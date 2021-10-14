@@ -1,4 +1,4 @@
-{% extends '../mypage.html' %}
+{% extends '../layout.html' %}
 <!-- styleblock -->
 {% block style %}
 <!-- ex) <link rel="stylesheet" href="login.css" /> -->
@@ -8,24 +8,26 @@
     src="https://cdn.bootpay.co.kr/js/bootpay-3.3.2.min.js"
     type="application/javascript"
 ></script>
+<link rel="stylesheet" href="/pay.css" />
 
 {% endblock %}
 <!-- end style -->
 
 <!-- content block-->
-{% block detailcontent %}
+{% block content %}
 <!-- for price -->
 
 {% for a in orderClass %}
-<hr />
-<br /><br />
+
 <div class="pay-detail">
     <div class="pay-classnum" style="display: none">{{a.Oclass.classNum}}</div>
     <!-- style="display: none" -->
     <span class="pay-orderclassnum" style="display: none"
         >{{a.orderClassNum}}</span
     >
-    <span class="pay-each-price">{{a.orderQty*a.Oclass.classPrice}}</span>
+    <span class="pay-each-price" style="display: none"
+        >{{a.orderQty*a.Oclass.classPrice}}</span
+    >
 
     <table>
         <tr>
