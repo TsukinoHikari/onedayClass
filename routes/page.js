@@ -21,10 +21,10 @@ router.get("/findidpwd", isNotLoggedIn, (req, res) => {
 router.get("/resetidpw/:token", isNotLoggedIn, async (req, res) => {
     res.render("reset-password", { title: "비밀번호 재설정" });
 });
-router.get("/terms", isNotLoggedIn, (req, res) => {
+router.get("/terms", (req, res) => {
     res.render("terms", { title: "이용약관" });
 });
-router.get("/privacy", isNotLoggedIn, (req, res) => {
+router.get("/privacy", (req, res) => {
     res.render("privacy", { title: "개인정보 처리 방침" });
 });
 // router.get("/mypage", isLoggedIn, (req, res) => {
@@ -32,13 +32,13 @@ router.get("/privacy", isNotLoggedIn, (req, res) => {
 // });
 router.get("/prejoin", isNotLoggedIn, (req, res) => {
     res.render("prejoin", { title: "약관동의" });
-  });
-  router.get("/join", isNotLoggedIn, (req, res) => {
+});
+router.get("/join", isNotLoggedIn, (req, res) => {
     res.render("join", { title: "회원가입" });
-  });
-  router.get("/join/complete", isNotLoggedIn, (req, res) => {
+});
+router.get("/join/complete", isNotLoggedIn, (req, res) => {
     res.render("joincomplete", { title: "가입완료" });
-  });
+});
 
 router.get("/qnas", isLoggedIn, (req, res) => {
     res.render("qna", { title: "질응답" });
