@@ -6,6 +6,7 @@
     type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
 ></script>
+<link rel="stylesheet" href="/detailClass.css" />
 <style>
     * {
         list-style: none;
@@ -28,56 +29,81 @@
 {% endblock %}
 <!-- block content -->
 {% block content %}
-<div id="myClass-content">
-    <!-- 유저일 시 -->
-    <div id="title">
-        <h1>클래스명 : {{myClass.classTitle}}</h1>
+<div class="detailClass-article">
+    <div id="detailClass-content">
+        <!-- 유저일 시 -->
+        <div id="detailClass-title">
+            <h1>
+                <a href="/signClass/{{myClass.classNum}}"
+                    >{{myClass.classTitle}}</a
+                >
+            </h1>
+        </div>
+        <div class="detailClass-wish">
+            <form
+                action="/signClass/{{myClass.classNum}}/wishlist"
+                method="post"
+            >
+                <div><button id="wish" type="submit">찜하기</button></div>
+            </form>
+        </div>
+        <div id="detailClass-place">
+            <div class="detailClass-sub-title">클래스 장소</div>
+            {{myClass.classAddr}}
+        </div>
+        <div id="detailClass-price">
+            <div class="detailClass-sub-title">클래스 가격</div>
+            {{myClass.classPrice}}
+        </div>
+
+        <div id="date">
+            <div class="detailClass-sub-title">클래스 날짜</div>
+            <span id="sign-db-classDate">{{myClass.classDate}}</span>
+        </div>
+
+        <div id="detailClass-contents">{{myClass.classContent}}</div>
+        <!-- images -->
+        {% for a in classPath %}
+        <div class="detailClass-content-img">
+            <img src="../../{{a.path}}" />
+        </div>
+        {% endfor %}
+        <!-- contents -->
+
+        <!-- not login status -->
     </div>
-    <!-- images -->
-    {% for a in classPath %}
-    <div><img src="../../{{a.path}}" /></div>
-    {% endfor %}
-    <!-- contents -->
 
-    <div id="place">클래스 장소 : {{myClass.classAddr}}</div>
-    <div id="price">클래스 가격 : {{myClass.classPrice}}</div>
-
-    <div id="date">
-        클래스 날짜 :
-        <span id="sign-db-classDate">{{myClass.classDate}}</span>
+    <!-- if user -->
+    {% if user and user.userId %}
+    <div class="detailClass-functions">
+        <!-- <div id="user" style="display: none">{{user.userId}}</div> -->
+        <div class="detailClass-pay">
+            <form id="payment-form" name="payment">
+                <div id="signClass-content">
+                    <div class="signClass-pick-date">
+                        <div class="signClass-sub-title">option1</div>
+                        <select name="classdate" id="signClass-classdate">
+                            <option value="none">선택하기</option>
+                        </select>
+                    </div>
+                    <div class="signClass-pick-qty">
+                        <div class="signClass-sub-title">option2</div>
+                        <select name="applicants" id="selectBox">
+                            <option value="none">선택하기</option>
+                        </select>
+                    </div>
+                    <div class="signClass-pay-btn">
+                        <input
+                            type="submit"
+                            value="구매하기"
+                            onclick=" checking()"
+                        />
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <hr />
-    <div id="content">{{myClass.classContent}}</div>
-    <!-- not login status -->
 </div>
-
-<!-- if user -->
-{% if user and user.userId %}
-<form action="/signClass/{{myClass.classNum}}/wishlist" method="post">
-    <div><button id="wish" type="submit">찜하기</button></div>
-</form>
-<hr />
-<!-- <div id="user" style="display: none">{{user.userId}}</div> -->
-
-<form method="post" name="payment">
-    <div id="signClass-content">
-        <div class="signClass-pick-date">
-            <select name="classdate" id="signClass-classdate">
-                <option value="none">선택하기</option>
-            </select>
-        </div>
-        <div class="signClass-pick-qty">
-            <select name="applicants" id="selectBox">
-                <option value="none">선택하기</option>
-            </select>
-        </div>
-        <div class="signClass-pay-btn">
-            <input type="submit" value="결제하기" onclick=" checking()" />
-        </div>
-    </div>
-</form>
-<hr />
 
 <form name="form" method="post">
     <fieldset>
@@ -149,7 +175,7 @@
 <!-- else -->
 <!--not login status-->
 {% else %}
-<button onclick="location.href='/login'">결제하기</button>
+
 <!-- if끝 -->
 {% endif %}
 <!-- endblock -->
@@ -167,6 +193,7 @@
     const inputbtn = document.querySelectorAll(".inputBtn");
     const cancelbtn = document.querySelectorAll(".cancelBtn");
     const delbtn = document.querySelectorAll(".delBtn");
+    const paymentform = document.getElementById("payment-form");
 
     for (let i = 0; i < commentDate.length; i++) {
         const comdate = commentDate[i].innerText;
@@ -278,7 +305,8 @@
             alert("옵션을 선택해 주세요.");
             return false;
         } else {
-            form.action = "/signClass/order/{{myClass.classNum}}";
+            paymentform.method = "post";
+            paymentform.action = "/signClass/order/{{myClass.classNum}}";
         }
     }
 </script>
