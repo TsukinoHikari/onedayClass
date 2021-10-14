@@ -1,0 +1,213 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+* {
+    font-family: "Noto Sans KR", sans-serif;
+}
+.layout-main {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+.pay-cart-container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+.pay-cart-title {
+    position: relative;
+    width: 1120px;
+    padding: 10px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 50px;
+}
+.pay-cart-title > a {
+    font-size: 2.2em;
+    font-weight: bold;
+    text-decoration: none;
+}
+.pay-cart-title > a:visited {
+    color: black;
+}
+
+.pay-process {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    bottom: 22px;
+    font-size: 1em;
+    font-weight: bold;
+}
+.pay-process::after {
+    clear: both;
+}
+.pay-process-img {
+    margin: 0 5px;
+}
+.pay-cart > a {
+    color: red;
+    text-decoration: none;
+}
+
+/* 카트 제목 */
+.cart-detail {
+    width: 1120px;
+    border-collapse: collapse;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.cart-sub-title-area {
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    width: 1120px;
+    height: 40px;
+    background-color: #f5f5f5;
+}
+.cart-sub-title-detail {
+    width: 700px;
+}
+.cart-sub-title-no {
+    width: 60px;
+}
+
+/* cart-each-product */
+.cart-each-product {
+    height: 150px;
+    border-bottom: 1px solid #ddd;
+}
+.cart-each-no {
+    border-right: 1px solid #ddd;
+}
+.cart-each-image {
+    width: 200px;
+    border-right: 1px solid #ddd;
+}
+.cart-each-image > a > img {
+    max-width: 100px;
+    max-height: 130px;
+}
+.cart-each-title-title,
+.cart-each-title-content {
+    padding: 0 10px;
+    text-align: left;
+}
+.cart-each-title-title {
+    position: relative;
+    height: 30px;
+}
+.cart-each-title-content {
+    border-top: 1px solid #bbb;
+    width: 680px;
+    height: 40px;
+    margin-top: 10px;
+    padding-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.cart-each-title-title > a,
+.cart-each-title-content > a {
+    text-decoration: none;
+    color: black;
+}
+.cart-each-title-title > a {
+    font-weight: bold;
+}
+.cart-each-title-content > a {
+    color: #888888;
+}
+.cart-each-product-cancel {
+    position: absolute;
+    right: 40px;
+}
+.cart-each-product-cancel > a > img {
+    width: 15px;
+}
+.cart-each-product-cancel > a {
+    text-decoration: none;
+    color: black;
+    font-size: 0.8em;
+}
+.cart-each-product-cancel::after {
+    clear: both;
+}
+.cart-each-qty {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.cart-total-price {
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    width: 1120px;
+    height: 40px;
+    background-color: #f5f5f5;
+}
+#pay-total-price {
+    color: red;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+/* 주문자  */
+
+#pay-payform {
+    width: 1120px;
+}
+.cart-payform-title {
+    width: 1120px;
+    padding: 10px;
+    padding-bottom: 22px;
+    padding-top: 20px;
+    margin-bottom: 15px;
+}
+.cart-payform-title > a {
+    font-size: 2.2em;
+    font-weight: bold;
+    text-decoration: none;
+}
+.cart-payform-title > a:visited {
+    color: black;
+}
+.cart-payform-table {
+    width: 1120px;
+    border-collapse: collapse;
+    border-top: 2px solid #bbb;
+}
+.cart-payform-sub-title {
+    padding: 0 10px;
+    text-align: right;
+    width: 150px;
+    background-color: #f5f5f5;
+}
+.cart-payform-line {
+    height: 50px;
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+}
+
+.cart-payform-input {
+    padding: 0 20px;
+}
+.pay-btn-area {
+    text-align: center;
+}
+.cart-payform-input > input {
+    border: 1px solid #222222;
+    width: 450px;
+    height: 30px;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+#pay-btn {
+    border: 1px solid black;
+    width: 70px;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 10px;
+    margin-top: 25px;
+    cursor: pointer;
+    background-color: #eee;
+}
+#pay-btn:hover {
+    background-color: #bbb;
+}

@@ -1,0 +1,33 @@
+{% extends '../layout.html' %}
+<!-- styleblock -->
+{% block style %}
+<link rel="stylesheet" href="/endpay.css" />
+{% endblock %}
+<!-- end style -->
+
+<!-- 본문 -->
+{% block content %}
+<div class="endpay-container">
+    <div class="endpay-title">
+        <div class="endpay-title-title">결제완료</div>
+        <div class="endpay-process">
+            <span class="pay-cart"> 장바구니</span>
+            <span class="pay-process-img">></span>
+            <span class="pay-complete">결제완료</span>
+        </div>
+    </div>
+    <div class="endpay-article">
+        <div class="endpay-guide">클래스 신청이 완료되었습니다.</div>
+        <div class="endpay-move-btn">
+            <a href="/mypage/myattendclasses"
+                ><button type="button">신청 클래스 보기</button></a
+            >
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!-- 본문 끝 -->
+
+<!-- 스크립트 -->
+{% block script %} {% endblock %}
+<!-- 스크립트 끝-->
