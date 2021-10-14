@@ -1,0 +1,10 @@
+table.type2 { border-top: 1px solid #495970; border-bottom: 1px solid #999;}
+table.type2 tr:first-child{width: 30px;}
+table.type2 th,
+table.type2 td {height: 20px;font-size: 13px;}
+
+table.type2 th {border-left: none; min-width: 130px; padding:10px 10px 10px 10px; text-align: center; font-weight: normal; font-size: 13px; color: #222;}
+table.type2 th span{overflow: hidden; display: inline-block; margin:0 6px 0 -14px; width: 8px; height: 7px; color: transparent; vertical-align: 2px;}
+table.type2 td {border-left: none; text-align: center; padding: 15px 20px; color: #777;}
+a:hover{color: #8d50a5;}
+    

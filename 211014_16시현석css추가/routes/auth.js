@@ -12,7 +12,7 @@ const smtpTransport = require("nodemailer-smtp-transport");
 
 //여기서부터 user
 router.post("/join", async (req, res, next) => {
-    const { userid,userpwd2, username, usertel, usermail, useraddr } = req.body;
+    const { userid,userpwd2, username, usertel, usermail, useraddr,useraddr2 } = req.body;
 
     try {
         const exUser = await User.findOne({ where: { userId: userid } });
@@ -33,7 +33,7 @@ router.post("/join", async (req, res, next) => {
             userName: username,
             userMail: usermail,
             userTel: usertel,
-            userAddr: useraddr,
+            userAddr: `${useraddr} ${useraddr2}`,
         });
         return res.redirect("/join/complete");
     } catch (error) {
