@@ -1,0 +1,68 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+* {
+    font-family: "Noto Sans KR", sans-serif;
+}
+.layout-main {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+
+table {
+    display: inline-block;
+    border: solid 1px black;
+}
+
+table thead {
+    border: solid 1px black;
+}
+
+table thead tr th {
+    text-align: center;
+    padding: 10px;
+    border: solid 1px black;
+}
+
+tbody tr,
+td {
+    text-align: center;
+    padding: 10px;
+    border: solid 1px black;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+.search {
+    position: relative;
+    /* text-align: right; */
+    min-width: 300px;
+    margin: 0px 10px 30px 10px;
+    display: inline-block;
+}
+.search-form > .search-bar {
+    width: 300px;
+    border-radius: 20px;
+    border: 1px solid #bbb;
+    margin: 10px 0;
+    padding: 10px 12px;
+    text-align: left;
+    display: inline-block;
+}
+.search-button {
+    /* background: url(image/search_icon.png); */
+    background-repeat: no-repeat;
+    border: none;
+    width: 32px;
+    height: auto;
+    cursor: pointer;
+}
+.search-button {
+    background-image: url("image/search_icon.png");
+    background-position: top right;
+    background-repeat: no-repeat;
+}

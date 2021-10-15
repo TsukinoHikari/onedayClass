@@ -1,0 +1,167 @@
+{% extends 'layout.html' %} {% block style %}
+<link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous"
+/>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" href="/qna.css" />
+{% endblock %} {% block content %}
+    </head>
+    <body>
+        <table id="qna-list">
+            <thead>
+                <tr>
+                    <th>순번</th>
+                    <th>내용</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>답변</th>
+                    <th>조회수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for qna in qnas %}
+                    <td>{{qna.qnaNum}}</td>
+                    <td>
+                        <a href="/qna/{{qna.qnaNum}}">{{qna.qnaTitle}}</a>
+                    </td>
+                    <td>{{qna.userId}}</td>
+                    <td>{{qna.qnaCreate}}</td>
+                    <td>{{qna.answerContent}}</td>
+                    <td>1</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/qna?page=1&limit=10">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/qna?page=2&limit=10">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/qna?page=3&limit=10">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="pagination-wrapper clearfix">
+            <ul class="pagination float--right" id="pages"></ul>
+        </div>
+
+        {% if user and user.userId %}
+        <!-- 클릭을 하였을때 로컬에서 href열어라 qna/post를 -->
+        <button onclick="location.href='/qna/post'">등록하기</button>
+        <button onclick="location.href='/auth/logout'">로그아웃</button>
+        {% else %}
+        <button onclick="location.href='/login'">유저로그인</button>
+        {% endif %}
+        <!-- bootstrap -->
+
+        {% endblock %} {% block script %}
+        <script>
+            function paging(totalData, currentPage) {
+                const dataPerPage = 10;
+                const pageCount = 3;
+
+                // console.log("currentPage : " + currentPage);
+                // console.log("totalData : " + totalData);
+                const totalPage = Math.ceil(totalData / dataPerPage); // 총 페이지 수
+                const pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+
+                // console.log("pageGroup : " + pageGroup);
+                // console.log("totalPage : " + totalPage);
+
+                let last = pageGroup * pageCount; // 화면에 보여질 마지막 페이지 번호
+                if (last > totalPage) last = totalPage;
+                let first = last - (pageCount - 1); // 화면에 보여질 첫번째 페이지 번호
+                const next = last + 1;
+                const prev = first - 1;
+
+                // console.log("last : " + last);
+                // console.log("first : " + first);
+                // console.log("next : " + next);
+                // console.log("prev : " + prev);
+
+                if (totalPage < 1) {
+                    first = last;
+                }
+                const pages = $("#pages");
+                pages.empty();
+                if (first > 5) {
+                    pages.append(
+                        '<li class="pagination-item">' +
+                            '<a onclick="GetTarget(' +
+                            prev +
+                            ");\" style='margin-left: 2px'>prev</a></li>"
+                    );
+                }
+                for (let j = first; j <= last; j++) {
+                    if (currentPage === j) {
+                        pages.append(
+                            '<li class="pagination-item">' +
+                                "<a class='active' onclick=\"GetTarget(" +
+                                j +
+                                ");\" style='margin-left: 2px'>" +
+                                j +
+                                "</a></li>"
+                        );
+                    } else if (j > 0) {
+                        pages.append(
+                            '<li class="pagination-item">' +
+                                '<a onclick="GetTarget(' +
+                                j +
+                                ");\" style='margin-left: 2px'>" +
+                                j +
+                                "</a></li>"
+                        );
+                    }
+                }
+                if (next > 5 && next < totalPage) {
+                    pages.append(
+                        '<li class="pagination-item">' +
+                            '<a onclick="GetTarget(' +
+                            next +
+                            ");\" style='margin-left: 2px'>next</a></li>"
+                    );
+                }
+            }
+            $("document").ready(function () {
+                paging(totalData, dataPerPage, pageCount, 1);
+            });
+        </script>
+
+        <!-- <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"
+        ></script> -->
+        {% endblock %}

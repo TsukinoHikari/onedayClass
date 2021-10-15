@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+<!-- 스타일 -->
+{% block style %}
+<link rel="stylesheet" href="/qna.css" />
+{% endblock %}
+<!-- 스타일 끝 -->
+{% block content %}
+        {% if admin and admin.adminId %}
+        <form method="POST">
+            <table>
+                <tr>
+                    <td>
+                        <input
+                            type="hidden"
+                            name="writer"
+                            value="{{admin.adminId}}"
+                        />
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder="제목을 입력하세요."
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea
+                            name="contents"
+                            id="contents"
+                            cols="30"
+                            rows="10"
+                            style="resize: none"
+                        ></textarea>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="답변하기" />
+            <a href="/qna">돌아가기</a>
+            {% else %}
+            <a href="/qna">돌아가기</a>
+            {% endif %} {% endblock %}
+    </body>
+</html>
+

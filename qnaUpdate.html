@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+<!-- 스타일 -->
+{% block style %}
+<link rel="stylesheet" href="/qna.css" />
+{% endblock %}
+<!-- 스타일 끝 -->
+{% block content %}{% if user and user.userId %}{% for qna in qna %}
+        <form action="/qna/{{qna.qnaNum}}/edit" method="POST">
+            <table>
+                <tr>
+                    <td>
+                        <input
+                            type="text"
+                            name="title"
+                            value="{{qna.qnaTitle}}"
+                            placeholder="제목을 입력하세요."
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea
+                            name="content"
+                            cols="30"
+                            rows="10"
+                            style="resize: none"
+                            placeholder="내용을 입력하세요."
+                        >
+{{qna.qnaContent}}</textarea
+                        >
+                    </td>
+                </tr>
+            </table>
+            <a href="/qna/{{qna.qnaNum}}">돌아가기</a>
+        <button type="submit">수정하기</button>
+        {% endfor %} {% else %}
+        <a href="/qna">돌아가기</a>
+        {% endif %}
+
+        {% endblock %}
+        </form>
+        
+    </body>
+</html>
