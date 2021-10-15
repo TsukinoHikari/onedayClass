@@ -97,8 +97,16 @@ router.get("/:id", async (req, res, next) => {
             where: { noticeNum: req.params.id },
         });
 
+        const a = notice[0].noticeView + 1;
+        await Notice.update(
+            {
+                noticeView: a,
+            },
+            { where: { noticeNum: req.params.id } }
+        );
+
         res.render("noticeDetail", { notice });
-    } catch (error) {
+    } catch (err) {
         console.error(err);
         next(err);
     }

@@ -32,6 +32,7 @@ module.exports = class User extends Sequelize.Model {
                 level: {
                     type: Sequelize.INTEGER,
                     allowNull: true,
+                    defaultValue: 1,
                 },
                 userCreated: {
                     type: Sequelize.DATE,

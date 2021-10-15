@@ -18,6 +18,11 @@ module.exports = class Notice extends Sequelize.Model {
                     type: Sequelize.STRING(45),
                     allowNull: true,
                 },
+                noticeView: {
+                    type: Sequelize.INTEGER.UNSIGNED,
+                    allowNull: false,
+                    defaultValue: 0,
+                },
                 noticeCreated: {
                     type: Sequelize.DATEONLY,
                     allowNull: true,
