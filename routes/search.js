@@ -60,7 +60,7 @@ router.get("/", async (req, res) => {
         // // 객체들의 배열(array of objects)은 정렬, 필터링 등의 방법이 이미 인터넷에 많이 있습니다.
         const searchClasses = mapTheList(classImages);
 
-        return res.render("search", { searchClasses });
+        return res.render("search", { searchClasses ,keyword});
     } catch (err) {
         console.error(err);
         next(err);
