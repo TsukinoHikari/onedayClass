@@ -8,57 +8,58 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet" href="/notice.css" />
 {% endblock %} {% block content %}
-<table id="notice-list">
-    <thead>
-        <tr>
-            <th>no</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회수</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            {% for num in nums %}
-            <td>{{num.no}}</td>
+<div class="notice-article">
+    <table id="notice-lists">
+        <thead>
+            <tr class="list-title">
+                <th class="notice-list-sub">no</th>
+                <th class="notice-list-sub">제목</th>
+                <th class="notice-list-sub">작성자</th>
+                <th class="notice-list-sub">작성일</th>
+                <th class="notice-list-sub">조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="list-content">
+                {% for num in nums %}
+                <td class="content-list">{{num.no}}</td>
+                <td class="content-list">
+                    <a href="/notice/{{num.noticeNum}}">{{num.noticeTitle}}</a>
+                </td>
+                <td class="content-list">{{num.adminId}}</td>
+                <td class="content-list">{{num.noticeCreated}}</td>
+                <td class="content-list">1</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-            <td>
-                <a href="/notice/{{num.noticeNum}}">{{num.noticeTitle}}</a>
-            </td>
-            <td>{{num.adminId}}</td>
-            <td>{{num.noticeCreated}}</td>
-            <td>1</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="/notice?page=1&limit=10">1</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="/notice?page=2&limit=10">2</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="/notice?page=3&limit=10">3</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="/notice?page=1&limit=10">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="/notice?page=2&limit=10">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="/notice?page=3&limit=10">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 
 <div class="pagination-wrapper clearfix">
     <ul class="pagination float--right" id="pages"></ul>
