@@ -1,0 +1,171 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+* {
+    font-family: "Noto Sans KR", sans-serif;
+}
+.layout-main {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.detailClass-article {
+    position: relative;
+}
+#detailClass-content {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    display: inline-block;
+    margin-left: 20px;
+}
+#detailClass-title > h1 > a {
+    font-size: 1.3em;
+    text-decoration: none;
+    color: black;
+}
+#detailClass-title {
+    display: inline-block;
+    margin-bottom: 60px;
+    width: 680px;
+}
+.detailClass-wish {
+    display: inline-block;
+    width: 35px;
+    margin: 0;
+}
+
+.detailClass-content-img > img {
+    max-width: 720px;
+    max-height: 1080px;
+}
+
+/* 오른쪽 기능 */
+.detailClass-functions {
+    position: fixed;
+    top: 150px;
+    right: 350px;
+    width: 400px;
+    padding: 20px;
+}
+
+@media screen and (min-width: 1640px) and (max-width: 1800px) {
+    .detailClass-functions {
+        position: fixed;
+        top: 150px;
+        right: 250px;
+        width: 400px;
+        padding: 20px;
+    }
+}
+@media screen and (min-width: 1480px) and (max-width: 1640px) {
+    .detailClass-functions {
+        position: fixed;
+        top: 150px;
+        right: 150px;
+        width: 400px;
+        padding: 20px;
+    }
+}
+@media screen and (min-width: 1420px) and (max-width: 1480px) {
+    .detailClass-functions {
+        position: fixed;
+        top: 150px;
+        right: 150px;
+        width: 400px;
+        padding: 20px;
+    }
+}
+@media screen and (min-width: 1220px) and (max-width: 1420px) {
+    .detailClass-functions {
+        position: fixed;
+        top: 150px;
+        right: 50px;
+        width: 400px;
+        padding: 20px;
+    }
+}
+@media screen and (max-width: 1219px) {
+    .detailClass-functions {
+        position: fixed;
+        top: 150px;
+        right: 0px;
+        width: 400px;
+        padding: 20px;
+    }
+}
+
+.detailClass-pay {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+.signClass-pick-date,
+.signClass-pick-qty {
+    width: 100%;
+}
+
+.signClass-pick-date > select,
+.signClass-pick-qty > select {
+    border-radius: 5px;
+    height: 35px;
+    margin-top: 10px;
+    width: 250px;
+}
+.signClass-pick-qty > select {
+    margin-bottom: 10px;
+}
+
+.classRegi-input-area > select {
+    border: 1px solid #222222;
+    width: 120px;
+    height: 30px;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+.signClass-sub-title {
+    display: inline-block;
+    width: 80px;
+}
+
+.signClass-pay-btn > input {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 340px;
+    height: 38px;
+    font-size: 1em;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+.signClass-pay-btn > input:hover {
+    background-color: #ddd;
+}
+
+#detailClass-place,
+#detailClass-price,
+#sign-db-classDate {
+    font-size: 17px;
+    width: 720px;
+    height: 35px;
+    letter-spacing: 1.5px;
+}
+#detailClass-content > #date {
+    padding-bottom: 30px;
+}
+
+#detailClass-contents {
+    width: 720px;
+    border-top: 1px solid #ddd;
+    padding-left: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.detailClass-line {
+    margin: 20px 0;
+}
+
+.detailClass-sub-title {
+    font-size: 15px;
+    display: inline-block;
+    width: 120px;
+    text-align: left;
+}

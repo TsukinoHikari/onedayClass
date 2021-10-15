@@ -1,0 +1,294 @@
+{% extends '../layout.html' %}
+<!-- styleblock -->
+{% block style %}
+<!-- ex) <link rel="stylesheet" href="login.css" /> -->
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script
+    src="https://cdn.bootpay.co.kr/js/bootpay-3.3.2.min.js"
+    type="application/javascript"
+></script>
+<link rel="stylesheet" href="/pay.css" />
+
+{% endblock %}
+<!-- end style -->
+
+<!-- content block-->
+{% block content %}
+<!-- for price -->
+
+<div class="pay-cart-container">
+    <div class="pay-cart-title">
+        <a href="/signClass/pay">장바구니</a>
+        <div class="pay-process">
+            <span class="pay-cart"><a href="/signClass/pay"> 장바구니</a></span>
+            <span class="pay-process-img">></span>
+            <span class="pay-complete">결제완료</span>
+        </div>
+    </div>
+
+    <table class="cart-detail">
+        <tr class="cart-sub-title-area">
+            <th class=>no</th>
+            <th></th>
+            <th class="cart-sub-title-detail">클래스정보</th>
+            <th class="cart-sub-title-qty">인원</th>
+            <th class="cart-sub-title-price">클래스금액</th>
+        </tr>
+    
+        <!--  -->
+        {% for a in classImage %}
+        <tr class="cart-each-product">
+            <td class="cart-each-no">{{loop.index}}</td>
+            <td class="cart-each-image">
+                <a
+                    class="cart-each-image-link"
+                    href="/signClass/{{a.orderClassNum}}"
+                    ><img src="../{{a.path}}" alt=""
+                /></a>
+            </td>
+
+            <td class="cart-each-title">
+                <div class="cart-each-title-title">
+                    <a href="/signClass/{{a.Oclass.classNum}}"
+                        >{{a.classTitle}}</a
+                    >
+                    <span class="cart-each-product-cancel">
+                        <a href="/signClass/delete/{{a.orderClassNum}}"
+                            ><img src="/image/cancel.png" alt="" /></a
+                    ></span>
+                </div>
+                <div class="cart-each-title-content">
+                    <a href="/signClass/{{a.Oclass.classNum}}"
+                        >{{a.classContent}}</a
+                    >
+                </div>
+            </td>
+            <td class="cart-each-qty">{{a.orderQty}}</td>
+            <td class="cart-each-price">{{a.classPrice}}</td>
+        </tr>
+
+        <!-- hidden place -->
+        <div class="pay-classnum" style="display: none">
+            {{a.classNum}}
+        </div>
+        <span class="pay-orderclassnum" style="display: none"
+            >{{a.orderClassNum}}</span
+        >
+        <span class="pay-each-price" style="display: none"
+            >{{a.orderQty*a.classPrice}}</span
+        >
+        {% endfor %}
+        <tr class="cart-total-price">
+            <td colspan="5">
+                총 신청 클래스 가격 : <span id="pay-total-price"></span>
+            </td>
+        </tr>
+    </table>
+
+    <!--  -->
+
+    <form id="pay-payform" method="post" >
+        <div class="cart-payform-title">
+            <a href="/signClass/pay">주문자</a>
+        </div>
+        <table class="cart-payform-table">
+            <tr class="cart-payform-line">
+                <td class="cart-payform-sub-title">주문자</td>
+                <td class="cart-payform-input">
+                    <input
+                        id="orderName"
+                        type="text"
+                        name="orderName"
+                        value="{{user.userName}}"
+                    />
+                </td>
+            </tr>
+            <tr class="cart-payform-line">
+                <td class="cart-payform-sub-title">주문자 전화번호</td>
+                <td class="cart-payform-input">
+                    <input
+                        id="orderTel"
+                        type="text"
+                        name="orderTel"
+                        value="{{user.userTel}}"
+                    />
+                </td>
+            </tr>
+        </table>
+
+        <div id="pay-class-data"></div>
+        <!-- <button type="button" onclick="pay()">결제하기</button> -->
+        <div class='pay-btn-area'>
+            <button id="pay-btn" >결제하기</button>
+        </div>
+        
+    </form>
+</div>
+<script></script>
+
+{% endblock %}
+<!-- end content -->
+
+<!-- script block -->
+{% block script %}
+
+<script>
+    function addComma(num) {
+        var regexp = /\B(?=(\d{3})+(?!\d))/g;
+        return num.toString().replace(regexp, ",");
+    }
+
+    const qty = document.getElementsByClassName("cart-each-qty");
+    const price = document.getElementsByClassName("cart-each-price");
+    const totalprice = document.getElementById("pay-total-price");
+    
+    function eachComma() {
+        const eachprice = document.getElementsByClassName("cart-each-price");
+        for (let i = 0; i < eachprice.length; i++) {
+            let eprice = eachprice[i].innerText;
+            const putcomma = addComma(eprice);
+            eachprice[i].innerText = putcomma;
+        }
+    }
+    
+
+
+    let total_price = 0;
+    for (let i = 0; i < price.length; i++) {
+        let mul_price =
+            parseInt(qty[i].innerText) * parseInt(price[i].innerText);
+        total_price = total_price + mul_price;
+    }
+    eachComma();
+    $("#pay-total-price").append(addComma(total_price));
+
+    function payment() {
+        //const orderclassnum = document.getElementsByClassName("orderclassnum");
+        const paypay = document.getElementsByClassName("pay-each-price");
+        const classnum = document.getElementsByClassName("pay-classnum");
+        const orderclassnum =
+            document.getElementsByClassName("pay-orderclassnum");
+
+        // $("#pay-class-data").append(
+        //     "<input type='text' name='orderClassNum' value=" +
+        //         pay_classNum +
+        //         "disabled/>"
+        // );
+
+        for (let i = 0; i < paypay.length; i++) {
+            $("#pay-class-data").append(
+                "<input type='text' name='totalPrice' value='" +
+                    paypay[i].innerText +
+                    "'style='display: none'/>"
+            );
+        }
+
+        for (let i = 0; i < classnum.length; i++) {
+            $("#pay-class-data").append(
+                "<input type='text' name='classNum' value='"+classnum[i].innerText+"'style='display: none'/>"
+            );
+        }
+
+        for (let i = 0; i < orderclassnum.length; i++) {
+            $("#pay-class-data").append(
+                "<input type='text' name='orderclassnum' value='" +
+                    orderclassnum[i].innerText +
+                    "'style='display: none'/>"
+            );
+        }
+    }
+    payment();
+
+    document.getElementById("pay-btn").addEventListener("click", pay);
+
+    function pay() {
+        window.BootPay.request({
+            price: total_price, //실제 결제되는 가격
+            application_id: "6163c3c27b5ba4002352c6d1",
+            name: "원데이클래스", //결제창에서 보여질 이름
+            pg: "kcp",
+            method: "", //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
+            show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
+            items: [
+                {
+                    item_name: "dd", //상품명
+                    qty: 1, //수량
+                    unique: "123", //해당 상품을 구분짓는 primary key
+                    price: 100, //상품 단가
+                    cat1: "TOP", // 대표 상품의 카테고리 상, 50글자 이내
+                    cat2: "티셔츠", // 대표 상품의 카테고리 중, 50글자 이내
+                    cat3: "라운드 티", // 대표상품의 카테고리 하, 50글자 이내
+                },
+            ],
+            user_info: {
+                username: "abc",
+                email: "사용자 이메일",
+                addr: "사용자 주소",
+                phone: "010-1234-4567",
+            },
+            order_id: "order_id_1234", //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
+            params: {
+                callback1: "그대로 콜백받을 변수 1",
+                callback2: "그대로 콜백받을 변수 2",
+                customvar1234: "변수명도 마음대로",
+            },
+            account_expire_at: "2022-05-25", // 가상계좌 입금기간 제한 ( yyyy-mm-dd 포멧으로 입력해주세요. 가상계좌만 적용됩니다. )
+            extra: {
+                expire_month: "12", // 정기걸제 시 사용됨, 정기결제가 적용되는 개월 수, 미설정시 12개월
+                vbank_result: 0, // 가상계좌 사용시 사용, 가상계좌 결과창을 볼지(1), 말지(0), 미설정시 봄(1)
+                quota: "0,2,3", // 결제금액이 5만원 이상시 할부개월 허용범위를 설정할 수 있음, [0(일시불), 2개월, 3개월] 허용, 미설정시 12개월까지 허용
+            },
+        })
+            .error(function (data) {
+                //결제 진행시 에러가 발생하면 수행됩니다.
+
+                console.log(1);
+                console.log(data);
+            })
+            .cancel(function (data) {
+                //결제가 취소되면 수행됩니다.
+                //                {pay_cancel:'cancel'} = data;
+                console.log("사용자 취소");
+                data.action = "hi";
+                console.log(data);
+            })
+            .ready(function (data) {
+                // 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
+                console.log(3);
+                console.log(data);
+            })
+            .confirm(function (data) {
+                //결제가 실행되기 전에 수행되며, 주로 재고를 확인하는 로직이 들어갑니다.
+                //주의 - 카드 수기결제일 경우 이 부분이 실행되지 않습니다.
+                console.log(4);
+                this.transactionConfirm(data); // 조건이 맞으면 승인 처리를 한다.
+                // } else {
+                //     this.removePaymentWindow(); // 조건이 맞지 않으면 결제 창을 닫고 결제를 승인하지 않는다.
+                // }
+            })
+            .close(function (data) {
+                console.log(5);
+                console.log(data);
+                location.href = "/pay";
+
+                // if (cancel) {
+                //     location.href = "#";
+                // } else {
+                //     location.href = "/pay";
+                // }
+
+                // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
+            })
+            .done(function (data) {
+                //결제가 정상적으로 완료되면 수행됩니다
+                //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
+                console.log(6);
+                // 결제내역 데이터베이스에 저장!
+                
+                console.log(data);
+            });
+    }
+</script>
+{% endblock %}
+<!-- end script -->

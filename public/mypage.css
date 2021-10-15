@@ -1,0 +1,64 @@
+
+ul  {
+    list-style: none;
+}
+
+.container{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+.mypagemenu{
+    width: 20%;
+}
+
+.mypage-li{
+    min-width: 120px;
+    height: 50px;
+    padding: 5px;
+    text-align: center;
+}
+
+a{
+    color: black;
+    text-decoration-line: none;
+    font-weight: bold;
+}
+.mypage-li:hover{
+    background-color: lightgray;
+    cursor: pointer;
+}
+.detailMyPage{
+
+    width: 60%;
+}
+
+@media (max-width: 1280px) {
+    .container{
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    .mypagemenu{
+        margin: 0 auto;
+        width: 100%;
+
+    }
+    .mypage-ul{
+    
+        display: flex;
+        justify-content: space-around;
+    }
+    /* .mypage-li{
+       
+        width: 200px;
+        height: 50px;
+        padding: 5px;
+        text-align: center;
+    } */
+    .detailMyPage{
+margin-top: 40px;
+
+width: 100%;
+    }
+  }

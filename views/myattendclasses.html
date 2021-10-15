@@ -1,0 +1,57 @@
+{% extends 'mypage.html' %} {% block detailcontent %}
+<div class="attend-title">
+    <h1>내가 신청한 클래스</h1>
+</div>
+<div class="attend-container">
+    {% for attend in attendClass %}
+    <div class="attend-lists">
+        <div class="attend-lists-in">
+            <div class="attend-lists-img">
+                <a href="/signClass/{{attend.classNum}}"
+                    ><img src="/{{attend.path}}"
+                /></a>
+            </div>
+            <div class="attend-lists-content">
+                <div class="attend-lists-title">
+                    <a href="/signClass/{{attend.classNum}}"
+                        >{{attend.classTitle}}</a
+                    >
+                </div>
+                <div class="attend-contents">
+                    <div class="attend-contents-sub">신청자</div>
+                    {{attend.orderName}}
+                </div>
+                <div class="attend-contents">
+                    <div class="attend-contents-sub">전화번호</div>
+                    {{attend.orderTel}}
+                </div>
+                <div class="attend-contents">
+                    <div class="attend-contents-sub">가격</div>
+                    <span class="changePrice">{{attend.orderPrice}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<!-- 
+<p>잘못된 경로입니다.</p>
+<a href="/">돌아가기</a> -->
+<!-- if끝 -->
+{% endblock %} {% block script %}
+<script>
+    function addComma(num) {
+        var regexp = /\B(?=(\d{3})+(?!\d))/g;
+        return num.toString().replace(regexp, ",");
+    }
+    function eachComma() {
+        const eachprice = document.getElementsByClassName("changePrice");
+        for (let i = 0; i < eachprice.length; i++) {
+            let eprice = eachprice[i].innerText;
+            const putcomma = addComma(eprice);
+            eachprice[i].innerText = putcomma;
+        }
+    }
+    eachComma();
+</script>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'category/categorylayout.html' %}
+<!-- style block -->
+{% block style %}
+<link rel="stylesheet" href="/categorylayout.css" />
+<!-- end block -->
+{% endblock %}
+<!-- content block -->
+{% block detailcategory %}
+<h1>{{thisCateName}}</h1>
+<div class="main-class-contents">
+  <table>
+    <tr>
+      {% for image in classImage %}
+      <th class="categoryTh">
+        <a href="/signClass/{{image.OclassClassNum}}"
+          ><img src="../{{image.path}}" alt=""
+        /></a>
+      </th>
+      {%endfor%}
+    </tr>
+    <!--  -->
+    <tr>
+      {% for eachClass in thisCateClass %}
+      <td class="categoryFont">
+        <a href="/signClass/{{eachClass.classNum}}">{{eachClass.classTitle}}</a>
+      </td>
+      {% endfor %}
+    </tr>
+  </table>
+</div>
+<!-- 블럭 끝 -->
+{% endblock %}
+<!-- 스크립트 -->
+{% block script %} {% endblock %}

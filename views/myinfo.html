@@ -1,0 +1,116 @@
+{% extends 'mypage.html' %} 
+
+{% block detailcontent %}
+
+<form action="resetinfo" method="post">
+        <legend><h2>내 정보 수정</h2></legend>
+
+        <table class="myinfo-table">
+            <table class="type1">
+                <caption></caption>
+                <colgroup>
+                    <col style="width: 170px;">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th><span>필수입력</span>이름</th>
+                        <td>
+
+                            <input id="inp-name" name="username" type="text" style="width: 200px;" value="{{user.userName}}" disabled>
+                        </td>
+                    </tr>
+                   
+                    <tr>
+                        <th><span>필수입력</span>아이디</th>
+                        <td>
+                            <input id="inp-id" name="userid" type="text" style="width: 200px;" value="{{user.userId}}" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>필수입력</span>새 비밀번호</th>
+                        <td>
+                          <input id="inp-password" name="newpassword" type="password" style="width: 200px;">
+                          <span class="msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>필수입력</span>새 비밀번호 확인</th>
+                    <td>
+                        <input id="inp-confirm" name="newpassword2" type="password" style="width: 200px;">
+                        <span class="msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>필수입력</span>주소</th>
+                        <td>
+                            <div>
+                                <input type="text" id="sample6_detailAddress" name="useraddr" value="{{user.userAddr}}" style="width: 560px;">
+                            </div>
+                            <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="display: none;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>필수입력</span>이메일 주소</th>
+                        <td>
+                            <input type="text" id="inp-email01" name="usermail" style="width: 210px;" value="{{user.userMail}}" disabled>
+                            <span class="info"> ex ) mail아이디@naver.com</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>전화번호</th>
+                        <td>
+                            <input id="inp-tel" type="text" name="usertel" style="width: 210px;" value="{{user.userTel}}">
+                            <span class="msg"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </table>
+        <div class="final-button">
+    <button id="edit" type="submit">수정완료</button>
+        </div>
+</form>
+{% endblock %} {% block script %}
+<script>
+    let newpwToken;
+    const newpw = document.getElementById("inp-password");
+    const newpw2 = document.getElementById("inp-confirm");
+    const msg = document.querySelectorAll(".msg");
+    newpw.addEventListener("keyup", checkPwd1);
+    newpw2.addEventListener("keyup", checkPwd2);
+
+
+    function checkPwd1() {
+        let regPwd = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
+
+        if (!regPwd.test(newpw.value)) {
+            msg[0].innerHTML =
+                "6~20자 영문 대/소문자에 숫자 또는 특수문자를 포함해주세요.";
+            msg[0].style.color = "red";
+            msg[0].style.display = "inline-block";
+            pwdToken = false;
+        } else {
+            msg[0].style.display = "none";
+            pwdToken = true;
+        }
+    }
+
+    function checkPwd2() {
+        let regPwd =  /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
+       if (newpw.value !== newpw2.value) {
+            msg[1].style.display = "none";
+            msg[1].innerHTML = "비밀번호가 일치하지 않습니다.";
+            msg[1].style.color = "red";
+            msg[1].style.display = "inline-block";
+            newpwToken = false;
+        } else {
+            msg[1].style.display = "none";
+            //내정보수정 지운거
+            newpwToken = true;
+        }
+    }
+</script>
+
+{% endblock %}

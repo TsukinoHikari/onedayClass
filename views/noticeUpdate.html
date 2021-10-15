@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+<!-- 스타일 -->
+{% block style %}
+<link rel="stylesheet" href="/notice.css" />
+{% endblock %}
+<!-- 스타일 끝 -->
+
+{% block content %}
+<!-- if admin -->
+{% if admin and admin.adminId %}{% for notice in notice %}
+<a href="/notice/{{notice.noticeNum}}">돌아가기</a>
+<form action="/notice/{{notice.noticeNum}}/edit" method="POST">
+    <table>
+        <tr>
+            <td>
+                제목 :
+                <input
+                    type="text"
+                    name="title"
+                    value="{{notice.noticeTitle}}"
+                />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                내용 :
+                <textarea
+                    name="content"
+                    cols="30"
+                    rows="10"
+                    style="resize: none"
+                >
+{{notice.noticeContent}}</textarea
+                >
+            </td>
+        </tr>
+    </table>
+    <button type="submit">수정하기</button>
+    {% endfor %} {% else %}
+    <a href="/notice">돌아가기</a>
+    {% endif %}
+</form>
+
+{% endblock %}

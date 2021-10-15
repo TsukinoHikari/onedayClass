@@ -1,0 +1,440 @@
+{% extends 'layout.html' %}
+<!-- styleblock -->
+{% block style %}
+<link rel="stylesheet" href="login.css" />
+<style>
+    .step {
+        display: flex;
+        border-top: 1px solid #aaa;
+        border-bottom: 1px solid #aaa;
+    }
+
+    .step li {
+        flex: 1;
+        position: relative;
+        padding: 22px 0;
+        font-size: 15px;
+        color: #161616;
+        text-align: center;
+        line-height: 100%;
+    }
+
+    .step li:last-child:after {
+        display: none;
+    }
+
+    .step li div {
+        padding: 8px 0 0;
+        font-size: 18px;
+        color: #a5a5a5;
+    }
+
+    .step li.on {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        list-style: none;
+        color: #000;
+    }
+
+    .step li.on div {
+        color: rgb(174, 96, 248);
+        margin-top: 5px;
+
+        font-size: 25px;
+    }
+
+
+
+    #cancel,
+    a #cancel,
+    #join {
+        margin-top: 20px;
+        width: 230px;
+        height: 50px;
+        background-color: rgb(190, 189, 189);
+        color: #fff;
+        font-size: 18px;
+        border: none;
+        text-decoration: none;
+    }
+
+
+    #join,
+    a #join {
+        margin-top: 20px;
+        background-color: #c36ce5;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    table.type1 { margin-top: 30px; border-top: 1px solid #495970; border-bottom: 1px solid #999;}
+table.type1 th,
+table.type1 td {height: 40px; border-top: 1px solid #ccc;border-left: 1px solid #ccc;font-size: 13px;}
+table.type1 th:first-child {border-left: none;}
+table.type1 tr:first-child th,
+table.type1 tr:first-child td {border-top: none;}
+table.type1 th {padding:10px 10px 10px 45px; text-align: left; font-weight: normal; font-size: 13px; color: #222;}
+table.type1 th span{overflow: hidden; display: inline-block; margin:0 6px 0 -14px; width: 8px; height: 7px; background: url("../images/icon.png") no-repeat -534px -5px; color: transparent; vertical-align: 2px;}
+table.type1 td {padding: 10px 55px; color: #777;}
+table.type1 .info:before{content: "";display: inline-block;margin: 5px 13px; width: 15px;height: 14px; background: url("../images/icon.png") no-repeat -336px -5px;vertical-align: middle;}
+table.type1 td > div {padding: 10px 0 0;}
+table.type1 td > div:first-child {padding: 0;}
+table.type1 td .btn_type3 {margin-left: 5px;}
+table.type1 td label{ padding-left: 7px;}
+
+textarea { border:1px solid #dbdbdb;}
+select {padding: 0 20px; height:38px; font-size:13px; color:#777; border:1px solid #ccc; background:#fff;line-height: 38px; box-sizing: border-box;}
+input[type=tel],
+input[type=time],
+input[type=text],
+input[type=password],
+input[type=search],
+input[type=email],
+input[type=file],
+textarea {padding: 0 20px; width:100%; height:38px; font-size:13px; color:#777; border:1px solid #e9e9e9; background:#fff; transition: all 0.5s; vertical-align:middle;line-height: 38px; box-sizing: border-box;}
+input::-webkit-input-placeholder{color:#b5b5b5; font-size:12px; line-height:100%;}
+textarea { padding:5px 0;}
+select:focus,
+textarea:focus,
+input:focus { border: 1px solid #727272;}
+
+input[type=tel][readonly],
+input[type=text][readonly],
+input[type=password][readonly],
+input[type=email][readonly], 
+input[type=search][readonly], 
+input[type=tel][disabled],
+input[type=text][disabled],
+input[type=password][disabled],
+input[type=search][disabled],
+input[type=email][disabled]{background:#eaeaea; border-color:#c0c0c0; color:#666; -webkit-appearance:none;font-size:12px;}
+textarea[readonly],
+textarea[disabled]{padding:11px; font-size:16px; color:#666; font-weight:normal; line-height:140%; height:78px; background:#eaeaea;border:1px solid #c0c0c0;}
+
+.btn_type3{
+    cursor: pointer;
+}
+.btn_type3:hover{
+    
+    background-color: rgb(189, 190, 190);
+}
+    .final-button {
+        margin: 0 auto;
+        margin-top: 60px;
+        width: 500px;
+        display: flex;
+        justify-content: space-around;
+       flex-wrap: wrap;
+    }
+</style>
+<!-- end style -->
+{% endblock %}
+<!-- content block -->
+{% block content %}
+<div class="joinform">
+    <form id="userform"  >
+    <ol class="step">
+        <li id="ol-step" class="on">STEP2 of 3<div>회원가입</div>
+    </ol>
+    <fieldset>
+        <table>
+            <table class="type1">
+                <caption></caption>
+                <colgroup>
+                    <col style="width: 170px;">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th><span>필수입력</span>이름</th>
+                        <td>
+                            <input id="inp-name" name="username" type="text" style="width: 300px;">
+                        </td>
+                    </tr>
+                   
+                    <tr>
+                        <th><span>필수입력</span>아이디</th>
+                        <td>
+                            <input id="inp-id" name="userid" type="text" style="width: 300px;">
+
+                            <!-- <a href="#" class="btn_type3" onclick="checkid();">아이디 중복확인</a> -->
+                            <!-- <button class="btn_type3" onclick="checkid();">아이디 중복확인</button> -->
+                            
+                            <span id="id_msg" class="info">아이디는 4~20자 문자열로 작성.</span>
+                            <span class="msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>필수입력</span>비밀번호</th>
+                        <td>
+
+                          <input id="inp-password" name="userpwd" type="password" style="width: 300px;">
+                          <span class="info">6~20자 영문 대/소문자, 숫자 or 특수문자를 포함하여야 합니다.</span>
+                          <span class="msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>필수입력</span>비밀번호 확인</th>
+                    <td>
+                        <input id="inp-confirm" name="userpwd2" type="password" style="width: 300px;">
+                        <span class="msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>필수입력</span>주소</th>
+                        <td>
+                            <div>
+                                <input type="text" id="sample6_postcode" placeholder="우편번호" style="width: 210px;">
+                                <input type="button" class="btn_type3"  onclick="sample6_execDaumPostcode()" value="우편번호 찾기" >
+                            </div>
+                            <div>
+                                <input type="text" id="sample6_address" name="useraddr" placeholder="주소" style="width: 320px;">
+                            </div>
+                            <div>
+                                <input type="text" id="sample6_detailAddress" name="useraddr2" placeholder="상세주소" style="width: 560px;">
+                            </div>
+                            <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="display: none;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span>필수입력</span>이메일 주소</th>
+                        <td>
+                            <input type="text" id="inp-email01" name="usermail" style="width: 210px;">
+                            <span class="info"> ex) mail아이디@naver.com</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>전화번호</th>
+                        <td>
+                            <input id="inp-tel" type="text" name="usertel" style="width: 210px;">
+                            <span class="info"> ex) 000-0000-0000</span>
+                            <span class="msg"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </table>
+       
+            
+            <div class="final-button">
+                <a href="/prejoin">
+                    <button id="cancel" type="button">
+                        돌아가기
+                    </button>
+                </a>
+              
+                    <button id="join" type="submit" class="btn" onclick="Welcome()">
+                        회원가입
+                    </button>
+            
+            </div>
+
+    </fieldset>
+    </form>
+</div>
+{% endblock %} {% block script %}
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+      function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
+<script>
+    let idToken;
+    let pwdToken;
+    let pwd2Token;
+    let nameToken;
+    let telToken;
+    let mailToken;
+    let addrToken;
+
+    const uid = document.getElementById("inp-id");
+    const upwd = document.getElementById("inp-password");
+    const upwd2 = document.getElementById("inp-confirm");
+    const uname = document.getElementById("inp-name");
+    const utel = document.getElementById("inp-tel");
+    const umail = document.getElementById("inp-email01");
+    const form = document.getElementById("userform");
+
+    const uaddr = document.getElementById("sample6_address");
+    const uaddr2 = document.getElementById("sample6_detailAddress");
+    //이메일주소는 따로입력되서 서버에서 같이 입력받도록 해야함
+    const msg = document.querySelectorAll(".msg");
+    const $nextPage = document.querySelector('#nextPage')
+
+    uid.addEventListener("keyup", checkId);
+    upwd.addEventListener("keyup", checkPwd);
+    upwd2.addEventListener("keyup", checkPwd2);
+    utel.addEventListener("blur", checkTel);
+    umail.addEventListener("blur", checkMail);
+
+
+
+    function checkId() {
+        //id유효성 검사 및 에러시 메세지 표시
+        let regId = /^[a-z]+[a-z0-9]{3,20}$/g;
+        if (uid.value === "") {
+            msg[0].innerHTML = "필수정보입니다.";
+            msg[0].style.color = "red";
+            msg[0].style.visiblity = "visible;";
+            idToken = false;
+        } else if (!regId.test(uid.value)) {
+            msg[0].innerHTML =
+                "영문자로 시작하거나 숫자 포함해보세요";
+            msg[0].style.color = "red";
+            msg[0].style.visiblity = "visible";
+            idToken = false;
+        } else {
+            msg[0].innerHTML = "올바른 아이디 입니다.";
+            msg[0].style.color = "#08A600";
+            msg[0].style.visiblity = "visible";
+            idToken = true;
+        }
+    }
+
+    function checkPwd() {
+        let regPwd = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
+
+        if (upwd.value === "") {
+            msg[1].innerHTML = "필수정보입니다.";
+            msg[1].style.color = "red";
+            msg[1].style.visiblity = "visible;";
+            pwdToken = false;
+        } else if (!regPwd.test(upwd.value)) {
+            msg[1].innerHTML =
+                "6~20자 영문 대/소문자에 숫자 또는 특수문자를 포함해주세요.";
+            msg[1].style.color = "red";
+            msg[1].style.visiblity = "visible";
+            pwdToken = false;
+        } else {
+            msg[1].style.display = "none";
+            pwdToken = true;
+        }
+    }
+
+    function checkPwd2() {
+        let regPwd = /[a-zA-Z0-9~!@#$%^&*()_+|<script>?:{}]{8,16}/;
+        if (upwd2.value === "") {
+            msg[2].innerHTML = "필수정보입니다.";
+            msg[2].style.color = "red";
+            msg[2].style.visiblity = "visible;";
+            pwd2Token = false;
+        } else if (upwd.value !== upwd2.value) {
+            msg[2].innerHTML = "비밀번호가 일치하지 않습니다.";
+            msg[2].style.color = "red";
+            msg[2].style.visiblity = "visible";
+            pwd2Token = false;
+        } else {
+            msg[2].style.display = "none";
+            pwd2Token = true;
+        }
+    }
+
+    function checkTel() {
+        let regTel = /^\d{3}-\d{3,4}-\d{4}$/;
+        if (utel.value === "") {
+            msg[3].innerHTML = "필수정보입니다.";
+            msg[3].style.color = "red";
+            msg[3].style.visiblity = "visible;";
+            telToken = false;
+        } else if (!regTel.test(utel.value)) {
+            msg[3].innerHTML = "전화번호 형식이 올바르지 않습니다.";
+            msg[3].style.color = "red";
+            msg[3].style.visiblity = "visible";
+            telToken = false;
+        } else {
+            msg[3].style.display = "none";
+            telToken = true;
+        }
+    }
+
+    function checkMail() {
+
+        let regMail =
+        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+        if (umail.value === "") {
+            msg[4].innerHTML = "필수정보입니다.";
+            msg[4].style.color = "red";
+            msg[4].style.visiblity = "visible;";
+            mailToken = true;
+        } else if (!regMail.test(umail.value)) {
+            msg[4].innerHTML = "이메일 형식이 올바르지 않습니다.";
+            msg[4].style.color = "red";
+            msg[4].style.visiblity = "visible";
+            mailToken = true;
+        } else {
+            msg[4].style.display = "none";
+            mailToken = true;
+        }
+    }
+
+    function Welcome() {
+        if (!idToken) {
+            alert("아이디 형식을 확인하세요");
+            uid.focus();
+            return false;
+        }
+        if (!pwdToken || !pwd2Token) {
+            alert("비밀번호 형식을 확인하세요");
+            return false;
+        }
+        if (!telToken) {
+            alert("전화번호 형식을 확인하세요");
+            return false;
+        }
+        form.method="post"
+        form.action ="/auth/join"
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,183 @@
+{% extends 'layout.html' %}
+<!-- styleblock -->
+{% block style %}
+<link
+    rel="stylesheet"
+    href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+/>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="classRegi.css" />
+
+<!-- end style -->
+{% endblock %}
+<!-- content block -->
+{% block content %}
+<div class="classRegi-container">
+    <div class="classRegi-title">
+        <a href="/classRegi">클래스 등록하기</a>
+    </div>
+    <!--check login-->
+    {% if user and user.userId %}
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="writer" value="{{user.userId}}" />
+
+            <div class="classRegi-input">
+                <div class="classRegi-sub-title">제목</div>
+                <div class="classRegi-input-area">
+                    <input type="text" name="title" placeholder="제목" />
+                </div>
+            </div>
+
+            <div class="classRegi-input">
+                <div class="classRegi-sub-title">카테고리</div>
+                <div class="classRegi-input-area">
+                    <select name="category">
+                        <option value="1">공예DIY</option>
+                        <option value="2">문화예술</option>
+                        <option value="3">뷰티</option>
+                        <option value="4">스포츠</option>
+                        <option value="5">요리</option>
+                        <option value="6">자기계발</option>
+                        <option value="7">기타</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="classRegi-input">
+                <div class="classRegi-sub-title">주소</div>
+                <div class="classRegi-input-area">
+                    <input type="text" name="addr" placeholder="주소" />
+                </div>
+            </div>
+
+            <div class="classRegi-input">
+                <div class="classRegi-sub-title">가격</div>
+                <div class="classRegi-input-area">
+                    <input type="text" name="price" placeholder="가격" />
+                </div>
+            </div>
+
+            <div class="classRegi-input">
+                <div class="classRegi-sub-title">정원</div>
+                <div class="classRegi-input-area">
+                    <input
+                        type="number"
+                        name="qty"
+                        placeholder="최대 인원"
+                        min="1"
+                    />
+                </div>
+            </div>
+
+            <div class="classRegi-input">
+                <div class="classRegi-sub-title">일정</div>
+                <div class="classRegi-input-area">
+                    <input
+                        id="datepicker"
+                        name="date"
+                        type="text"
+                        placeholder="클래스 날짜"
+                    />
+                </div>
+            </div>
+
+            <div class="classRegi-input">
+                <div class="classRegi-sub-title">이미지 등록</div>
+                <div class="classRegi-input-area">
+                    <input
+                        type="file"
+                        name="img"
+                        placeholder="이미지 등록"
+                        multiple
+                    />
+                </div>
+            </div>
+
+            <div class="classRegi-input">
+                <div class="classRegi-sub-title" style="float: left">설명</div>
+                <div class="classRegi-input-area">
+                    <textarea
+                        name="content"
+                        id="content"
+                        cols="30"
+                        rows="10"
+                        style="resize: none"
+                    ></textarea>
+                </div>
+            </div>
+
+            <div class="classRegi-submit">
+                <button class="classRegi-submit-btn" type="submit">
+                    등록하기
+                </button>
+                <a href="/"
+                    ><button class="classRegi-submit-btn" type="button">
+                        돌아가기
+                    </button></a
+                >
+            </div>
+        </form>
+    </div>
+</div>
+<!--not login status-->
+{% else %}
+<p>잘못된 경로입니다.</p>
+<a href="/">돌아가기</a>
+<!-- if끝 -->
+{% endif %}
+
+<!-- content block 끝 -->
+{% endblock %}
+
+<!--script-->
+{% block script %}
+<script>
+    $(function () {
+        $("#datepicker").datepicker({
+            // 기본 속성 넣기 (규약이라고 한다.)
+            dateFormat: "yy-mm-dd",
+            prevText: "이전 달",
+            nextText: "다음 달",
+            monthNames: [
+                "1월",
+                "2월",
+                "3월",
+                "4월",
+                "5월",
+                "6월",
+                "7월",
+                "8월",
+                "9월",
+                "10월",
+                "11월",
+                "12월",
+            ],
+            monthNamesShort: [
+                "1월",
+                "2월",
+                "3월",
+                "4월",
+                "5월",
+                "6월",
+                "7월",
+                "8월",
+                "9월",
+                "10월",
+                "11월",
+                "12월",
+            ],
+            dayNames: ["일", "월", "화", "수", "목", "금", "토"],
+            dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
+            dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+            showMonthAfterYear: true,
+            changeMonth: true,
+            changeYear: true,
+            yearSuffix: "년",
+            yearRange: "-0:+10",
+            minDate: "+0D",
+        });
+    });
+</script>
+{% endblock %}

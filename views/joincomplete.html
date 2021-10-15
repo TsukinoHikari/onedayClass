@@ -1,0 +1,97 @@
+<!-- 검색추가본 -->
+{% extends 'layout.html' %} 
+{% block style %}
+    <style>
+            .step {
+        display: flex;
+        border-top: 1px solid #aaa;
+        border-bottom: 1px solid #aaa;
+    }
+
+    .step li {
+        flex: 1;
+        position: relative;
+        padding: 22px 0;
+        font-size: 15px;
+        color: #161616;
+        text-align: center;
+        line-height: 100%;
+    }
+
+    .step li:last-child:after {
+        display: none;
+    }
+
+    .step li div {
+        padding: 8px 0 0;
+        font-size: 18px;
+        color: #a5a5a5;
+    }
+
+    .step li.on {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        list-style: none;
+        color: #000;
+    }
+
+    .step li.on div {
+        color: rgb(174, 96, 248);
+        margin-top: 5px;
+
+        font-size: 25px;
+    }
+    .final-button {
+        margin: 0 auto;
+        margin-top: 60px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    #home,
+    a #home {
+        margin-top: 20px;
+        width: 230px;
+        height: 50px;
+        background-color: #c36ce5;
+        color: #fff;
+        font-size: 18px;
+        border: none;
+        text-decoration: none;
+    }
+    button {
+        cursor: pointer;
+    }
+    </style>
+{% endblock %}
+{% block content %} 
+<!-- 야구 -->
+<!--  이미지-->
+<div class="joincomplete">
+    <ol class="step">
+        <li id="ol-step" class="on">STEP3 of 3<div>축하드립니다!! 가입을 완료하였습니다.</div>
+    </ol>
+    <div>
+    </div>
+    <div class="final-button">
+        <a href="/">
+            <button id="home" type="button">
+                홈으로 가기
+            </button>
+    </div>
+    
+</div>
+{% for list in searchClass %}
+<div class="searchList">
+  <div class="list">
+    <!-- <a href="/signClass/{{image.OclassClassNum}}"
+    ><img src="{{image.path}}" alt=""
+/></a> -->
+    <a href="/signClass/{{list.classNum}}">{{list.classTitle}}</a>
+  </div>
+</div>
+
+{% endfor %}
+
+<!-- 블럭 끝 -->
+{% endblock %}

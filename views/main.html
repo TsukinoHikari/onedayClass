@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+<!-- style block -->
+{% block style %}
+<!-- main content style -->
+<link rel="stylesheet" href="/maincontent.css" />
+{% endblock %} {% block content %}
+<!-- 배너 작업 -->
+<div class="banner">
+  <input type="radio" name="slide" id="slide01" checked />
+  <input type="radio" name="slide" id="slide02" />
+  <input type="radio" name="slide" id="slide03" />
+  <input type="radio" name="slide" id="slide04" />
+  <div class="slidewrap">
+    <ul class="slidelist">
+      <li>
+        <a>
+          <label for="slide04" class="left"></label>
+          <img src="image/banner01.png" alt="" />
+          <label for="slide02" class="right"></label>
+        </a>
+      </li>
+      <li>
+        <a>
+          <label for="slide01" class="left"></label>
+          <img src="image/banner02.png" alt="" />
+          <label for="slide03" class="right"></label>
+        </a>
+      </li>
+      <li>
+        <a>
+          <label for="slide02" class="left"></label>
+          <img src="image/banner03.png" alt="" />
+          <label for="slide04" class="right"></label>
+        </a>
+      </li>
+      <li>
+        <a>
+          <label for="slide03" class="left"></label>
+          <img src="image/banner04.png" alt="" />
+          <label for="slide01" class="right"></label>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<h3
+  style="
+    font-size: 30px;
+    margin-left: 200px;
+    margin-top: 70px;
+    margin-bottom: -80px;
+  "
+>
+  카테고리
+</h3>
+<div class="main-class-category">
+  {% for category in categories %}
+  <div class="main-category-href">
+    <a href="/category/{{category.categoryNum}}">{{category.categoryName}}</a>
+  </div>
+  {% endfor %}
+</div>
+<div class="main-class-contents">
+  <h2 style="font-size: 30px; margin-top: 90px; margin-bottom: -30px">
+    전체보기
+  </h2>
+  <div>
+    <div>
+      {% for image in classImage %}
+      <div class="mainTh">
+        <a href="/signClass/{{image.OclassClassNum}}">
+          <img src="{{image.path}}" alt="" class="mainClassImage"
+        /></a>
+      </div>
+      {%endfor%}
+    </div>
+    <!--  -->
+    <div>
+      {% for eachClass in classes %}
+      <!-- <div>
+        <a href="/signClass/{{eachClass.classNum}}">{{eachClass.classTitle}}</a>
+      </div> -->
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- 블럭 끝 -->
+{% endblock %}
+<!-- 스크립트 -->
+{% block script %}
+<script></script>
+
+{% endblock %}

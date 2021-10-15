@@ -1,0 +1,42 @@
+<!--extends-->
+{% extends 'mypage.html' %}
+<!--content-->
+{% block detailcontent %}
+<!--check login-->
+{% if user and user.userId %}
+<table class="type2">
+    <tr>
+        <th class="loopnum">no</th>
+        <th>제목</th>
+        <th>설명</th>
+        <th>작성자</th>
+    </tr>
+    {% for class in classes %}
+    <tr>
+        <td class="loopnum">{{loop.index}}</td>
+        <td>
+            <a href="/mypage/myClass/{{class.classNum}}"
+                >{{class.classTitle}}</a
+            >
+        </td>
+        <td>
+            <a href="/mypage/myClass/{{class.classNum}}"
+                >{{class.classContent}}</a
+            >
+        </td>
+        <td>{{user.userName}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<!--not login status-->
+{% else %}
+<p>잘못된 경로입니다.</p>
+<a href="/">돌아가기</a>
+<!-- if끝 -->
+{% endif %}
+
+<!-- content block 끝 -->
+{% endblock %}
+
+<!--script-->
+{% block script %} {% endblock %}

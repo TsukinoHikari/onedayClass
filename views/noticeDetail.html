@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+<!-- 스타일 -->
+{% block style %}
+<link rel="stylesheet" href="/notice.css" />
+{% endblock %}
+<!-- 스타일 끝 -->
+{% block content %}
+<table>
+    {% for notice in notice %}
+    <tr>
+        <td>제목 : {{notice.noticeTitle}}</td>
+    </tr>
+    <tr>
+        <td>내용 : {{notice.noticeContent}}</td>
+    </tr>
+</table>
+<a href="/notice/">돌아가기</a>
+{% if admin and admin.adminId %}
+<button onclick="location.href='/notice/{{notice.noticeNum}}/edit'">
+    수정하기
+</button>
+<button onclick="location.href='/notice/{{notice.noticeNum}}/delete'">
+    삭제하기
+</button>
+{% endif %} {% endfor %} {% endblock %}

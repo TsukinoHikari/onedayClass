@@ -1,0 +1,23 @@
+{% extends 'mypage.html' %} {% block detailcontent %}
+<div class="wishlist-title">
+    <h1>찜한 클래스</h1>
+</div>
+<div class="wishlist-container">
+    {% for wish in wishClass %}
+    <div class="wishlist-lists">
+        <div class="wishlist-lists-in">
+            <p>
+                <a href="/signClass/{{wish.classNum}}"
+                    ><img src="/{{wish.path}}"
+                /></a>
+            </p>
+            <a href="/signClass/{{wish.classNum}}">{{wish.classTitle}}</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<!-- 
+<p>잘못된 경로입니다.</p>
+<a href="/">돌아가기</a> -->
+<!-- if끝 -->
+{% endblock %} {% block script %} {% endblock %}
