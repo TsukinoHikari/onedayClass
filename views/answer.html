@@ -1,10 +1,12 @@
-{% extends 'layout.html' %}
-<!-- 스타일 -->
-{% block style %}
-<link rel="stylesheet" href="/qna.css" />
-{% endblock %}
-<!-- 스타일 끝 -->
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=], initial-scale=1.0" />
+        <title>답변하기</title>
+    </head>
+    <body>
         {% if admin and admin.adminId %}
         <form method="POST">
             <table>
@@ -38,7 +40,7 @@
             <a href="/qna">돌아가기</a>
             {% else %}
             <a href="/qna">돌아가기</a>
-            {% endif %} {% endblock %}
+            {% endif %}
+        </form>
     </body>
 </html>
-

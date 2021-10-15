@@ -1,0 +1,664 @@
+{% extends 'layout.html' %}
+<!-- styleblock -->
+{% block style %}
+
+<style>
+    @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+    * {
+        font-family: "Noto Sans KR", sans-serif;
+    }
+
+    .prejoin ul {
+        list-style: none;
+    }
+
+    .step {
+        min-width: 300px;
+        display: flex;
+        border-top: 1px solid #aaa;
+        border-bottom: 1px solid #aaa;
+    }
+
+    .step li {
+        flex: 1;
+        position: relative;
+        padding: 22px 0;
+        font-size: 15px;
+        color: #161616;
+        text-align: center;
+        line-height: 100%;
+        min-width: 300px;
+    }
+    label {
+        min-width: 300px;
+    }
+
+    .step li:last-child:after {
+        display: none;
+    }
+
+    .step li div {
+        padding: 8px 0 0;
+        font-size: 18px;
+        color: #a5a5a5;
+    }
+
+    .step li.on {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        list-style: none;
+        color: #000;
+    }
+
+    .step li.on div {
+        color: rgb(174, 96, 248);
+        margin-top: 5px;
+
+        font-size: 25px;
+    }
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    input[type="checkbox"] + label {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 20px;
+        font: 14px/20px "Open Sans", Arial, sans-serif;
+        color: #161616;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"] + label:last-child {
+        margin-bottom: 0;
+    }
+
+    input[type="checkbox"] + label:before {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #b233e4;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0.6;
+        -webkit-transition: all 0.12s, border-color 0.08s;
+        transition: all 0.12s, border-color 0.08s;
+    }
+
+    input[type="checkbox"]:checked + label:before {
+        width: 10px;
+        top: -5px;
+        left: 5px;
+        border-radius: 0;
+        opacity: 1;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .essential {
+        color: #c36ce5;
+    }
+
+    .choice {
+        color: #d29ce7;
+    }
+
+    #cancel,
+    a #cancel,
+    #confirm {
+        margin-top: 20px;
+        width: 230px;
+        height: 50px;
+        background-color: rgb(190, 189, 189);
+        color: #fff;
+        font-size: 18px;
+        border: none;
+        text-decoration: none;
+    }
+    .agree_box {
+        min-width: 300px;
+    }
+
+    #confirm,
+    a #confirm {
+        margin-top: 20px;
+        background-color: #c36ce5;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .final-button {
+        margin: 0 auto;
+        margin-top: 60px;
+        width: 500px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: nowrap;
+    }
+    a {
+        width: 200px;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    .agree_box {
+        overflow: auto;
+        margin: 0 0 28px;
+        padding: 35px 30px;
+        height: 152px;
+        border-top: 2px solid #042e6f;
+        border-bottom: 1px solid #999;
+    }
+</style>
+<!-- end style -->
+{% endblock %}
+<!-- content block -->
+{% block content %}
+<div class="prejoin">
+    <ol class="step">
+        <li id="ol-step" class="on">
+            STEP1 of 3
+            <div>약관동의</div>
+        </li>
+    </ol>
+
+    <br />
+    <ul>
+        <li class="subject" id="top">
+            <input id="allTos" type="checkbox" /><label for="allTos">
+                원클 이용약관, 개인정보 수집 및 이용, 위치정보
+                이용약관(선택),프로모션 정보 수신(선택)에 모두
+                동의합니다.</label
+            >
+        </li>
+        <br />
+        <br />
+        <li class="subject">
+            <input id="naverTos" type="checkbox" /><label for="naverTos">
+                원클 이용약관 동의&nbsp;
+                <span class="essential">(필수)</span></label
+            >
+        </li>
+
+        <li>
+            <div class="agree_box">
+                <h4>제 1 장 총칙</h4>
+                <h5>제 1 조 목적</h5>
+                <p>
+                    본 약관은 전기통신사업법 및 동법 시행령에 의하여
+                    동부건설주식회사(이하 "회사"라 한다)가 제공하는
+                    회원서비스(이하 "서비스 "라 한다)의 이용 조건, 절차 그리고
+                    회원규칙에 관한 사항 등을 규정함을 목적으로 합니다.
+                </p>
+
+                <h5>제 2 조 공지</h5>
+                <ol>
+                    <li>
+                        1. 본 규정은 서비스 화면에 게시하거나 기타의 방법으로
+                        회원에게 공지함으로써 효력을 발생합니다.
+                    </li>
+                    <li>
+                        2. 회사는 본 규정을 변경할 수 있으며, 변경된 규정은
+                        제1항과 같은 방법으로 공지함으로써 효력을 발생합니다.
+                    </li>
+                </ol>
+                <h5>제 3 조 약관외 준칙</h5>
+                <p>
+                    본 약관에 규정되지 않은 사항은 전기통신기본법,
+                    전기통신사업법 및 기타 관련법령의 규정에 의합니다.
+                </p>
+
+                <h5>제 4 조 용어의 정의</h5>
+                <p>본 약관에서 사용하는 용어의 정의는 다음과 같습니다.</p>
+                <ol>
+                    <li>1. 회원 : 회사와 서비스 이용계약을 체결한 자</li>
+                    <li>
+                        2. 이용자 ID : 회원 식별과 회원의 서비스 이용을 위하여
+                        회원이 선정한 문자, 숫자의 조합
+                    </li>
+                    <li>
+                        3. 비밀번호 : 회원이 자신의 비밀을 보호하기 위하여
+                        설정한 문자, 숫자의 조합
+                    </li>
+                    <li>
+                        4. 운영자 : 서비스의 전반적인 관리와 원활한 운영을
+                        위하여 회사에서 선정한 사람
+                    </li>
+                </ol>
+                <h4>제 2 장 서비스 이용 계약</h4>
+                <h5>제 5 조 이용계약의 성립</h5>
+                <ol>
+                    <li>
+                        1. 이용자가 이용 약관에 대한 "동의" 단추를 누르면 이
+                        약관에 동의하는 것으로 간주합니다.
+                    </li>
+                    <li>
+                        2. 이용계약은 회원의 가입 신청에 대하여 회사가
+                        승낙함으로써 성립합니다.
+                    </li>
+                </ol>
+                <h5>제 6 조 이용신청의 승낙</h5>
+                <ol>
+                    <li>
+                        1. 회사는 승낙의 유보가 필요하다고 인정되는 경우를
+                        제외하고는 회원이 회원등록양식상의 모든 사항을 정확히
+                        기재하여 가입신청을 하였을 때 승낙합니다.
+                    </li>
+                    <li>
+                        2. 회사는 회원이 다음 각호의 사유에 해당되는 경우 그
+                        승낙을 취소하고 이용 자격을 상실시킬 수 있습니다.
+                        <ol>
+                            <li>1) 이름이 실명이 아닌 경우</li>
+                            <li>2) 다른 사람의 명의를 사용한 경우</li>
+                            <li>
+                                3) 이용신청시 필요 내용을 허위로 기재한 경우
+                            </li>
+                            <li>4) 본 약관에 정한 사항을 위반한 경우</li>
+                            <li>5) 기타 회사가 필요하다고 인정하는 경우</li>
+                        </ol>
+                    </li>
+                </ol>
+                <h5>제 7 조 정보 사항의 변경</h5>
+                <p>
+                    회원은 이용 신청시 기재한 정보 사항이 변경되었을 경우에는
+                    즉시 온라인 수정을 해야 합니다.
+                </p>
+
+                <h4>제 3 장 서비스 이용</h4>
+                <h5>제 8 조 회사의 의무</h5>
+                <p>
+                    회사는 서비스 제공과 관련해서 알고 있는 회원의 신상정보를
+                    본인의 승낙없이 제 3자에게 누설, 배포하지 않습니다.
+                    <br />
+                    단, 전기통신기본법 등 법률의 규정에 의해 국가기관의 요구가
+                    있는 경우, 범죄에 대한 수사상의 목적이 있거나
+                    정보통신윤리위원회의 요청이 있는 경우 또는 기타 관계법령에서
+                    정한 절차에 따른 요청이 있는 경우에는 그러하지 않습니다.
+                </p>
+
+                <h5>제 9 조 회원의 이용자 ID와 비밀번호 관리에 대한 의무</h5>
+                <ol>
+                    <li>
+                        1. 이용자 ID과 비밀번호에 관한 모든 관리 책임은 회원에게
+                        있습니다. 이용자 ID와 비밀번호의 관리 소홀, 부정사용등에
+                        의하여 발생하는 모든 결과에 대한 책임은 회원에게
+                        있습니다.
+                    </li>
+                    <li>
+                        2. 자신의 이용자 ID,비밀번호가 부정하게 사용되고 있음을
+                        발견한 회원은 즉시 회사에 그 사실을 통보해야 합니다.
+                    </li>
+                </ol>
+                <h5>제 10 조 서비스 전반에 관한 회원의 의무</h5>
+                <ol>
+                    <li>
+                        1. 회원은 서비스 이용시 다음 각 호의 행위를 하지 않아야
+                        합니다.
+                        <ol>
+                            <li>
+                                1) 다른 회원의 이용자 ID를 부정하게 사용하는
+                                행위
+                            </li>
+                            <li>
+                                2) 서비스에서 얻은 정보를 회사의 사전승낙 없이
+                                회원의 이용외의 목적으로 복제하거나 출판 및 방송
+                                등에 사용하거나 제3자에게 제공하는 행위
+                            </li>
+                            <li>
+                                3) 제3자의 저작권 등 기타 권리를 침해하는 행위
+                            </li>
+                            <li>
+                                4) 공공질서 및 미풍양속에 위반되는 내용의 정보,
+                                문장, 도형 등을 타인에게 유포하는 행위
+                            </li>
+                            <li>
+                                5) 범죄와 결부된다고 객관적으로 판단되는 행위
+                            </li>
+                            <li>
+                                6) 타인의 명예를 훼손하거나 불이익을 주는 행위
+                            </li>
+                            <li>7) 기타 관계법령 및 본 약관을 위배하는 행위</li>
+                        </ol>
+                    </li>
+                    <li>
+                        2. 회원은 본 약관에서 규정하는 사항과 회사가 서비스
+                        이용안내 또는 주의사항등 회사가 공지하는 사항을
+                        준수하여야 합니다.
+                    </li>
+                    <li>
+                        3. 회원은 회사의 사전승낙 없이는 서비스를 이용하여
+                        영업활동을 할 수 없으며, 그 영업활동으로 인하여 발생된
+                        결과에 대하여 회사는 어떠한 책임도 지지 않습니다.
+                    </li>
+                </ol>
+                <h5>제 11 조 회원 게시물</h5>
+                <ol>
+                    <li>
+                        1. 회사는 회원이 서비스에 게재한 게시물을 사전통보없이
+                        적절한 위치로 이동할 권리를 가집니다.
+                    </li>
+                    <li>
+                        2. 회사는 회원이 서비스에 게재한 게시물에 대하여는
+                        책임을 지지 않습니다.
+                    </li>
+                    <li>
+                        3. 회사는 회원이 게시하거나 등록하는 서비스내의 내용물
+                        다음 각호의 1에 해당한다고 판단되는 경우 사전통지 없이
+                        게시물을 삭제할 수 있습니다.
+                        <ol>
+                            <li>
+                                1) 다른 회원 또는 제3자를 비방하거나 명예를
+                                손상시키는 내용인 경우
+                            </li>
+                            <li>
+                                2) 회사나 제3자의 지적재산권 등 기타 권리를
+                                침해하는 행위
+                            </li>
+                            <li>
+                                3) 범죄적 행위에 결부된다고 인정되는 내용일 경우
+                            </li>
+                            <li>
+                                4) 공공질서 및 미풍양속에 위반되는 내용인 경우
+                            </li>
+                            <li>5) 회사에서 규정한 게시기간을 초과한 경우</li>
+                            <li>
+                                6) 기타 관계 법령이나 본 규정에 위반된다고
+                                판단되는 경우
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+                <h5>제 12 조 게시물의 저작권</h5>
+                <ol>
+                    <li>
+                        1. 게시물에 대한 권리와 책임은 원칙적으로 게시자에게
+                        있습니다.
+                    </li>
+                    <li>
+                        2. 본 서비스를 통하여 제출된 회원의 아이디어, 원고, 사진
+                        등에 대한 저작권, 초상권 등은 회사에도 귀속됩니다.
+                    </li>
+                </ol>
+                <h5>제 13 조 서비스 이용시간</h5>
+                <ol>
+                    <li>
+                        1. 서비스의 이용은 회사의 업무상 또는 기술상 특별한
+                        지장이 없는 한 1일 24시간, 연중 무휴서비스를 원칙으로
+                        합니다. 다만, 시스템 점검, 교체, 보수등과 같은 필요가
+                        있는 경우는 그러하지 않습니다.
+                    </li>
+                    <li>
+                        2. 회사는 서비스를 일정범위로 분할하여 각 범위별로
+                        이용가능시간을 별도로 정할 수 있습니다.
+                    </li>
+                </ol>
+                <h5>제 14 조 서비스 제공의 중지</h5>
+                <ol>
+                    <li>
+                        1. 회사는 다음 각 호에 해당하는 경우 서비스 제공을
+                        중지할 수 있습니다.
+                        <ol>
+                            <li>
+                                1) 서비스용 설비의 보수 등 회사에 필요한 사정이
+                                있는 경우
+                            </li>
+                            <li>
+                                2) 전기통신사업법에 의한 기간통신사업자가
+                                전기통신서비스를 중지하는 등 부득이한 사유가
+                                있는 경우
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        2. 회사는 국가비상사태, 정전, 서비스설비의 장애 또는
+                        서비스 이용의 폭주 등으로 인하여 정상적인 서비스 이용이
+                        어려운 사정이 있는 때에는 서비스의 전부 또는 일부를
+                        제한하거나 중단할 수 있습니다.
+                    </li>
+                </ol>
+                <h4>제 4 장 계약 해지 및 이용 제한</h4>
+                <h5>제 15 조 계약해지 및 이용제한</h5>
+                <ol>
+                    <li>
+                        1. 회원이 이용계약을 해지하고자 하는 때에는 본인이
+                        온라인을 통해 회사에 해지신청을 하여야 합니다.
+                    </li>
+                    <li>
+                        2. 회사는 회원이 다음 각호의 1에 해당하는 행위를 하였을
+                        경우 사전통지없이 이용계약을 해지하거나 또는 기간을
+                        정하여 서비스 이용을 중지할 수 있습니다.
+                        <ol>
+                            <li>
+                                1) 타인의 이용자 ID 및 비밀번호를 도용한 경우
+                            </li>
+                            <li>2) 서비스 운영을 고의로 방해한 경우</li>
+                            <li>3) 가입한 이름이 실명이 아닌 경우</li>
+                            <li>
+                                4) 공공질서 및 미풍양속에 저해되는 내용을
+                                고의적으로 유포시킨 경우
+                            </li>
+                            <li>
+                                5) 공익을 저해할 목적이나 악의적 의도로 서비스를
+                                이용하는 경우
+                            </li>
+                            <li>
+                                6) 타인의 명예를 손상시키거나 불이익을 주는
+                                행위를 한 경우
+                            </li>
+                            <li>
+                                7) 기타 본 약관 등 회사가 정한 이용조건이나
+                                관계법령에 위반한 경우
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+                <h4>제 5 장 손해배상 등</h4>
+                <h5>제 16 조 손해 배상</h5>
+                <p>
+                    회사는 서비스가 무료인 동안 서비스 이용과 관련하여 회원에게
+                    발생한 손해에 대하여는 어떠한 책임도 지지 않습니다. 서비스
+                    유로화 이후에 관하여는 별도로 정합니다.
+                </p>
+
+                <h5>제 17 조 면책조항</h5>
+                <ol>
+                    <li>
+                        1. 회사는 국가비상사태, 정전, 서비스 설비의 장애, 또는
+                        서비스 이용의 폭주, 기타사유 등으로 정상적인 서비스를
+                        제공할 수 없는 경우 서비스 제공에 관한 책임이
+                        면제됩니다.
+                    </li>
+                    <li>
+                        2. 회사는 회원이 서비스에 게재한 정보, 자료 등의 신뢰도,
+                        정확성에 대하여 책임을 지지 않습니다.
+                    </li>
+                    <li>
+                        3. 회사는 서비스에서 제공하는 자료로 인해 회원이 입은
+                        손해에 대하여 책임을 지지 않습니다.
+                    </li>
+                    <li>
+                        4. 회사는 서비스 이용과 관련하여 회원에게 발생한 손해에
+                        관하여는 아무런 책임을 지지 않습니다.
+                    </li>
+                </ol>
+                <h5>제 18 조 관할 법원</h5>
+                <p>
+                    서비스 이용과 관련하여 발생한 분쟁에 대해 소송이 제기될 경우
+                    회사의 본사 소재지를 관할하는 법원을 관할법원으로 합니다.
+                </p>
+
+                <h4>[부칙]</h4>
+                <p>이 약관은 2002년 8월 10일부터 시행합니다.</p>
+
+                <p>본 방침은 : 2007년 10월 31일부터 시행됩니다.</p>
+            </div>
+        </li>
+        <br />
+        <li class="subject">
+            <input id="myInfoTos" type="checkbox" /><label for="myInfoTos">
+                개인정보 수집 및 이용 동의 &nbsp;<span class="essential"
+                    >(필수)</span
+                ></label
+            >
+        </li>
+
+        <li>
+            <div class="agree_box">
+                <h4>개인정보의 수집 및 이용목적</h4>
+                <p>회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.</p>
+                <ul>
+                    <li>
+                        서비스 제공에 관한 계약 이행 및 서비스 제공에 따른
+                        요금정산
+                        <ul>
+                            <li>- 콘텐츠 제공, 물품배송 또는 청구지 등 발송</li>
+                        </ul>
+                    </li>
+                    <li>
+                        회원 관리
+                        <ul>
+                            <li>
+                                - 가입 의사 확인, 연령확인, 불만처리 등
+                                민원처리, 고지사항 전달
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        마케팅 및 광고에 활용
+                        <ul>
+                            <li>- 이벤트 등 광고성 정보 전달</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>수집하는 개인정보 항목</h4>
+                <p>
+                    회사는 회원가입, 상담, 서비스 신청 등등을 위해 아래와 같은
+                    개인정보를 수집하고 있습니다.
+                </p>
+                <ul>
+                    <li>
+                        수집항목 : 이름 , 생년월일 , 성별 , 로그인ID , 비밀번호
+                        , 자택 전화번호 , 자택 주소 , 휴대전화번호 , 이메일 ,
+                        직업 , 회사명 , 부서 , 아이핀CI
+                    </li>
+                    <li>
+                        개인정보 수집방법 : 홈페이지(회원가입,상담게시판), 경품
+                        행사 응모, 배송 요청
+                    </li>
+                </ul>
+                <p>
+                    ※ 휴대폰번호는 나이스평가정보에서 인증받은 휴대폰번호를
+                    사용하고 있습니다.
+                </p>
+
+                <h4>개인정보의 보유 및 이용기간</h4>
+                <p>
+                    회사는 개인정보 수집 및 이용목적이 달성된 후에는 예외 없이
+                    해당 정보를 지체 없이 파기합니다.
+                </p>
+            </div>
+        </li>
+
+        <br />
+        <li class="subject">
+            <input id="locationTos" type="checkbox" /><label for="locationTos">
+                위치정보 이용약관 동의&nbsp;<span class="choice"
+                    >(선택)</span
+                ></label
+            >
+        </li>
+
+        <li>
+            <div class="agree_box ovn">
+                <h4>위치정보 이용약관 동의</h4>
+                <ul>
+                    <li>수집하는 개인정보의 항목: 아이핀CI</li>
+                    <li>
+                        개인정보 이용 및 수집 목적: 가입 의사 확인 , 연령확인 ,
+                        불만처리 등 민원처리 , 고지사항 전달
+                    </li>
+                    <li>
+                        개인정보의 보유 및 이용기간: 회사는 개인정보 수집 및
+                        이용목적이 달성된 후에는 예외 없이 해당 정보를 지체 없이
+                        파기합니다.
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="subject">
+            <input
+                id="promotionTos"
+                type="checkbox"
+                aria-checked="false"
+            /><label for="promotionTos">
+                프로모션 정보수신 동의&nbsp;<span class="choice"
+                    >(선택)</span
+                ></label
+            >
+        </li>
+        <li>
+            <p id="promotion">
+                원클에서 제공하는 이벤트/혜택 등 다양한 정보를 휴대전화(원클앱
+                알림 또는 문자), 이메일로 받아보실 수 있습니다. 일부 서비스(별도
+                회원 체계로 운영하거나 원클 가입 이후 추가 가입하여 이용하는
+                서비스 등)의 경우, 개별 서비스에 대해 별도 수신 동의를 받을 수
+                있으며, 이때에도 수신 동의에 대해 별도로 안내하고 동의를
+                받습니다.
+            </p>
+        </li>
+    </ul>
+    <div class="final-button">
+        <a href="/">
+            <button id="cancel" type="button">취소</button>
+        </a>
+        <a href="/join" aria-disabled="true" id="nextPage">
+            <button id="confirm" type="button">확인</button>
+        </a>
+    </div>
+
+    {% endblock %} {% block script %}
+    <script>
+        const $allChk = document.querySelector("#allTos");
+        const $naverChk = document.querySelector("#naverTos");
+        const $myInfoChk = document.querySelector("#myInfoTos");
+        const $allChkOnOff = document.querySelectorAll("input[type=checkbox]");
+        const $nextPage = document.querySelector("#nextPage");
+
+        $allChk.addEventListener("change", allOnOff);
+        $nextPage.addEventListener("click", nextPage);
+
+        function allOnOff(e) {
+            //전체체크 및 해제 함수
+            for (let i = 0; i < $allChkOnOff.length; i++) {
+                $allChkOnOff[i].checked = e.target.checked;
+            }
+        }
+
+        function nextPage() {
+            //최소 필수체크란 체크되면 다음페이지 넘어가는 함수
+            if (
+                ($naverChk.checked && $myInfoChk.checked) ||
+                ($allChkOnOff.checked &&
+                    $naverChk.checked &&
+                    $myInfoChk.checked)
+            ) {
+                $nextPage.href = "/join";
+            } else {
+                alert("필수동의 부분에 모두 동의해야 해요.");
+                $nextPage.href = "/prejoin";
+            }
+        }
+    </script>
+
+    {% endblock %}
+</div>

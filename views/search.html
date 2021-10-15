@@ -1,0 +1,55 @@
+<!-- 검색추가본 -->
+{% extends 'layout.html' %} 
+{% block style %}
+    <style>
+
+        .searchList{
+            
+            margin-top: 30px;
+            display: flex;
+           flex-flow: row wrap;
+           justify-content: space-evenly;
+        }
+        .list{
+            margin-top: 50px;
+            margin-left: 40px;
+        }
+        .searchtItle{
+            margin-top: 10px;
+            color: rgb(44, 43, 43);
+            text-decoration: none;
+        }
+        .classsearchbox{
+        }
+        img{
+            width: 300px;
+            height: 280px;
+            border-radius: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<!-- 야구 -->
+<!--  이미지-->
+
+<div>
+    <h2>검색 키워드 :&nbsp;&nbsp;{{keyword}} </h2>
+</div>
+
+
+    <div class="searchList">
+        {% for list in searchClasses %}
+        <div class="list">
+            <!-- <a href="/signClass/{{image.OclassClassNum}}"
+        ><img src="{{image.path}}" alt=""
+    /></a> -->
+            <a href="/signClass/{{list.classNum}}"><img src="/{{list.path}}" /></a>
+            <div ><a class="searchtItle" href="/signClass/{{list.classNum}}">{{list.classTitle}}</a>    </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+<!-- 블럭 끝 -->
+{% endblock %}
