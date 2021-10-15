@@ -7,7 +7,36 @@
     width: 1200px;
     margin: 0 auto;
     padding: 0;
+    text-align: center;
 }
+
+table {
+    display: inline-block;
+    border: solid 1px black;
+}
+
+table thead {
+    border: solid 1px black;
+}
+
+table thead tr th {
+    text-align: center;
+    padding: 10px;
+    border: solid 1px black;
+}
+
+tbody tr,
+td {
+    text-align: center;
+    padding: 10px;
+    border: solid 1px black;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
 .search {
     position: relative;
     /* text-align: right; */
