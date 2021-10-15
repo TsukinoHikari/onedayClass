@@ -4,12 +4,13 @@
 <!--  이미지-->
 {% for image in classImages%}
 <div><img src="{{image.path}}" alt="" /></div>
-{% endfor %} {% for list in searchClass %}
+{% endfor %} {% for list in searchClasses %}
 <div class="searchList">
     <div class="list">
         <!-- <a href="/signClass/{{image.OclassClassNum}}"
     ><img src="{{image.path}}" alt=""
 /></a> -->
+        <a href="/signClass/{{list.classNum}}"><img src="/{{list.path}}" /></a>
         <a href="/signClass/{{list.classNum}}">{{list.classTitle}}</a>
     </div>
 </div>
