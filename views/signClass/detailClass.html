@@ -1,4 +1,4 @@
-<!-- extends -->
+
 {% extends '../layout.html' %} {% block style %}
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -129,10 +129,14 @@
 
     }
 
+
     .wishlist:hover svg {
         fill: red;
         stroke: transparent;
-
+    }
+    .wishlist:active svg {
+        fill: red;
+        stroke: transparent;
     }
 
     #wish:focus {
@@ -153,11 +157,13 @@
         align-items: center;
         justify-content: center;
     }
+    #wish:active{
 
-
-    .zzim {
-        font-size: 15px;
     }
+    #wishtag{
+        text-decoration: none;
+    }
+
 
     @media only screen and (max-width: 766px) {
         .comments-container {
@@ -187,15 +193,21 @@
             </h1>
         </div>
         <div class="detailClass-wish">
+            {% if user and user.userId %}
             <form action="/signClass/{{myClass.classNum}}/wishlist" method="post">
                 <!-- <div><button id="wish" type="submit">찜하기</button></div> -->
                 <button id="wish" type="submit" class="wishlist noselect"><svg xmlns="http://www.w3.org/2000/svg"
                         width="20" height="20" viewBox="-1 -1 26 26">
                         <path class="zzim" id="heart"
                             d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
-                    </svg><span class="zzim">찜하기</span></button>
-
-
+                    </svg><span id="zzim" class="zzim">찜하기</span></button>
+            {% else %}
+            <a id="wishtag" href="/login"><button id="wish" type="button" class="wishlist noselect"><svg xmlns="http://www.w3.org/2000/svg"
+                width="20" height="20" viewBox="-1 -1 26 26">
+                <path class="zzim" id="heart"
+                    d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" />
+            </svg><span  class="zzim">찜하기</span></button></a>
+            {% endif %}
             </form>
         </div>
         <div id="detailClass-place">
@@ -268,12 +280,12 @@
                 <input type="text" id="commentNumber" name="commentNumber" value="{{comment.commentNum}}" />
                 <span class="commentId">{{comment.userId}}</span>
                 <span class="createtime">{{comment.createdAt}}</span>
-                <span class="putBtn" name="putBtn"><button class="btn" type="button">수정</button></span>
-                <span class="delBtn" name="delBtn"><input class="btn" type="submit" value="삭제"
-                        onclick="javascript: form.action='/signClass/{{myClass.classNum}}/{{comment.commentNum}}/delete'" /></span>
                 <div class="cComment" name="cComment">{{comment.commentContent}}</div>
                 <!-- <input id="loop" type='number' name="asdf" value='{{loop.index}}'></input> -->
                 <!-- {% if user.userId == comment.userId %} -->
+                <span class="putBtn" name="putBtn"><button class="btn" type="button">수정</button></span>
+                <span class="delBtn" name="delBtn"><input class="btn" type="submit" value="삭제"
+                        onclick="javascript: form.action='/signClass/{{myClass.classNum}}/{{comment.commentNum}}/delete'" /></span>
                 <div class="upComment" name="upComment">
                     <textarea name="updateComment" id="updateComment" cols="60" rows="3"></textarea>
                 </div>
@@ -411,9 +423,6 @@
         inputbtn.style.display = "none";
         delbtn.style.display = "inline-block";
     }
-
-
-
 
     function checking() {
         const paymentForm = document.payment;
